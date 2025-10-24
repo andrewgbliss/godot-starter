@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1uon38qbt45i"]
+
+[ext_resource type="Script" uid="uid://bynqbd3uqdtnh" path="res://blisscode/entities/entity.gd" id="1_cfy20"]
+[ext_resource type="Script" uid="uid://chm57l84dp8et" path="res://blisscode/entities/entity_sheet.gd" id="2_nfjot"]
+[ext_resource type="Texture2D" uid="uid://dymkn7r6mahw8" path="res://assets/img/environment/block.png" id="3_nfjot"]
+
+[sub_resource type="Resource" id="Resource_eodsa"]
+script = ExtResource("2_nfjot")
+entity_name = "RigidBlock"
+health = 5
+max_health = 5
+metadata/_custom_type_script = "uid://chm57l84dp8et"
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cfy20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvesp"]
+size = Vector2(16, 16)
+
+[node name="RigidBlockEntity" type="Node2D"]
+script = ExtResource("1_cfy20")
+entity_sheet = SubResource("Resource_eodsa")
+garbage = true
+metadata/_custom_type_script = "uid://bynqbd3uqdtnh"
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 39
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_cfy20")
+gravity_scale = 0.0
+lock_rotation = true
+angular_damp = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_jvesp")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+modulate = Color(1, 0.42000002, 0.42000002, 1)
+texture = ExtResource("3_nfjot")

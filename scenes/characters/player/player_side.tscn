@@ -1,0 +1,137 @@
+[gd_scene load_steps=18 format=3 uid="uid://fw6y1aaluwpv"]
+
+[ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="1_jywxx"]
+[ext_resource type="Resource" uid="uid://bpvocg3gjelfh" path="res://scenes/characters/player/character_data/player_platformer.tres" id="2_do2kk"]
+[ext_resource type="Script" uid="uid://d2lsy2pdynjo3" path="res://blisscode/character/controls/player_controls.gd" id="3_r6wku"]
+[ext_resource type="SpriteFrames" uid="uid://dynlf04grls35" path="res://assets/img/characters/platformer-16x16.res" id="4_do2kk"]
+[ext_resource type="PackedScene" uid="uid://qduhqb6f8ovy" path="res://scenes/characters/ui/character_points_bar.tscn" id="6_rifkl"]
+[ext_resource type="PackedScene" uid="uid://c37f3qdvli5sr" path="res://blisscode/character/alignment/alignment.tscn" id="7_214a0"]
+[ext_resource type="Script" uid="uid://c30av3xht06qh" path="res://blisscode/character/debug_label.gd" id="8_8kth0"]
+[ext_resource type="Texture2D" uid="uid://yfinwvdrgjhy" path="res://assets/img/ui/icons/red-arrow.png" id="9_ciexm"]
+[ext_resource type="Texture2D" uid="uid://iy021d8gnrks" path="res://assets/img/cursors/crosshairs.png" id="10_wcj4n"]
+[ext_resource type="Texture2D" uid="uid://bxqd1qybg36cl" path="res://assets/img/cursors/circle.png" id="11_bavp1"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="12_i2drd"]
+[ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="13_jywxx"]
+[ext_resource type="Script" uid="uid://chigi4pyju8x5" path="res://scenes/characters/player/player_camera.gd" id="13_wxkt1"]
+[ext_resource type="Script" uid="uid://cc58bv1fvx8am" path="res://blisscode/state_machine/states/ground_state.gd" id="14_r6wku"]
+[ext_resource type="Script" uid="uid://cxln6q4c8sdb5" path="res://blisscode/state_machine/states/air_state.gd" id="15_iejn7"]
+[ext_resource type="Script" uid="uid://bnn0ai7ycx13p" path="res://blisscode/state_machine/states/dash_state.gd" id="16_iejn7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
+size = Vector2(5, 12)
+
+[node name="PlayerSide" type="CharacterBody2D" node_paths=PackedStringArray("controls") groups=["persist", "player"]]
+collision_mask = 260
+script = ExtResource("1_jywxx")
+character = ExtResource("2_do2kk")
+controls = NodePath("PlayerControls")
+
+[node name="PlayerControls" type="Node" parent="." node_paths=PackedStringArray("state_machine", "aim_sprite", "touch_sprite")]
+script = ExtResource("3_r6wku")
+state_machine = NodePath("../PlatformerStateMachine")
+aim_sprite = NodePath("../Crosshairs")
+touch_sprite = NodePath("../TouchCircle")
+metadata/_custom_type_script = "uid://d2lsy2pdynjo3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_wocps")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_do2kk")
+animation = &"Idle"
+
+[node name="CharacterPointsBar" parent="." instance=ExtResource("6_rifkl")]
+visible = false
+offset_top = -29.0
+offset_bottom = 11.0
+
+[node name="Alignment" parent="." instance=ExtResource("7_214a0")]
+visible = false
+position = Vector2(-10, -23)
+
+[node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls")]
+visible = false
+offset_left = -10.0
+offset_top = -72.0
+offset_right = 30.0
+offset_bottom = -40.0
+theme_override_constants/line_spacing = -9
+theme_override_font_sizes/font_size = 16
+text = "Position"
+script = ExtResource("8_8kth0")
+controls = NodePath("../PlayerControls")
+
+[node name="DirectionArrow" type="TextureRect" parent="."]
+visible = false
+offset_left = 23.0
+offset_top = -9.0
+offset_right = 39.0
+offset_bottom = 7.0
+texture = ExtResource("9_ciexm")
+
+[node name="Crosshairs" type="Sprite2D" parent="."]
+position = Vector2(61, 0)
+texture = ExtResource("10_wcj4n")
+
+[node name="TouchCircle" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("11_bavp1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 4
+layer = 30
+visible = false
+
+[node name="Move Virtual Joystick" parent="CanvasLayer" instance=ExtResource("12_i2drd")]
+offset_left = 25.0
+offset_top = -70.0
+offset_right = 123.0
+offset_bottom = 9.0
+scale = Vector2(0.5, 0.5)
+clampzone_size = 25.0
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_up"
+action_down = "move_down"
+
+[node name="Aim Virtual Joystick" parent="CanvasLayer" instance=ExtResource("12_i2drd")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = -71.0
+offset_right = 24.0
+offset_bottom = 8.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+clampzone_size = 25.0
+action_left = "aim_left"
+action_right = "aim_right"
+action_up = "aim_up"
+action_down = "aim_down"
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("13_wxkt1")
+
+[node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state")]
+script = ExtResource("13_jywxx")
+character = NodePath("..")
+initial_state = NodePath("GroundState")
+metadata/_custom_type_script = "uid://bti4mwhmm58cm"
+
+[node name="GroundState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("14_r6wku")
+metadata/_custom_type_script = "uid://cc58bv1fvx8am"
+
+[node name="AirState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("15_iejn7")
+metadata/_custom_type_script = "uid://cxln6q4c8sdb5"
+
+[node name="DashState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("16_iejn7")
+metadata/_custom_type_script = "uid://bnn0ai7ycx13p"
