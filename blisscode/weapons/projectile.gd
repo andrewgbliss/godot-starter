@@ -93,7 +93,7 @@ func _physics_process(delta):
 		call_deferred("queue_free")
 
 func _apply_gravity(delta: float):
-	velocity += (get_gravity() * gravity_percent) * delta
+	velocity += get_gravity() * GameManager.game_config.gravity_dir.normalized() * gravity_percent * delta
 
 func start(p, dir):
 	position = p

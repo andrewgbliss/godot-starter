@@ -1,7 +1,7 @@
 class_name PlayerCamera extends Camera2D
 
 @export var min_zoom: float = 1.0
-@export var max_zoom: float = 2.0
+@export var max_zoom: float = 3.0
 
 func _ready() -> void:
 	call_deferred("_after_ready")

@@ -66,5 +66,6 @@ character_sheet = SubResource("Resource_rfofv")
 inventory = SubResource("Resource_6pceb")
 equipment = SubResource("Resource_aexl2")
 weapon_belt = SubResource("Resource_r2qru")
+run_multiplier = 2.0
 jump_force = 400.0
 metadata/_custom_type_script = "uid://dm5r6oukwhccm"

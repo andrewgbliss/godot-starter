@@ -58,9 +58,9 @@ polygon = PackedVector2Array(-108, 251, -108, 407, 125, 407, 125, 251)
 
 [node name="Rain" type="Node2D"]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Raindrops" type="GPUParticles2D" parent="."]
 amount = 2000
-sub_emitter = NodePath("../GPUParticles2D2")
+sub_emitter = NodePath("../RaindropsSubemitter")
 texture = ExtResource("1_lfypx")
 lifetime = 8.0
 preprocess = 8.0
@@ -74,7 +74,7 @@ trail_sections = 7
 trail_section_subdivisions = 1
 process_material = SubResource("ParticleProcessMaterial_o0dwr")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="RaindropsSubemitter" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 200
 one_shot = true

@@ -10,13 +10,6 @@ class_name PlayerControls extends CharacterControls
 @export var touch_sprite: Sprite2D
 @export var show_touch_sprite: bool = true
 
-var cooldown_left_hand = false
-var cooldown_right_hand = false
-var attack_rate_time_elapsed_left_hand = 0
-var attack_rate_time_elapsed_right_hand = 0
-var attack_rate_left_hand = 0
-var attack_rate_right_hand = 0
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -27,20 +20,9 @@ func _ready() -> void:
 	double_tap_timer.connect("timeout", _on_double_tap_timeout)
 	add_child(double_tap_timer)
 	
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("dash"):
-		if parent.is_on_floor():
-			state_machine.dispatch("dash")
-		else:
-			state_machine.dispatch("dash_air")
-	if event.is_action_pressed("jump"):
-		parent.jump()
-		if parent.is_on_floor():
-			state_machine.dispatch("jump")
-		else:
-			state_machine.dispatch("jump_air")
-
 func _unhandled_input(event: InputEvent) -> void:
+	if parent.paralyzed:
+		return
 	if Engine.is_editor_hint():
 		return
 	if event is InputEventScreenTouch and event.double_tap and GameManager.user_config.attack_type == UserConfig.AttackType.TOUCH:
@@ -74,88 +56,19 @@ func _unhandled_input(event: InputEvent) -> void:
 				slot_type = Equipment.EquipmentSlotType.RightHand
 			parent.character.equipment.equip(parent.character.weapon_belt.get_slot(event.keycode - 49), slot_type)
 		
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	_update_aim_sprite()
 	_double_tap_dash()
+	_touch_attack()
+	
+func _touch_attack():
+	if parent.paralyzed:
+		return
 	if GameManager.user_config.attack_type == UserConfig.AttackType.TOUCH:
 		if is_touching:
 			simulate_button_press("attack_left_hand")
-
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
-	attack_rate_time_elapsed_left_hand += delta
-	if attack_rate_time_elapsed_left_hand <= attack_rate_left_hand:
-		cooldown_left_hand = true
-	else:
-		cooldown_left_hand = false
-		attack_rate_time_elapsed_right_hand += delta
-	if attack_rate_time_elapsed_right_hand <= attack_rate_right_hand:
-		cooldown_right_hand = true
-	else:
-		cooldown_right_hand = false
-	attack()
-
-func attack():
-	if parent.controls.is_attacking_left_hand():
-		attack_left_hand()
-	if parent.controls.is_attacking_right_hand():
-		attack_right_hand()
-
-func attack_left_hand():
-	if cooldown_left_hand:
-		return
-	if parent.character and parent.character.equipment:
-		var left_hand = parent.character.equipment.left_hand
-		if left_hand is RangedWeapon:
-			attack_rate_left_hand = left_hand.attack_rate
-			attack_rate_time_elapsed_left_hand = 0
-			attack_ranged_weapon(left_hand, parent.controls.get_aim_direction())
-
-func attack_right_hand():
-	if cooldown_right_hand:
-		return
-	if parent.character and parent.character.equipment:
-		var right_hand = parent.character.equipment.right_hand
-		if right_hand is RangedWeapon:
-			attack_rate_right_hand = right_hand.attack_rate
-			attack_rate_time_elapsed_right_hand = 0
-			attack_ranged_weapon(right_hand, parent.controls.get_aim_direction())
-
-func attack_ranged_weapon(item: RangedWeapon, direction: Vector2):
-	if (!item.unlimited_ammo and item.ammo <= 0):
-		return
-	if item.screen_shake_amount > 0.0:
-		ScreenShake.apply_shake(item.screen_shake_amount, 2.0, 10.0)
-	if item.spread == 1:
-		if not item.unlimited_ammo:
-			item.ammo -= 1
-		# Single projectile - normal behavior
-		SpawnManager.spawn_projectile(item.projectile, parent.global_position, direction)
-	else:
-		# Multiple projectiles with spread
-		for i in range(item.spread):
-			var spread_offset = 0.0
-			if item.spread > 1:
-				# Calculate spread offset based on projectile index
-				var half_spread = (item.spread - 1) * 0.5
-				spread_offset = (i - half_spread) * item.spread_angle
-			
-			# Calculate spread direction
-			var spread_direction = direction.rotated(spread_offset)
-			
-			# Calculate spread position (offset perpendicular to direction)
-			var perpendicular = Vector2(-direction.y, direction.x)
-			var spread_position = parent.global_position + (perpendicular * spread_offset * 50.0) # 50.0 is a distance multiplier
-			
-			if not item.unlimited_ammo:
-				item.ammo -= 1
-			SpawnManager.spawn_projectile(item.projectile, spread_position, spread_direction)
-	
-  # TODO: Implement ammo changed signal
-	# parent.ammo_changed.emit(item, item.ammo)
 
 func _double_tap_dash():
 	if parent.paralyzed:

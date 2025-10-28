@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhtvv0vpxt0sy"]
+[gd_scene load_steps=9 format=3 uid="uid://dhtvv0vpxt0sy"]
 
 [ext_resource type="Script" uid="uid://bynqbd3uqdtnh" path="res://blisscode/entities/entity.gd" id="1_084w8"]
 [ext_resource type="Script" uid="uid://chm57l84dp8et" path="res://blisscode/entities/entity_sheet.gd" id="2_7scik"]
@@ -16,6 +16,9 @@ metadata/_custom_type_script = "uid://chm57l84dp8et"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7scik"]
 size = Vector2(16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wxne5"]
+polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 
 [node name="StaticBlock" type="Node2D"]
 script = ExtResource("1_084w8")
@@ -35,3 +38,6 @@ shape = SubResource("RectangleShape2D_7scik")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 modulate = Color(0.96750003, 1, 0.35000002, 1)
 texture = ExtResource("4_wxne5")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D"]
+occluder = SubResource("OccluderPolygon2D_wxne5")

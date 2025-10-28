@@ -2,6 +2,7 @@ class_name CharacterController extends CharacterBody2D
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var camera: Camera2D = $Camera2D
 
@@ -22,32 +23,38 @@ class_name CharacterController extends CharacterBody2D
 var paralyzed: bool = false
 var original_speed: float
 var time_scale: float = 1.0
+var gravity_dir: Vector2 = Vector2(0, 1)
+var default_gravity_dir: Vector2 = Vector2(0, 1)
+var spawn_position: Vector2 = Vector2.ZERO
 
 signal spawned(pos: Vector2)
 signal died(character: CharacterController)
 
 func _ready() -> void:
+	hide()
+	paralyzed = true
+	GameManager.game_config.gravity_dir_changed.connect(_on_gravity_dir_changed)
 	if navigation_agent:
 		navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
-	call_deferred("_after_ready")
 
-func _after_ready():
-	spawn(position)
+func _on_gravity_dir_changed(dir: Vector2):
+	gravity_dir = dir
 
 func move(direction: Vector2, delta: float) -> void:
 	velocity += apply_gravity(delta)
 	
-	if not character.has_navigation:
-		if controls.is_walking():
-			character.speed = original_speed * character.walk_multiplier
-		elif controls.is_running():
-			character.speed = original_speed * character.run_multiplier
-			time_scale = character.run_multiplier
-		else:
-			character.speed = original_speed
-			time_scale = 1.0
+	if not paralyzed:
+		if not character.has_navigation:
+			if controls.is_walking():
+				character.speed = original_speed * character.walk_multiplier
+			elif controls.is_running():
+				character.speed = original_speed * character.run_multiplier
+				time_scale = character.run_multiplier
+			else:
+				character.speed = original_speed
+				time_scale = 1.0
 
-		velocity = self.move_toward(direction, character.speed)
+			velocity = self.move_toward(direction, character.speed)
 
 	clamp_velocity()
 
@@ -61,24 +68,25 @@ func _on_velocity_computed(safe_velocity: Vector2):
 func change_to_position(new_position: Vector2 = Vector2.ZERO):
 	position = new_position
 
-func spawn(spawn_position: Vector2 = Vector2.ZERO):
+func spawn():
 	if character:
 		original_speed = character.speed
 	velocity = Vector2.ZERO
 	paralyzed = false
 	position = spawn_position
-	spawned.emit(global_position)
+	show()
 	focus()
+	spawned.emit(global_position)
 	
 func spawn_random_from_nav():
 	if navigation_agent:
 		var map = navigation_agent.get_navigation_map()
 		if map == null:
 			return
-		var random_point = NavigationServer2D.map_get_random_point(map, 1, false)
-		spawn(random_point)
+		spawn_position = NavigationServer2D.map_get_random_point(map, 1, false)
+		spawn()
 	else:
-		spawn(position)
+		spawn()
 		
 func paralyze():
 	paralyzed = true
@@ -95,7 +103,7 @@ func die():
 		hide()
 	
 func apply_gravity(delta: float):
-	return (get_gravity() * character.gravity_percent) * delta
+	return get_gravity() * gravity_dir.normalized() * character.gravity_percent * delta
 
 func move_toward(direction: Vector2, s: float):
 	var result_velocity = velocity
@@ -131,8 +139,22 @@ func clamp_velocity():
 func stop():
 	velocity = Vector2.ZERO
 
+func dash():
+	var direction = Vector2.ZERO
+	if controls.double_tap_direction != controls.DOUBLE_TAP_DIRECTION.NONE:
+		direction = controls.get_double_tap_direction()
+		controls.double_tap_direction = controls.DOUBLE_TAP_DIRECTION.NONE
+	else:
+		direction = controls.get_aim_direction()
+	stop()
+	velocity += direction * character.speed * character.dash_speed_multiplier
+	return direction
+
 func jump():
-	velocity.y = - character.jump_force
+	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
+
+func is_falling():
+	return velocity.y > 0 and not is_on_floor()
 
 func handle_collisions():
 	for i in get_slide_collision_count():
@@ -271,6 +293,8 @@ func save():
 		"velocity_y": velocity.y,
 		"behavior_trees": behavior_trees_data,
 		"path_progress_ratios": path_progress_ratios,
+		"spawn_position_x": spawn_position.x,
+		"spawn_position_y": spawn_position.y,
 		#"character_sheet": character_sheet.save(),
 		#"inventory": inventory.save()
 	}
@@ -296,6 +320,10 @@ func restore(data):
 			for path in paths:
 				var follow = path.get_node("PathFollow2D")
 				follow.progress_ratio = path_data
+	if data.has("spawn_position_x"):
+		spawn_position.x = data.get("spawn_position_x")
+	if data.has("spawn_position_y"):
+		spawn_position.y = data.get("spawn_position_y")
 	#if data.has("character_sheet"):
 		#character_sheet.restore(data.get("character_sheet"))
 	#if data.has("inventory"):

@@ -12,7 +12,7 @@ func spawn(entity_name: String, spawn_position: Vector2, parent = null):
 	entity.position = spawn_position
 	
 	if entity is CharacterController:
-		entity.spawn(spawn_position)
+		entity.spawn_position = spawn_position
 
 	if parent:
 		parent.add_child(entity)
@@ -36,7 +36,7 @@ func spawn_player(entity_name: String, spawn_position: Vector2, parent = null):
 	entity.position = spawn_position
 	
 	if entity is CharacterController:
-		entity.spawn(spawn_position)
+		entity.spawn_position = spawn_position
 
 	if parent:
 		parent.add_child(entity)

@@ -129,3 +129,14 @@ func snap_to_grid(pos: Vector2) -> Vector2:
 
 func reset_scene():
 	get_tree().reload_current_scene()
+
+func set_gravity_dir(dir: Vector2):
+	game_config.set_gravity_dir(dir)
+
+func toggle_anti_gravity() -> int:
+	if game_config.gravity_dir == Vector2(0, 1):
+		game_config.set_gravity_dir(Vector2(0, -1))
+		return -1
+	else:
+		game_config.set_gravity_dir(Vector2(0, 1))
+	return 1

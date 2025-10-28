@@ -2,9 +2,10 @@
 class_name TileMapLayerAdvanced extends TileMapLayer
 
 enum TerrainType {
+	BASE,
   WATER,
-  GROUND,
-  DESERT,
+  DIRT,
+  SAND,
   GRASS,
   PLAINS,
   MOUNTAINS,
@@ -13,14 +14,12 @@ enum TerrainType {
   BACKGROUND
 }
 
-
-# Auto-generation settings
 @export var generate_on_ready: bool = false
 @export var default_terrain_type: TerrainType = TerrainType.GRASS
+@export var terrain_name: String = "grass"
 @export var generation_width: int = 100
 @export var generation_height: int = 100
 
-# Tile repeat settings
 @export var repeat_on_ready: bool = false
 @export var repeat_x: int = 1
 @export var repeat_y: int = 1
@@ -34,10 +33,8 @@ enum TerrainType {
 @export var is_breakable: bool = false
 @export var custom_data_name: String = "hp"
 
-# Dictionary to track HP of each cell coordinate
 var cell_hp_dict: Dictionary = {}
 
-# Dictionary to store environmental data for each cell
 var cell_temperature_dict: Dictionary = {}
 var cell_moisture_dict: Dictionary = {}
 var cell_altitude_dict: Dictionary = {}
@@ -49,7 +46,7 @@ var cell_altitude_dict: Dictionary = {}
 @export_tool_button("Repeat Tiles Now", "Callable") var repeat_tiles_action = repeat_tiles
 
 func generate_noise_from_terrain_type():
-	print("Generating noise configuration for terrain type: ", get_terrain_type_name(default_terrain_type))
+	print("Generating noise configuration for terrain type: ", terrain_name)
 	
 	match default_terrain_type:
 		TerrainType.WATER:
@@ -69,7 +66,7 @@ func generate_noise_from_terrain_type():
 			altitude.frequency = 0.025
 			altitude.seed = randi()
 			
-		TerrainType.DESERT:
+		TerrainType.SAND:
 			# Desert needs low moisture, high temperature, varied altitude
 			temperature = FastNoiseLite.new()
 			temperature.noise_type = FastNoiseLite.TYPE_SIMPLEX
@@ -156,7 +153,7 @@ func generate_noise_from_terrain_type():
 			altitude.fractal_octaves = 3
 			altitude.seed = randi()
 			
-		TerrainType.GROUND:
+		TerrainType.DIRT:
 			# Ground is a general terrain with balanced settings
 			temperature = FastNoiseLite.new()
 			temperature.noise_type = FastNoiseLite.TYPE_SIMPLEX
@@ -400,31 +397,6 @@ func get_cell_environment(cell_coords: Vector2i) -> Dictionary:
 		"altitude": get_cell_altitude(cell_coords)
 	}
 
-# Convert TerrainType enum to string name
-func get_terrain_type_name(terrain_type: TerrainType) -> String:
-	match terrain_type:
-		TerrainType.WATER:
-			return "water"
-		TerrainType.GROUND:
-			return "ground"
-		TerrainType.DESERT:
-			return "desert"
-		TerrainType.GRASS:
-			return "grass"
-		TerrainType.PLAINS:
-			return "plains"
-		TerrainType.MOUNTAINS:
-			return "mountains"
-		TerrainType.SNOW:
-			return "snow"
-		TerrainType.PLATFORM:
-			return "platform"
-		TerrainType.BACKGROUND:
-			return "background"
-		_:
-			return ""
-
-# Find terrain set and terrain ID by searching the tileset for matching name
 func find_terrain_ids(terrain_name: String) -> Dictionary:
 	if not tile_set:
 		push_error("TileMapLayerAdvanced: No tileset assigned")
@@ -445,24 +417,26 @@ func find_terrain_ids(terrain_name: String) -> Dictionary:
 # Get the condition function for a specific terrain type
 func get_terrain_condition(terrain_type: TerrainType) -> Callable:
 	match terrain_type:
+		TerrainType.BASE:
+			return func(_temp, _moist, _alt): return true
 		TerrainType.WATER:
 			return func(_temp, _moist, alt): return alt < -0.3
-		TerrainType.GROUND:
-			return func(_temp, _moist, _alt): return true # Ground everywhere
-		TerrainType.DESERT:
+		TerrainType.DIRT:
+			return func(_temp, _moist, alt): return alt > 0.3 and alt < 0.3
+		TerrainType.SAND:
 			return func(temp, moist, alt): return moist < -0.3 and temp > 0.3 and alt >= -0.3 and alt <= 0.6
 		TerrainType.GRASS:
 			return func(temp, moist, alt): return moist > 0.3 and temp > 0.1 and alt >= -0.3 and alt <= 0.6
 		TerrainType.PLAINS:
 			return func(temp, moist, alt): return moist > 0.1 and temp > -0.2 and alt >= -0.3 and alt <= 0.6
 		TerrainType.MOUNTAINS:
-			return func(_temp, _moist, alt): return alt > 0.3 # Simplified: just high altitude
+			return func(_temp, _moist, alt): return alt > 0.3
 		TerrainType.SNOW:
 			return func(temp, _moist, alt): return alt > 0.6 and temp < -0.2
 		TerrainType.PLATFORM:
-			return func(_temp, _moist, alt): return alt > 0.3 # Platform at high altitude like mountains
+			return func(_temp, _moist, alt): return alt > 0.3
 		TerrainType.BACKGROUND:
-			return func(_temp, _moist, _alt): return true # Background everywhere
+			return func(_temp, _moist, _alt): return true
 		_:
 			return func(_temp, _moist, _alt): return false
 
@@ -516,7 +490,6 @@ func generate_terrain_by_type(width: int, height: int, terrain_set_id: int, terr
 
 # Automatically find terrain IDs and generate terrain
 func generate_terrain_by_type_auto(width: int, height: int, terrain_type: TerrainType):
-	var terrain_name = get_terrain_type_name(terrain_type)
 	var terrain_info = find_terrain_ids(terrain_name)
 		
 	if terrain_info["set_id"] == -1 or terrain_info["terrain_id"] == -1:

@@ -19,14 +19,21 @@ enum GAME_STATE {
 @export var game_restore_scene: String = "res://scenes/game_restore.tscn"
 @export var default_world_path: String = "res://scenes/world/world.tscn"
 @export var grid_size: int = 16
+@export var gravity_dir: Vector2 = Vector2(0, 1)
 
 var from_world_door_id: String = ""
 var to_world_door_id: String = ""
 
 signal state_changed(state: GAME_STATE)
+signal gravity_dir_changed(dir: Vector2)
 		
 func _init():
 	init_restore()
+
+func set_gravity_dir(dir: Vector2):
+	if dir != gravity_dir:
+		gravity_dir = dir
+		gravity_dir_changed.emit(gravity_dir)
 
 func set_state(new_game_state: GAME_STATE):
 	if new_game_state != game_state:

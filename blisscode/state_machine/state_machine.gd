@@ -1,10 +1,12 @@
 class_name StateMachine extends Node
 
 @export var initial_state: State
+@export var idle_state: State
 
 var current_state: State
 var states: Dictionary = {}
 var transitions: Dictionary = {}
+var shared_data: Dictionary = {}
 
 signal active_state_changed
 
@@ -13,6 +15,8 @@ func init(parent) -> void:
 		child.parent = parent
 		child.state_machine = self
 		states[child.name] = child
+
+func start() -> void:
 	if initial_state:
 		change_state(initial_state)
 		
@@ -40,11 +44,17 @@ func dispatch(transition_name: String):
 	var s = transitions[transition_name]
 	var state_a = s[0]
 	var state_b = s[1]
+	if state_a == null:
+		state_a = current_state
 	if state_a:
 		state_a.exit()
-	active_state_changed.emit(state_b, state_a)
-	current_state = state_b
-	current_state.enter()
+	if not state_b:
+		state_b = idle_state
+	if state_b:
+		active_state_changed.emit(state_b, state_a)
+		current_state = state_b
+		current_state.enter()
+
 	
 func add_transition(state_a: State, state_b: State, transition_name: String):
 	if transitions.has(transition_name):

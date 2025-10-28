@@ -15,8 +15,8 @@ curve = SubResource("Curve_bhuv2")
 
 [resource]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(320, -320, 0)
-emission_shape_scale = Vector3(640, 1, 1)
+emission_shape_offset = Vector3(800, 0, 0)
+emission_shape_scale = Vector3(800, 1, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 direction = Vector3(0, 1, 0)
