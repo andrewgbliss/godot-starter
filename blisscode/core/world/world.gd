@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func _after_ready():
 	if GameManager.game_config.game_state == GameConfig.GAME_STATE.GAME_RESTORE:
-		_restore_spwan()
+		_restore_spawn()
 	else:
 		_default_spawn()
 	
@@ -19,7 +19,7 @@ func _after_ready():
 	#NotifcationsToast.show_notification("Game Ready", "Ready to start the game!")
 	#NotifcationsToast.show_notification("Aint no one got you on this", "Holy shit!!!")
 	
-func _restore_spwan():
+func _restore_spawn():
 	UserDataStore.restore()
 	GameManager.game_config.set_state(GameConfig.GAME_STATE.GAME_PLAY)
 	

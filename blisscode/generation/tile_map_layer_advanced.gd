@@ -397,7 +397,7 @@ func get_cell_environment(cell_coords: Vector2i) -> Dictionary:
 		"altitude": get_cell_altitude(cell_coords)
 	}
 
-func find_terrain_ids(terrain_name: String) -> Dictionary:
+func find_terrain_ids(ter_name: String) -> Dictionary:
 	if not tile_set:
 		push_error("TileMapLayerAdvanced: No tileset assigned")
 		return {"set_id": - 1, "terrain_id": - 1}
@@ -408,10 +408,10 @@ func find_terrain_ids(terrain_name: String) -> Dictionary:
 			var found_terrain_name = tile_set.get_terrain_name(terrain_set_id, terrain_id)
 			
 			# Match terrain names (case insensitive)
-			if found_terrain_name.to_lower().contains(terrain_name.to_lower()):
+			if found_terrain_name.to_lower().contains(ter_name.to_lower()):
 				return {"set_id": terrain_set_id, "terrain_id": terrain_id}
 	
-	push_warning("TileMapLayerAdvanced: Could not find terrain named '%s' in tileset" % terrain_name)
+	push_warning("TileMapLayerAdvanced: Could not find terrain named '%s' in tileset" % ter_name)
 	return {"set_id": - 1, "terrain_id": - 1}
 
 # Get the condition function for a specific terrain type

@@ -1,23 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr2tnh0t8bqys"]
+[gd_scene load_steps=6 format=3 uid="uid://cr2tnh0t8bqys"]
 
 [ext_resource type="Script" uid="uid://c8uekd3aar86h" path="res://blisscode/core/game/game_manager.gd" id="1_544rt"]
 [ext_resource type="Script" uid="uid://wt1gsnxxpmq1" path="res://blisscode/core/config/user_config.gd" id="3_clrac"]
-[ext_resource type="Resource" uid="uid://c8484mdisoydj" path="res://scenes/characters/player/character_data/player_top_down.tres" id="3_vqln2"]
 [ext_resource type="Script" uid="uid://bxl4a6ucqrl6h" path="res://blisscode/core/config/game_config.gd" id="6_snmpb"]
 
 [sub_resource type="Resource" id="Resource_snmpb"]
 script = ExtResource("3_clrac")
-movement_type = 2
-aim_type = 1
-facing_type = 1
-attack_type = 1
-zoom_level = null
+movement_type = 3
+aim_type = 3
+facing_type = 3
+attack_type = 3
+zoom_level = 3.0
 metadata/_custom_type_script = "uid://wt1gsnxxpmq1"
 
 [sub_resource type="Resource" id="Resource_6wep7"]
 script = ExtResource("6_snmpb")
 default_world_path = "res://scenes/world/world_top_down_grass.tscn"
-character = ExtResource("3_vqln2")
 metadata/_custom_type_script = "uid://bxl4a6ucqrl6h"
 
 [node name="GameManager" type="Node2D"]

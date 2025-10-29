@@ -20,12 +20,16 @@ class_name CharacterController extends CharacterBody2D
 @export_group("Behavior Trees")
 @export var behavior_trees: Array[BTPlayer] = []
 
+var is_facing_right = true
 var paralyzed: bool = false
 var original_speed: float
 var time_scale: float = 1.0
 var gravity_dir: Vector2 = Vector2(0, 1)
 var default_gravity_dir: Vector2 = Vector2(0, 1)
 var spawn_position: Vector2 = Vector2.ZERO
+var flip_v_lock: bool = false
+var flip_h_lock: bool = false
+var wall_cling_point: Vector2 = Vector2.ZERO
 
 signal spawned(pos: Vector2)
 signal died(character: CharacterController)
@@ -153,8 +157,44 @@ func dash():
 func jump():
 	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
 
+func wall_jump():
+	var direction = 0
+	if wall_cling_point.x > global_position.x:
+		direction = 1
+	else:
+		direction = -1
+	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
+	velocity.x = character.jump_force * 2.0 * GameManager.game_config.gravity_dir.x * -direction
+	wall_cling_point = Vector2.ZERO
+
 func is_falling():
 	return velocity.y > 0 and not is_on_floor()
+
+func is_on_land():
+	var is_land = is_on_floor()
+	if is_land:
+		var collision = get_last_slide_collision()
+		if collision:
+			var collider = collision.get_collider()
+			if collider is TileMapLayerAdvanced:
+				print("on land!!!")
+				return false
+	return false
+
+func is_wall_clinging():
+	var is_wall = is_on_wall()
+	if is_wall:
+		var collision = get_last_slide_collision()
+		if collision:
+			var collider = collision.get_collider()
+			if collider is TileMapLayerAdvanced:
+				wall_cling_point = collision.get_position()
+				var colliision_right = wall_cling_point.x > global_position.x
+				if controls.is_pressing_right() and colliision_right:
+					return wall_cling_point
+				elif controls.is_pressing_left() and not colliision_right:
+					return wall_cling_point
+	return null
 
 func handle_collisions():
 	for i in get_slide_collision_count():
@@ -295,6 +335,7 @@ func save():
 		"path_progress_ratios": path_progress_ratios,
 		"spawn_position_x": spawn_position.x,
 		"spawn_position_y": spawn_position.y,
+		"is_facing_right": is_facing_right,
 		#"character_sheet": character_sheet.save(),
 		#"inventory": inventory.save()
 	}
@@ -324,6 +365,8 @@ func restore(data):
 		spawn_position.x = data.get("spawn_position_x")
 	if data.has("spawn_position_y"):
 		spawn_position.y = data.get("spawn_position_y")
+	if data.has("is_facing_right"):
+		is_facing_right = data.get("is_facing_right")
 	#if data.has("character_sheet"):
 		#character_sheet.restore(data.get("character_sheet"))
 	#if data.has("inventory"):

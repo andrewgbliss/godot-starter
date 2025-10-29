@@ -39,3 +39,15 @@ func is_action_just_pressed(_action_name) -> bool:
 
 func is_action_pressed(_action_name) -> bool:
 	return false
+
+func is_pressing_right() -> bool:
+	return false
+
+func is_pressing_left() -> bool:
+	return false
+
+func is_pressing_up() -> bool:
+	return false
+
+func is_pressing_down() -> bool:
+	return false

@@ -839,9 +839,9 @@ texture = ExtResource("3_0c3lr")
 [resource]
 physics_layer_0/collision_layer = 4
 terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/name = "Platform"
 terrain_set_0/terrain_0/color = Color(0.44840002, 0.76, 0.67171335, 1)
-terrain_set_0/terrain_1/name = "Ground"
+terrain_set_0/terrain_1/name = "Background"
 terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_p2vnu")
 sources/1 = SubResource("TileSetAtlasSource_0c3lr")

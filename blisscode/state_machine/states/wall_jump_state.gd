@@ -1,11 +1,17 @@
-extends Node
+class_name WallJumpState extends MoveState
 
+var aim_direction: Vector2 = Vector2.ZERO
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func enter() -> void:
+	super.enter()
+	aim_direction = parent.controls.get_aim_direction()
+	parent.wall_jump()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func process_physics(delta: float) -> void:
+	parent.move(aim_direction, delta)
+	if parent.is_on_floor():
+		state_machine.dispatch("land")
+		return
+	if parent.is_falling():
+		state_machine.dispatch("falling")
+		return

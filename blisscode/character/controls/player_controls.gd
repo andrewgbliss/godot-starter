@@ -60,7 +60,7 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	_update_aim_sprite()
-	_double_tap_dash()
+	# _double_tap_dash()
 	_touch_attack()
 	
 func _touch_attack():
@@ -249,3 +249,15 @@ func to_world_position(screen_position: Vector2) -> Vector2:
 	var canvas_transform = get_viewport().get_canvas_transform()
 	var world_position = canvas_transform.affine_inverse() * screen_position
 	return world_position
+
+func is_pressing_right() -> bool:
+	return Input.is_action_pressed("move_right")
+
+func is_pressing_left() -> bool:
+	return Input.is_action_pressed("move_left")
+
+func is_pressing_up() -> bool:
+	return Input.is_action_pressed("move_up")
+
+func is_pressing_down() -> bool:
+	return Input.is_action_pressed("move_down")

@@ -35,7 +35,14 @@ func process_input(event: InputEvent) -> void:
 func process_physics(delta: float) -> void:
 	super.process_physics(delta)
 	if not cooldown:
-		attack()
+		if parent.controls.is_attacking_left_hand():
+			play_animation_name(left_hand_attack_animation, attack_item == null)
+			attack_ranged_weapon(attack_item, parent.controls.get_aim_direction())
+			cooldown = true
+		elif parent.controls.is_attacking_right_hand():
+			play_animation_name(right_hand_attack_animation, attack_item == null)
+			attack_ranged_weapon(attack_item, parent.controls.get_aim_direction())
+			cooldown = true
 	else:
 		attack_rate_time_elapsed += delta
 		if attack_rate_time_elapsed >= attack_rate:
@@ -43,17 +50,6 @@ func process_physics(delta: float) -> void:
 			attack_rate_time_elapsed = 0
 	if not attack_item and is_animation_finished:
 		state_machine.dispatch("attack_finished")
-
-func attack():
-	if parent.controls.is_attacking_left_hand():
-		attack_ranged_weapon(attack_item, parent.controls.get_aim_direction())
-		cooldown = true
-		return
-	elif parent.controls.is_attacking_right_hand():
-		attack_ranged_weapon(attack_item, parent.controls.get_aim_direction())
-		cooldown = true
-		return
-	state_machine.dispatch("attack_finished")
 
 func attack_ranged_weapon(item: RangedWeapon, direction: Vector2):
 	if not item or (!item.unlimited_ammo and item.ammo <= 0):
