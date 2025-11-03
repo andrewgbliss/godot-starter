@@ -194,35 +194,60 @@ func get_movement_direction():
 		return get_touch_movement_direction()
 
 func get_default_movement_direction():
-	var direction: Vector2 = Vector2(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	).normalized()
-	return direction
+	if parent.character.allow_y_controls:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		).normalized()
+	else:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			0.0
+		).normalized()
 
 func get_mouse_movement_direction():
-	var direction = parent.get_global_mouse_position() - parent.global_position
-	return direction.normalized()
+	if parent.character.allow_y_controls:
+			var direction = parent.get_global_mouse_position() - parent.global_position
+			return direction.normalized()
+	else:
+			var direction = parent.get_global_mouse_position() - parent.global_position
+			direction.y = 0.0
+			return direction.normalized()
 
 func get_keyboard_movement_direction():
-	var direction: Vector2 = Vector2(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	).normalized()
-	return direction
+	if parent.character.allow_y_controls:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		).normalized()
+	else:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			0.0
+		).normalized()
 
 func get_joystick_movement_direction():
-	var direction: Vector2 = Vector2(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	).normalized()
-	return direction
+	if parent.character.allow_y_controls:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		).normalized()
+	else:
+		return Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			0.0
+		).normalized()
 
 func get_touch_movement_direction():
 	if touch_position == Vector2.ZERO:
 		return Vector2.ZERO
-	var direction = touch_position - parent.global_position
-	return direction.normalized()
+	if parent.character.allow_y_controls:
+		var direction = touch_position - parent.global_position
+		return direction.normalized()
+	else:
+		var direction = touch_position - parent.global_position
+		direction.y = 0.0
+		return direction.normalized()
 
 func is_walking() -> bool:
 	return not Input.is_action_pressed("run") and get_movement_direction() != Vector2.ZERO
@@ -261,3 +286,20 @@ func is_pressing_up() -> bool:
 
 func is_pressing_down() -> bool:
 	return Input.is_action_pressed("move_down")
+
+func is_attacking_up() -> bool:
+	return is_pressing_up()
+
+func is_attacking_down() -> bool:
+	return is_pressing_down()
+
+func is_pressing_slide() -> bool:
+	return is_action_pressed("slide") and is_pressing_down()
+
+func is_pushing():
+	if parent.is_on_wall():
+			if parent.is_facing_right and parent.controls.is_pressing_right():
+				return true
+			elif parent.controls.is_pressing_left():
+				return true
+	return false

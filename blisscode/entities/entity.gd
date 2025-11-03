@@ -9,6 +9,8 @@ class_name Entity extends Node2D
 @export var garbage: bool = false
 @export var garbage_time: float = 0.0
 
+@export var sprite: Sprite2D
+
 var is_paralyzed = false
 
 signal spawned(pos: Vector2)
@@ -48,6 +50,8 @@ func take_damage(amount: int):
 	
 	entity_sheet.health -= amount
 
+	_update_sprite_shader()
+
 	# Check for death
 	if entity_sheet.health <= 0:
 		health_changed.emit(entity_sheet.health, entity_sheet.max_health)
@@ -56,3 +60,9 @@ func take_damage(amount: int):
 	
 	# Emit current health
 	health_changed.emit(entity_sheet.health, entity_sheet.max_health)
+
+func _update_sprite_shader() -> void:
+	if sprite:
+		var health_percent = float(entity_sheet.health) / float(entity_sheet.max_health)
+		var damage_amount = 100.0 - (health_percent * 100.0)
+		sprite.material.set_shader_parameter("DamageAmount", damage_amount)

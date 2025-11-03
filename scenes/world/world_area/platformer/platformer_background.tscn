@@ -51,6 +51,7 @@ position = Vector2(0, -6)
 texture = ExtResource("4_3iik1")
 
 [node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0, 100)
 repeat_size = Vector2(320, 0)
 repeat_times = 10
 

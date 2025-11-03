@@ -44,12 +44,14 @@ func _ready() -> void:
 func _on_gravity_dir_changed(dir: Vector2):
 	gravity_dir = dir
 
-func move(direction: Vector2, delta: float) -> void:
+func move(direction: Vector2, delta: float) -> bool:
 	velocity += apply_gravity(delta)
 	
 	if not paralyzed:
 		if not character.has_navigation:
-			if controls.is_walking():
+			if controls.is_pressing_down() and controls.is_walking():
+				character.speed = original_speed * character.crouch_multiplier
+			elif controls.is_walking():
 				character.speed = original_speed * character.walk_multiplier
 			elif controls.is_running():
 				character.speed = original_speed * character.run_multiplier
@@ -62,8 +64,7 @@ func move(direction: Vector2, delta: float) -> void:
 
 	clamp_velocity()
 
-	if move_and_slide():
-		handle_collisions()
+	return move_and_slide()
 
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity
@@ -154,6 +155,12 @@ func dash():
 	velocity += direction * character.speed * character.dash_speed_multiplier
 	return direction
 
+func slide():
+	var direction = controls.get_aim_direction()
+	direction.y = 0.0
+	velocity += direction * character.speed * character.slide_speed_multiplier
+	return direction
+
 func jump():
 	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
 
@@ -196,26 +203,17 @@ func is_wall_clinging():
 					return wall_cling_point
 	return null
 
-func handle_collisions():
+func handle_collisions(resolve: bool = false):
 	for i in get_slide_collision_count():
 		var col = get_slide_collision(i)
 		
-		_resolve_collision(col)
+		if resolve:
+			_resolve_collision(col)
 		
 		var collider = col.get_collider()
 					
-		# Handle collision damage from enemies
-		#var collision = get_last_slide_collision()
-		#var collider = collision.get_collider()
-		#if collider.is_in_group("enemy"):
-			#take_damage_from_node(collider)
-		
-		#if collider is RigidBlock:
-			#if _apply_knockback(collider, col):
-				#_apply_collision_damage(collider)
-			#else:
 		if collider is RigidBody2D:
-			collider.apply_force(col.get_normal() * -character.push_force)
+			collider.apply_central_impulse(col.get_normal() * -character.push_force)
 				
 func _resolve_collision(collision):
 	var normal = collision.get_normal()
@@ -228,52 +226,10 @@ func _resolve_collision(collision):
 	# Adjust position considering the original travel direction (optional)
 	global_position += move_amount + (travel * 0.1) # Adjust the factor as needed
 
-#func _apply_knockback(rigid_body: RigidBlock, collision: KinematicCollision2D):
-	## Check if the rigid block should apply knockback
-	#if not rigid_body.should_apply_knockback():
-		#return false
-		#
-	## Get knockback force from the rigid block
-	#var knockback_strength = rigid_body.get_knockback_force()
-	#
-	## Apply knockback in the direction of the collision normal
-	#var knockback_direction = collision.get_normal()
-	#var knockback_force = knockback_direction * knockback_strength
-	#
-	## Apply resistance to reduce knockback effect
-	#knockback_force *= knockback_resistance
-	#
-	## Apply the knockback to the player's velocity
-	#parent.velocity += knockback_force
-	#
-	## Optional: Add some upward force for more dramatic effect
-	#if knockback_strength > 50.0:
-		#parent.velocity.y -= knockback_strength * 0.3
-#
-	#return true
-#
-#func _apply_collision_damage(rigid_body: RigidBlock):
-	## Check if the rigid block should apply damage
-	#if not rigid_body.should_apply_damage():
-		#return
-		#
-	## Check if damage cooldown has expired
-	#if not rigid_body.can_apply_damage():
-		#return
-		#
-	## Get the damage amount from the rigid block
-	#var damage_amount = rigid_body.get_collision_damage()
-	#
-	## Apply damage to the player
-	#parent.take_damage(damage_amount)
-	#
-	## Start the damage cooldown on the rigid block
-	#rigid_body.apply_damage_cooldown()
-	#
-	## Optional: Add visual/audio feedback
-	## You can add screen shake, sound effects, or particle effects here
-	#if parent.has_method("_on_take_damage"):
-		#parent._on_take_damage(damage_amount)
+func apply_knockback(direction: Vector2):
+	stop()
+	var knockback_force = direction * character.knockback_force
+	velocity += knockback_force
 	
 func face_direction(_direction: Vector2):
 	pass

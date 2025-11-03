@@ -13,7 +13,7 @@
       "frame": 1,
       "type": "currency",
       "name": "skull",
-      "amount": 1
+      "consume_on_pickup": true
     },
     {
       "frame": 2,
@@ -25,6 +25,18 @@
       "frame": 9,
       "type": "consumable",
       "name": "green potion",
+      "consume_on_pickup": true
+    },
+    {
+      "frame": 8,
+      "type": "consumable",
+      "name": "cauldron",
+      "consume_on_pickup": true
+    },
+    {
+      "frame": 11,
+      "type": "consumable",
+      "name": "candle",
       "consume_on_pickup": true
     }
   ]

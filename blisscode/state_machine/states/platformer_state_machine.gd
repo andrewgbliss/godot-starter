@@ -11,6 +11,9 @@ func _ready() -> void:
 	add_transition(null, states["WalkState"], "walk")
 	add_transition(null, states["RunState"], "run")
 
+	add_transition(null, states["CrouchIdleState"], "crouch_idle")
+	add_transition(null, states["CrouchWalkState"], "crouch_walk")
+
 	add_transition(null, states["DashState"], "dash")
 	add_transition(states["DashState"], states["IdleState"], "dash_stop")
 
@@ -24,6 +27,15 @@ func _ready() -> void:
 
 	add_transition(null, states["AttackState"], "attack")
 	add_transition(states["AttackState"], null, "attack_finished")
+
+	add_transition(states["JumpState"], states["UpThrustState"], "up_thrust")
+	add_transition(states["JumpState"], states["DownThrustState"], "down_thrust")
+
+	add_transition(null, states["SlideState"], "slide")
+	add_transition(states["SlideState"], states["IdleState"], "slide_stop")
+
+	add_transition(null, states["PushState"], "push")
+	add_transition(states["PushState"], states["PushIdleState"], "push_idle")
 
 	add_transition(null, states["DeathState"], "death")
 

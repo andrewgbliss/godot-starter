@@ -16,7 +16,4 @@ func process_physics(delta: float):
 	if dash_time_elapsed >= parent.character.dash_time:
 		if parent.character.stop_on_end:
 			parent.stop()
-		if parent.is_on_floor():
-			state_machine.dispatch("dash_stop_ground")
-		else:
-			state_machine.dispatch("dash_stop_falling")
+		state_machine.dispatch("dash_stop")

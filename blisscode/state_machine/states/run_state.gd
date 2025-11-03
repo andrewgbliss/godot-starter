@@ -17,5 +17,11 @@ func process_physics(delta: float) -> void:
 	if direction == Vector2.ZERO:
 		state_machine.dispatch("idle")
 	else:
+		if parent.controls.is_pressing_slide():
+			state_machine.dispatch("slide")
+			return
+		if parent.controls.is_pushing():
+			state_machine.dispatch("push")
+			return
 		if parent.controls.is_walking():
 			state_machine.dispatch("walk")

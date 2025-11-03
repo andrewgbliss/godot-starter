@@ -17,7 +17,7 @@ func _ready():
 	noise.fractal_lacunarity = 20.0
 	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
 	
-func apply_shake(amount: float, fade: float, speed: float):
+func apply_shake(amount: float, fade: float = 2.0, speed: float = 10.0):
 	shake_fade = fade
 	shake_strength = amount
 	noise_shake_speed = speed

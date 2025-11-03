@@ -7,6 +7,12 @@ func enter() -> void:
 func process_physics(delta: float) -> void:
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
+	if parent.controls.is_attacking_up():
+		state_machine.dispatch("up_thrust")
+		return
+	if parent.controls.is_attacking_down():
+		state_machine.dispatch("down_thrust")
+		return
 	if parent.is_on_floor():
 		state_machine.dispatch("land")
 		return

@@ -7,8 +7,9 @@ class_name Character extends Resource
 
 @export_group("Movement")
 @export var speed: float = 100.0
-@export var walk_multiplier: float = 1
-@export var run_multiplier: float = 3
+@export var walk_multiplier: float = 1.0
+@export var run_multiplier: float = 3.0
+@export var crouch_multiplier: float = 0.5
 @export var jump_force: float = 100.0
 @export var has_navigation: bool = false
 @export var allow_y_controls: bool = false
@@ -28,3 +29,8 @@ class_name Character extends Resource
 @export var dash_time: float = 0.5
 @export var dash_speed_multiplier: float = 10.0
 @export var stop_on_end: bool = false
+
+@export_group("Slide")
+@export var slide_time: float = 0.5
+@export var slide_speed_multiplier: float = 10.0
+@export var slide_stop_on_end: bool = false
