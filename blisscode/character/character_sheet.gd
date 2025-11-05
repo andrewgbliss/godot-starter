@@ -68,6 +68,14 @@ func reset():
 	stamina_changed.emit(stamina, max_stamina)
 	special_changed.emit(special, max_special)
 
+func spawn_reset():
+	health = max_health
+	mana = max_mana
+	stamina = max_stamina
+	health_changed.emit(health, max_health)
+	mana_changed.emit(mana, max_mana)
+	stamina_changed.emit(stamina, max_stamina)
+
 func take_damage(amount: int):
 	if armor > 0:
 		armor -= amount

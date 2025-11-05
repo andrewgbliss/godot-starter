@@ -8,6 +8,7 @@ class_name CharacterController extends CharacterBody2D
 
 @export var character: Character
 @export var controls: CharacterControls
+@export var state_machine: StateMachine
 
 @export_group("Navigation")
 @export var navigation_agent: NavigationAgent2D
@@ -20,6 +21,7 @@ class_name CharacterController extends CharacterBody2D
 @export_group("Behavior Trees")
 @export var behavior_trees: Array[BTPlayer] = []
 
+var is_alive = false
 var is_facing_right = true
 var paralyzed: bool = false
 var original_speed: float
@@ -74,11 +76,13 @@ func change_to_position(new_position: Vector2 = Vector2.ZERO):
 	position = new_position
 
 func spawn():
+	is_alive = true
 	if character:
 		original_speed = character.speed
 	velocity = Vector2.ZERO
 	paralyzed = false
 	position = spawn_position
+	character.character_sheet.spawn_reset()
 	show()
 	focus()
 	spawned.emit(global_position)
@@ -97,7 +101,10 @@ func paralyze():
 	paralyzed = true
 	velocity = Vector2.ZERO
 
-func die():
+func die(hide_after: bool = true):
+	is_alive = false
+	if material:
+		material.set_shader_parameter("is_pulsing", false)
 	died.emit(self)
 	paralyzed = true
 	if garbage:
@@ -105,7 +112,8 @@ func die():
 		call_deferred("queue_free")
 	else:
 		await get_tree().create_timer(garbage_time).timeout
-		hide()
+		if hide_after:
+			hide()
 	
 func apply_gravity(delta: float):
 	return get_gravity() * gravity_dir.normalized() * character.gravity_percent * delta
@@ -232,12 +240,38 @@ func apply_knockback(direction: Vector2):
 	velocity += knockback_force
 	
 func face_direction(_direction: Vector2):
+	# TODO - This is for npc's that want to look at the character move
 	pass
 
 func take_damage(amount: int):
+	if not is_alive:
+		return
+	if state_machine:
+		state_machine.dispatch("damage")
 	character.character_sheet.take_damage(amount)
+	pulse_health()
 	if character.character_sheet.health <= 0:
-		die()
+		if state_machine:
+			state_machine.dispatch("death")
+
+func pulse_health():
+	if material:
+		# One shot
+		material.set_shader_parameter("is_pulsing", true)
+		material.set_shader_parameter("pulse_cycle_speed", 10.0)
+		await get_tree().create_timer(0.5).timeout
+		material.set_shader_parameter("is_pulsing", false)
+		material.set_shader_parameter("pulse_cycle_speed", 1.0)
+
+	  # Continuous
+		var health_percent = float(character.character_sheet.health) / float(character.character_sheet.max_health)
+		if health_percent < 0.5:
+			var pulse_cycle_speed = health_percent * 10.0
+			material.set_shader_parameter("is_pulsing", true)
+			material.set_shader_parameter("pulse_cycle_speed", pulse_cycle_speed)
+		else:
+			material.set_shader_parameter("is_pulsing", false)
+			material.set_shader_parameter("pulse_cycle_speed", 1.0)
 
 func item_pickup(item: Item, pos: Vector2):
 	if item is Currency:

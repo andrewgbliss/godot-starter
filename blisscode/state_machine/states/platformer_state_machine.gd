@@ -5,7 +5,7 @@ class_name PlatformerStateMachine extends StateMachine
 func _ready() -> void:
 	init(character)
 
-	add_transition(states["SpawnState"], states["IdleState"], "spawn")
+	add_transition(null, states["SpawnState"], "spawn")
 
 	add_transition(null, states["IdleState"], "idle")
 	add_transition(null, states["WalkState"], "walk")
@@ -37,6 +37,7 @@ func _ready() -> void:
 	add_transition(null, states["PushState"], "push")
 	add_transition(states["PushState"], states["PushIdleState"], "push_idle")
 
+	add_transition(null, states["DamageState"], "damage")
 	add_transition(null, states["DeathState"], "death")
 
 	call_deferred("_after_ready")

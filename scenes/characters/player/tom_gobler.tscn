@@ -1,6 +1,6 @@
-[gd_scene load_steps=58 format=3 uid="uid://dabgp8qon8cl6"]
+[gd_scene load_steps=59 format=3 uid="uid://dabgp8qon8cl6"]
 
-[ext_resource type="Shader" uid="uid://mt14v4fja677" path="res://blisscode/shaders/teleport.gdshader" id="1_dwp1v"]
+[ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_7kyxw"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_1op74"]
 [ext_resource type="Resource" uid="uid://bpvocg3gjelfh" path="res://scenes/characters/player/character_data/player_platformer.tres" id="3_1h4ch"]
 [ext_resource type="Script" uid="uid://d2lsy2pdynjo3" path="res://blisscode/character/controls/player_controls.gd" id="4_vluxo"]
@@ -39,13 +39,21 @@
 [ext_resource type="Script" uid="uid://buntc3r35qfyw" path="res://blisscode/state_machine/states/slide_state.gd" id="36_f0b0k"]
 [ext_resource type="Script" uid="uid://cwsrpsim4luso" path="res://blisscode/state_machine/states/push_state.gd" id="37_567rf"]
 [ext_resource type="Script" uid="uid://cgcehadtgns7q" path="res://blisscode/state_machine/states/push_idle_state.gd" id="38_yorqw"]
+[ext_resource type="Script" uid="uid://byldeukkv8onr" path="res://blisscode/state_machine/states/damage_state.gd" id="39_7kyxw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
-shader = ExtResource("1_dwp1v")
-shader_parameter/progress = 1.0
-shader_parameter/noise_desnity = 60.0
-shader_parameter/beam_size = 0.0
-shader_parameter/color = Vector4(0, 1.02, 1.2, 1)
+shader = ExtResource("1_7kyxw")
+shader_parameter/is_teleporting = false
+shader_parameter/teleport_progress = 0.0
+shader_parameter/teleport_noise_density = 200.0
+shader_parameter/teleport_beam_size = 0.0
+shader_parameter/teleport_color = Color(1, 1, 1, 1)
+shader_parameter/is_pulsing = false
+shader_parameter/pulse_shine_color = Color(1, 0, 0, 1)
+shader_parameter/pulse_alpha_limit = 0.0
+shader_parameter/pulse_cycle_speed = 1.0
+shader_parameter/pulse_cycle = true
+shader_parameter/pulse_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
 size = Vector2(10, 17)
@@ -110,16 +118,61 @@ size = Vector2(9, 2.5)
 
 [sub_resource type="Animation" id="Animation_bavp1"]
 resource_name = "Death"
+length = 2.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/path = NodePath(".:material:shader_parameter/teleport_progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.07, -0.16666667, -0.009500001, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.057000004, -0.16666667, -0.009500001, 0, 0),
 "times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/is_teleporting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.16666667, -0.009500001, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/is_pulsing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.5, -0.17, 0.083333336, 0, 0),
+"times": PackedFloat32Array(0, 1.02)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.5, -0.17, 0.083333336, 0, 0),
+"times": PackedFloat32Array(0, 1.02)
 }
 
 [sub_resource type="Animation" id="Animation_ngigd"]
@@ -184,28 +237,72 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_wcj4n"]
 length = 0.001
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/teleport_progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.16666667, -0.009500001, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/is_teleporting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.16666667, -0.009500001, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/is_pulsing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_ciexm"]
@@ -213,13 +310,35 @@ resource_name = "Spawn"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/path = NodePath(".:material:shader_parameter/teleport_progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0.057000004, -0.16666667, -0.009500001, 0, 0, 0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0.1, -0.16666667, -0.009500001, 0, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/is_teleporting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.16666667, -0.009500001, 0, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/is_pulsing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i2drd"]
@@ -231,12 +350,13 @@ _data = {
 &"Spawn": SubResource("Animation_ciexm")
 }
 
-[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls") groups=["persist", "player"]]
+[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine") groups=["persist", "player"]]
 material = SubResource("ShaderMaterial_8kth0")
 collision_mask = 260
 script = ExtResource("2_1op74")
 character = ExtResource("3_1h4ch")
 controls = NodePath("PlayerControls")
+state_machine = NodePath("PlatformerStateMachine")
 
 [node name="PlayerControls" type="Node" parent="." node_paths=PackedStringArray("state_machine", "aim_sprite", "touch_sprite")]
 script = ExtResource("4_vluxo")
@@ -313,9 +433,8 @@ flip_offset = Vector2(1.125, 8.15)
 metadata/_custom_type_script = "uid://0vge3j1r1s0n"
 
 [node name="CharacterPointsBar" parent="." instance=ExtResource("8_f0b0k")]
-visible = false
-offset_top = -29.0
-offset_bottom = 11.0
+offset_top = -13.0
+offset_bottom = 27.0
 
 [node name="Alignment" parent="." instance=ExtResource("9_567rf")]
 visible = false
@@ -323,9 +442,9 @@ position = Vector2(-10, -23)
 
 [node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls", "state_machine")]
 offset_left = -10.0
-offset_top = -40.0
+offset_top = -48.0
 offset_right = 30.0
-offset_bottom = -8.0
+offset_bottom = -16.0
 theme_override_constants/line_spacing = -9
 theme_override_font_sizes/font_size = 16
 text = "Position"
@@ -407,8 +526,16 @@ script = ExtResource("17_af6v4")
 animation_name = "Spawn"
 wait_for_animation_finished = true
 use_animated_sprite = false
-dispatch_state = "spawn"
+dispatch_state = "idle"
 metadata/_custom_type_script = "uid://c3rd0mfca06gc"
+
+[node name="DeathState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("29_xiqct")
+animation_name = "Death"
+wait_for_animation_finished = true
+use_animated_sprite = false
+dispatch_state = "spawn"
+metadata/_custom_type_script = "uid://crvvlkigmoam5"
 
 [node name="IdleState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("18_bvs6l")
@@ -482,10 +609,6 @@ hitbox = NodePath("../../UpthrustHitbox")
 animation_name = "Up Thrust"
 metadata/_custom_type_script = "uid://lbc7hxobl82o"
 
-[node name="DeathState" type="Node" parent="PlatformerStateMachine"]
-script = ExtResource("29_xiqct")
-metadata/_custom_type_script = "uid://crvvlkigmoam5"
-
 [node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
 script = ExtResource("34_s1kwg")
 collision_shape = NodePath("../../CollisionShape2D")
@@ -514,6 +637,12 @@ animation_name = "Push"
 script = ExtResource("38_yorqw")
 animation_name = "Push Idle"
 metadata/_custom_type_script = "uid://cgcehadtgns7q"
+
+[node name="DamageState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("39_7kyxw")
+animation_name = "Damage"
+wait_for_animation_finished = true
+dispatch_state = "idle"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.0
