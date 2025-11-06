@@ -1,4 +1,4 @@
-class_name IdleState extends MoveState
+class_name DanglingState extends MoveState
 
 func process_physics(delta: float) -> void:
 	if parent.is_falling():
@@ -15,10 +15,4 @@ func process_physics(delta: float) -> void:
 			state_machine.dispatch("walk")
 	elif parent.controls.is_pressing_down():
 		state_machine.dispatch("crouch_idle")
-		return
-	if parent.is_dangling():
-		state_machine.dispatch("dangling")
-		return
-	if parent.is_on_ladder() and parent.controls.is_pressing_up():
-		state_machine.dispatch("ladder_climb")
 		return

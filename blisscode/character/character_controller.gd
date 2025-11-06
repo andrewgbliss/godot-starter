@@ -21,6 +21,10 @@ class_name CharacterController extends CharacterBody2D
 @export_group("Behavior Trees")
 @export var behavior_trees: Array[BTPlayer] = []
 
+@export_group("Abilities")
+@export var dangling_raycast: RayCast2D
+@export var ladder_raycast: RayCast2D
+
 var is_alive = false
 var is_facing_right = true
 var paralyzed: bool = false
@@ -32,6 +36,7 @@ var spawn_position: Vector2 = Vector2.ZERO
 var flip_v_lock: bool = false
 var flip_h_lock: bool = false
 var wall_cling_point: Vector2 = Vector2.ZERO
+var current_tilemap_collider: TileMapLayerAdvanced
 
 signal spawned(pos: Vector2)
 signal died(character: CharacterController)
@@ -46,27 +51,37 @@ func _ready() -> void:
 func _on_gravity_dir_changed(dir: Vector2):
 	gravity_dir = dir
 
-func move(direction: Vector2, delta: float) -> bool:
+func move(direction: Vector2, delta: float, resolve: bool = false) -> bool:
 	velocity += apply_gravity(delta)
+
+	var physics = character.get_physics_group()
 	
 	if not paralyzed:
-		if not character.has_navigation:
+		if not physics.has_navigation:
 			if controls.is_pressing_down() and controls.is_walking():
-				character.speed = original_speed * character.crouch_multiplier
+				physics.speed = original_speed * physics.crouch_multiplier
 			elif controls.is_walking():
-				character.speed = original_speed * character.walk_multiplier
+				physics.speed = original_speed * physics.walk_multiplier
 			elif controls.is_running():
-				character.speed = original_speed * character.run_multiplier
-				time_scale = character.run_multiplier
+				physics.speed = original_speed * physics.run_multiplier
+				time_scale = physics.run_multiplier
 			else:
-				character.speed = original_speed
+				physics.speed = original_speed
 				time_scale = 1.0
 
-			velocity = self.move_toward(direction, character.speed)
+			velocity = self.move_toward(direction, physics.speed * physics.movement_percent)
 
 	clamp_velocity()
 
-	return move_and_slide()
+	if move_and_slide():
+		handle_collisions(resolve)
+		return true
+
+	if current_tilemap_collider:
+		character.reset_physics_group_override()
+		current_tilemap_collider = null
+
+	return false
 
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity
@@ -74,85 +89,49 @@ func _on_velocity_computed(safe_velocity: Vector2):
 		
 func change_to_position(new_position: Vector2 = Vector2.ZERO):
 	position = new_position
-
-func spawn():
-	is_alive = true
-	if character:
-		original_speed = character.speed
-	velocity = Vector2.ZERO
-	paralyzed = false
-	position = spawn_position
-	character.character_sheet.spawn_reset()
-	show()
-	focus()
-	spawned.emit(global_position)
-	
-func spawn_random_from_nav():
-	if navigation_agent:
-		var map = navigation_agent.get_navigation_map()
-		if map == null:
-			return
-		spawn_position = NavigationServer2D.map_get_random_point(map, 1, false)
-		spawn()
-	else:
-		spawn()
-		
-func paralyze():
-	paralyzed = true
-	velocity = Vector2.ZERO
-
-func die(hide_after: bool = true):
-	is_alive = false
-	if material:
-		material.set_shader_parameter("is_pulsing", false)
-	died.emit(self)
-	paralyzed = true
-	if garbage:
-		await get_tree().create_timer(garbage_time).timeout
-		call_deferred("queue_free")
-	else:
-		await get_tree().create_timer(garbage_time).timeout
-		if hide_after:
-			hide()
 	
 func apply_gravity(delta: float):
-	return get_gravity() * gravity_dir.normalized() * character.gravity_percent * delta
+	var physics = character.get_physics_group()
+	return get_gravity() * gravity_dir.normalized() * physics.gravity_percent * delta
 
 func move_toward(direction: Vector2, s: float):
+	var physics = character.get_physics_group()
 	var result_velocity = velocity
 	
-	if character.movement_lerp:
+	if physics.movement_lerp:
 		if direction != Vector2.ZERO:
 			# Calculate target velocity using the whole direction vector
-			var target_velocity = direction * s * character.movement_percent
-			if not character.allow_y_controls:
+			var target_velocity = direction * s * physics.movement_percent
+			if not physics.allow_y_controls:
 				# Only preserve vertical velocity (gravity) if y controls are disabled
 				target_velocity.y = velocity.y
-			result_velocity = result_velocity.move_toward(target_velocity, character.acceleration)
+			result_velocity = result_velocity.move_toward(target_velocity, physics.acceleration)
 		else:
 			# Apply friction, preserving vertical velocity if y controls are disabled
 			var target_velocity = Vector2.ZERO
-			if not character.allow_y_controls:
+			if not physics.allow_y_controls:
 				target_velocity.y = velocity.y
-			result_velocity = result_velocity.move_toward(target_velocity, character.friction)
+			result_velocity = result_velocity.move_toward(target_velocity, physics.friction)
 	else:
 		if direction != Vector2.ZERO:
-			result_velocity = direction * s * character.movement_percent
-			if not character.allow_y_controls:
+			result_velocity = direction * s * physics.movement_percent
+			if not physics.allow_y_controls:
 				result_velocity.y = velocity.y
 		else:
 			result_velocity = Vector2.ZERO
-			if not character.allow_y_controls:
+			if not physics.allow_y_controls:
 				result_velocity.y = velocity.y
 	return result_velocity
 		
 func clamp_velocity():
-	velocity = velocity.clamp(-character.max_velocity, character.max_velocity)
+	var physics = character.get_physics_group()
+	velocity = velocity.clamp(-physics.max_velocity, physics.max_velocity)
 							
 func stop():
 	velocity = Vector2.ZERO
 
 func dash():
+	var physics = character.get_physics_group()
 	var direction = Vector2.ZERO
 	if controls.double_tap_direction != controls.DOUBLE_TAP_DIRECTION.NONE:
 		direction = controls.get_double_tap_direction()
@@ -160,30 +139,43 @@ func dash():
 	else:
 		direction = controls.get_aim_direction()
 	stop()
-	velocity += direction * character.speed * character.dash_speed_multiplier
+	velocity += direction * physics.speed * physics.dash_speed_multiplier
 	return direction
 
 func slide():
+	var physics = character.get_physics_group()
 	var direction = controls.get_aim_direction()
 	direction.y = 0.0
-	velocity += direction * character.speed * character.slide_speed_multiplier
+	velocity += direction * physics.speed * physics.slide_speed_multiplier
 	return direction
 
 func jump():
-	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
+	var physics = character.get_physics_group()
+	velocity.y = - physics.jump_force * GameManager.game_config.gravity_dir.y
 
 func wall_jump():
+	var physics = character.get_physics_group()
 	var direction = 0
 	if wall_cling_point.x > global_position.x:
 		direction = 1
 	else:
 		direction = -1
-	velocity.y = - character.jump_force * GameManager.game_config.gravity_dir.y
-	velocity.x = character.jump_force * 2.0 * GameManager.game_config.gravity_dir.x * -direction
+	velocity.y = - physics.jump_force * GameManager.game_config.gravity_dir.y
+	velocity.x = physics.jump_force * 2.0 * GameManager.game_config.gravity_dir.x * -direction
 	wall_cling_point = Vector2.ZERO
 
 func is_falling():
 	return velocity.y > 0 and not is_on_floor()
+
+func is_dangling():
+	if dangling_raycast:
+		return not dangling_raycast.is_colliding() and is_on_floor()
+	return false
+
+func is_on_ladder():
+	if ladder_raycast:
+		return ladder_raycast.is_colliding()
+	return false
 
 func is_on_land():
 	var is_land = is_on_floor()
@@ -192,7 +184,6 @@ func is_on_land():
 		if collision:
 			var collider = collision.get_collider()
 			if collider is TileMapLayerAdvanced:
-				print("on land!!!")
 				return false
 	return false
 
@@ -212,6 +203,7 @@ func is_wall_clinging():
 	return null
 
 func handle_collisions(resolve: bool = false):
+	var physics = character.get_physics_group()
 	for i in get_slide_collision_count():
 		var col = get_slide_collision(i)
 		
@@ -221,8 +213,18 @@ func handle_collisions(resolve: bool = false):
 		var collider = col.get_collider()
 					
 		if collider is RigidBody2D:
-			collider.apply_central_impulse(col.get_normal() * -character.push_force)
-				
+			collider.apply_central_impulse(col.get_normal() * -physics.push_force)
+
+		if collider is TileMapLayerAdvanced:
+			if state_machine.current_state.freeze_physics:
+				return
+			if current_tilemap_collider != collider:
+				current_tilemap_collider = collider
+				if collider.physics_group_override:
+					character.set_physics_group_override(collider.physics_group_override)
+				else:
+					character.reset_physics_group_override()
+
 func _resolve_collision(collision):
 	var normal = collision.get_normal()
 	var depth = collision.get_depth()
@@ -235,43 +237,15 @@ func _resolve_collision(collision):
 	global_position += move_amount + (travel * 0.1) # Adjust the factor as needed
 
 func apply_knockback(direction: Vector2):
+	var physics = character.get_physics_group()
 	stop()
-	var knockback_force = direction * character.knockback_force
+	var knockback_force = direction * physics.knockback_force
 	velocity += knockback_force
 	
 func face_direction(_direction: Vector2):
 	# TODO - This is for npc's that want to look at the character move
 	pass
 
-func take_damage(amount: int):
-	if not is_alive:
-		return
-	if state_machine:
-		state_machine.dispatch("damage")
-	character.character_sheet.take_damage(amount)
-	pulse_health()
-	if character.character_sheet.health <= 0:
-		if state_machine:
-			state_machine.dispatch("death")
-
-func pulse_health():
-	if material:
-		# One shot
-		material.set_shader_parameter("is_pulsing", true)
-		material.set_shader_parameter("pulse_cycle_speed", 10.0)
-		await get_tree().create_timer(0.5).timeout
-		material.set_shader_parameter("is_pulsing", false)
-		material.set_shader_parameter("pulse_cycle_speed", 1.0)
-
-	  # Continuous
-		var health_percent = float(character.character_sheet.health) / float(character.character_sheet.max_health)
-		if health_percent < 0.5:
-			var pulse_cycle_speed = health_percent * 10.0
-			material.set_shader_parameter("is_pulsing", true)
-			material.set_shader_parameter("pulse_cycle_speed", pulse_cycle_speed)
-		else:
-			material.set_shader_parameter("is_pulsing", false)
-			material.set_shader_parameter("pulse_cycle_speed", 1.0)
 
 func item_pickup(item: Item, pos: Vector2):
 	if item is Currency:
@@ -303,6 +277,82 @@ func focus():
 	if camera:
 		camera.enabled = true
 		camera.make_current()
+
+func spawn():
+	var physics = character.get_physics_group()
+	is_alive = true
+	if physics:
+		original_speed = physics.speed
+	if material:
+		material.set_shader_parameter("teleport_progress", 0.0)
+		material.set_shader_parameter("pulse_mode", 0)
+		material.set_shader_parameter("pulse_cycle_speed", 1.0)
+	velocity = Vector2.ZERO
+	paralyzed = false
+	position = spawn_position
+	character.character_sheet.spawn_reset()
+	show()
+	focus()
+	spawned.emit(global_position)
+	
+func spawn_random_from_nav():
+	if navigation_agent:
+		var map = navigation_agent.get_navigation_map()
+		if map == null:
+			return
+		spawn_position = NavigationServer2D.map_get_random_point(map, 1, false)
+		spawn()
+	else:
+		spawn()
+		
+func paralyze():
+	paralyzed = true
+	velocity = Vector2.ZERO
+
+func die(hide_after: bool = true):
+	is_alive = false
+	died.emit(self)
+	paralyzed = true
+	if garbage:
+		await get_tree().create_timer(garbage_time).timeout
+		call_deferred("queue_free")
+	else:
+		await get_tree().create_timer(garbage_time).timeout
+		if hide_after:
+			hide()
+
+func take_damage(amount: int):
+	if not is_alive:
+		return
+	if state_machine:
+		state_machine.dispatch("damage")
+	character.character_sheet.take_damage(amount)
+	pulse_health()
+	if character.character_sheet.health <= 0:
+		if state_machine:
+			state_machine.dispatch("death")
+
+func pulse_health():
+	if not is_alive:
+		return
+	if material:
+		# One shot
+		material.set_shader_parameter("pulse_mode", 1)
+		material.set_shader_parameter("pulse_cycle_speed", 10.0)
+		await get_tree().create_timer(0.5).timeout
+		material.set_shader_parameter("pulse_mode", 0)
+		material.set_shader_parameter("pulse_cycle_speed", 1.0)
+
+	  # Continuous
+		var health_percent = float(character.character_sheet.health) / float(character.character_sheet.max_health)
+		if health_percent < 0.5:
+			var pulse_cycle_speed = health_percent * 10.0
+			material.set_shader_parameter("pulse_mode", 1)
+			material.set_shader_parameter("pulse_cycle_speed", pulse_cycle_speed)
+		else:
+			material.set_shader_parameter("pulse_mode", 0)
+			material.set_shader_parameter("pulse_cycle_speed", 1.0)
+
 
 func save():
 	var behavior_trees_data = []

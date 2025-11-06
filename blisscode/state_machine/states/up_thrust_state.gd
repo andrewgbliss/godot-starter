@@ -10,6 +10,9 @@ func enter() -> void:
 func process_physics(delta: float) -> void:
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
+	if parent.is_on_ladder() and parent.controls.is_pressing_up():
+		state_machine.dispatch("ladder_climb")
+		return
 	if not parent.controls.is_pressing_up():
 		state_machine.dispatch("idle")
 		return

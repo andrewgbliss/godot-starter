@@ -38,12 +38,14 @@ func process_frame(delta: float) -> void:
 func process_physics(delta: float) -> void:
 	current_state.process_physics(delta)
 		
-func dispatch(transition_name: String):
+func dispatch(transition_name: String, force: bool = false):
 	if not transitions.has(transition_name):
 		return
 	var s = transitions[transition_name]
 	var state_a = s[0]
 	var state_b = s[1]
+	if current_state.freeze_state and not force:
+		return
 	if state_a == null:
 		state_a = current_state
 	if state_a:

@@ -1,7 +1,7 @@
 class_name State extends Node
 
 var parent
-var state_machine : StateMachine
+var state_machine: StateMachine
 
 func enter() -> void:
 	pass

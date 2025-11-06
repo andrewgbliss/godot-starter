@@ -33,6 +33,9 @@ enum TerrainType {
 @export var is_breakable: bool = false
 @export var custom_data_name: String = "hp"
 
+@export_group("Physics")
+@export var physics_group_override: PhysicsGroup
+
 var cell_hp_dict: Dictionary = {}
 
 var cell_temperature_dict: Dictionary = {}

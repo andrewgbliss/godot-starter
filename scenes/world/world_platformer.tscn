@@ -25,31 +25,31 @@ position = Vector2(760, 392)
 [node name="Platformer" parent="WorldAreas" instance=ExtResource("6_peqdm")]
 
 [node name="RigidBlockEntity" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(184, -40)
+position = Vector2(348, -40)
 
 [node name="RigidBlockEntity2" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(184, -56)
+position = Vector2(348, -56)
 
 [node name="RigidBlockEntity3" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(248, -56)
+position = Vector2(412, -56)
 
 [node name="RigidBlockEntity4" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(248, -40)
+position = Vector2(412, -40)
 
 [node name="RigidBlockEntity5" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(312, -40)
+position = Vector2(476, -40)
 
 [node name="RigidBlockEntity6" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(312, -56)
+position = Vector2(476, -56)
 
 [node name="RigidBlockEntity7" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(376, -56)
+position = Vector2(540, -56)
 
 [node name="RigidBlockEntity8" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
-position = Vector2(376, -40)
+position = Vector2(540, -40)
 
 [node name="PlayerSpawner" type="Node2D" parent="." node_paths=PackedStringArray("entity_container")]
-position = Vector2(768, 352)
+position = Vector2(792, 511)
 script = ExtResource("7_2fypn")
 player_key = "tom"
 entity_container = NodePath("../EntityContainer")

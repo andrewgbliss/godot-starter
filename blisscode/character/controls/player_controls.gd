@@ -194,7 +194,8 @@ func get_movement_direction():
 		return get_touch_movement_direction()
 
 func get_default_movement_direction():
-	if parent.character.allow_y_controls:
+	var physics = parent.character.get_physics_group()
+	if physics.allow_y_controls:
 		return Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -206,7 +207,8 @@ func get_default_movement_direction():
 		).normalized()
 
 func get_mouse_movement_direction():
-	if parent.character.allow_y_controls:
+	var physics = parent.character.get_physics_group()
+	if physics.allow_y_controls:
 			var direction = parent.get_global_mouse_position() - parent.global_position
 			return direction.normalized()
 	else:
@@ -215,7 +217,8 @@ func get_mouse_movement_direction():
 			return direction.normalized()
 
 func get_keyboard_movement_direction():
-	if parent.character.allow_y_controls:
+	var physics = parent.character.get_physics_group()
+	if physics.allow_y_controls:
 		return Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -227,7 +230,8 @@ func get_keyboard_movement_direction():
 		).normalized()
 
 func get_joystick_movement_direction():
-	if parent.character.allow_y_controls:
+	var physics = parent.character.get_physics_group()
+	if physics.allow_y_controls:
 		return Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -239,9 +243,10 @@ func get_joystick_movement_direction():
 		).normalized()
 
 func get_touch_movement_direction():
+	var physics = parent.character.get_physics_group()
 	if touch_position == Vector2.ZERO:
 		return Vector2.ZERO
-	if parent.character.allow_y_controls:
+	if physics.allow_y_controls:
 		var direction = touch_position - parent.global_position
 		return direction.normalized()
 	else:

@@ -1,12 +1,10 @@
 shader_type canvas_item;
 
-uniform bool is_teleporting = false;
 uniform float teleport_progress : hint_range(0.0, 1.0);
 uniform float teleport_noise_density = 60;
 uniform float teleport_beam_size : hint_range(0.01, 0.15);
 uniform vec4 teleport_color : source_color = vec4(1.0);
 
-uniform bool is_pulsing = false;
 uniform vec4 pulse_shine_color : source_color = vec4(1.0); //Shine color
 uniform float pulse_alpha_limit : hint_range(0.0, 1.0, 0.1) = 0.0; //Alpha color limit to apply the shine, for example, if you won't to apply the shine to semi-transparent pixels
 uniform float pulse_cycle_speed : hint_range(0.0, 10.0, 0.1) = 1.0; //Pulse cycle speed
@@ -16,32 +14,26 @@ uniform int pulse_mode : hint_range(0, 2, 1) = 0; //[0 = Always off] [1 = Pulse 
 // We are generating our own noise here. You could experiment with the 
 // built in SimplexNoise or your own noise texture for other effects.
 vec2 random(vec2 uv){
-  if (is_teleporting) {
-    uv = vec2( dot(uv, vec2(127.1,311.7) ),
-                dot(uv, vec2(269.5,183.3) ) );
-    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
-  }
-  return uv;
+  uv = vec2( dot(uv, vec2(127.1,311.7) ),
+              dot(uv, vec2(269.5,183.3) ) );
+  return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
 }
 
 float noise(vec2 uv) {
-  if (is_teleporting) {
-    vec2 uv_index = floor(uv);
-    vec2 uv_fract = fract(uv);
+  vec2 uv_index = floor(uv);
+  vec2 uv_fract = fract(uv);
 
-    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+  vec2 blur = smoothstep(0.0, 1.0, uv_fract);
 
-    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
-                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
-                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
-                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) * 0.5 + 0.5;
-  }
+  return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                    dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+              mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                    dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) * 0.5 + 0.5;
   return 0.0;
 }
 
 void fragment()
 {
-  if (is_teleporting) {
     vec4 tex = texture(TEXTURE, UV);
     
     float noise = noise(UV * teleport_noise_density) * UV.y;
@@ -55,7 +47,7 @@ void fragment()
     tex.a *= d2;
     
     COLOR = tex;
-  } else if (is_pulsing) {
+
     //Check if the effect is enabled
     if (pulse_mode > 0)
     {
@@ -79,7 +71,5 @@ void fragment()
         }
       }
     }
-  } else {
-    COLOR = texture(TEXTURE, UV);
-  }
+
 }

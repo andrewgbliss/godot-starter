@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dabgp8qon8cl6"]
+[gd_scene load_steps=66 format=3 uid="uid://dabgp8qon8cl6"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_7kyxw"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_1op74"]
@@ -20,9 +20,11 @@
 [ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="16_ornbi"]
 [ext_resource type="Script" uid="uid://c3rd0mfca06gc" path="res://blisscode/state_machine/states/spawn_state.gd" id="17_af6v4"]
 [ext_resource type="Script" uid="uid://dqeisjnkkturo" path="res://blisscode/state_machine/states/idle_state.gd" id="18_bvs6l"]
+[ext_resource type="Script" uid="uid://bx4nlc04ew5og" path="res://blisscode/physics/raycast_2d_advanced.gd" id="18_rdljg"]
 [ext_resource type="Script" uid="uid://cutl0tw1jj08w" path="res://blisscode/state_machine/states/walk_state.gd" id="19_bvefi"]
 [ext_resource type="Script" uid="uid://qa0dobmwpw5o" path="res://blisscode/state_machine/states/run_state.gd" id="20_lout0"]
 [ext_resource type="Script" uid="uid://8lo347gc3bwp" path="res://blisscode/state_machine/states/jump_state.gd" id="21_ns27v"]
+[ext_resource type="Script" uid="uid://bxxnffmlkej1k" path="res://blisscode/state_machine/states/dangling_state.gd" id="22_ntitq"]
 [ext_resource type="Script" uid="uid://cv887a08k4env" path="res://blisscode/state_machine/states/jump_flip_state.gd" id="22_nvc1a"]
 [ext_resource type="Script" uid="uid://cjqdbfekfsfa0" path="res://blisscode/state_machine/states/falling_state.gd" id="23_c4gaj"]
 [ext_resource type="Script" uid="uid://dbt5kmkhjpnf3" path="res://blisscode/state_machine/states/land_state.gd" id="24_m5srl"]
@@ -40,20 +42,23 @@
 [ext_resource type="Script" uid="uid://cwsrpsim4luso" path="res://blisscode/state_machine/states/push_state.gd" id="37_567rf"]
 [ext_resource type="Script" uid="uid://cgcehadtgns7q" path="res://blisscode/state_machine/states/push_idle_state.gd" id="38_yorqw"]
 [ext_resource type="Script" uid="uid://byldeukkv8onr" path="res://blisscode/state_machine/states/damage_state.gd" id="39_7kyxw"]
+[ext_resource type="Script" uid="uid://bgq7bvojk3aav" path="res://blisscode/state_machine/states/ladder_idle_state.gd" id="42_k7jyn"]
+[ext_resource type="Resource" uid="uid://dn5hcqjto66jn" path="res://blisscode/character/physics_groups/ladder_physics.tres" id="43_af6v4"]
+[ext_resource type="Script" uid="uid://dymnvmk5ys3e6" path="res://blisscode/state_machine/states/ladder_climb_state.gd" id="43_ornbi"]
+[ext_resource type="Script" uid="uid://d0fmsyj4x3pii" path="res://blisscode/state_machine/states/swim_state.gd" id="44_ornbi"]
+[ext_resource type="Resource" uid="uid://c7fxl34nddumx" path="res://blisscode/character/physics_groups/water_physics.tres" id="46_bvs6l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_7kyxw")
-shader_parameter/is_teleporting = false
 shader_parameter/teleport_progress = 0.0
 shader_parameter/teleport_noise_density = 200.0
 shader_parameter/teleport_beam_size = 0.0
 shader_parameter/teleport_color = Color(1, 1, 1, 1)
-shader_parameter/is_pulsing = false
 shader_parameter/pulse_shine_color = Color(1, 0, 0, 1)
 shader_parameter/pulse_alpha_limit = 0.0
 shader_parameter/pulse_cycle_speed = 1.0
 shader_parameter/pulse_cycle = true
-shader_parameter/pulse_mode = 1
+shader_parameter/pulse_mode = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
 size = Vector2(10, 17)
@@ -127,52 +132,8 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.057000004, -0.16666667, -0.009500001, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.16666667, -0.009500001, 0, 0),
 "times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/is_teleporting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.16666667, -0.009500001, 0, 0),
-"times": PackedFloat32Array(0, 2)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/is_pulsing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:scale:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.5, -0.17, 0.083333336, 0, 0),
-"times": PackedFloat32Array(0, 1.02)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:scale:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.5, -0.17, 0.083333336, 0, 0),
-"times": PackedFloat32Array(0, 1.02)
 }
 
 [sub_resource type="Animation" id="Animation_ngigd"]
@@ -260,50 +221,6 @@ tracks/1/keys = {
 "points": PackedFloat32Array(0, -0.16666667, -0.009500001, 0, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/is_teleporting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.16666667, -0.009500001, 0, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:material:shader_parameter/is_pulsing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:scale:x")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:scale:y")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_ciexm"]
 resource_name = "Spawn"
@@ -315,30 +232,8 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0.1, -0.16666667, -0.009500001, 0, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/is_teleporting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1, -0.16666667, -0.009500001, 0, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/is_pulsing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i2drd"]
@@ -350,13 +245,15 @@ _data = {
 &"Spawn": SubResource("Animation_ciexm")
 }
 
-[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine") groups=["persist", "player"]]
+[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dangling_raycast", "ladder_raycast") groups=["persist", "player"]]
 material = SubResource("ShaderMaterial_8kth0")
 collision_mask = 260
 script = ExtResource("2_1op74")
 character = ExtResource("3_1h4ch")
 controls = NodePath("PlayerControls")
 state_machine = NodePath("PlatformerStateMachine")
+dangling_raycast = NodePath("DanglingRayCast2D")
+ladder_raycast = NodePath("LadderRayCast2D")
 
 [node name="PlayerControls" type="Node" parent="." node_paths=PackedStringArray("state_machine", "aim_sprite", "touch_sprite")]
 script = ExtResource("4_vluxo")
@@ -417,7 +314,8 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("6_dwp1v")
-animation = &"Damage"
+animation = &"Idle"
+frame_progress = 0.47272238
 offset = Vector2(1.125, 4.15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -433,8 +331,8 @@ flip_offset = Vector2(1.125, 8.15)
 metadata/_custom_type_script = "uid://0vge3j1r1s0n"
 
 [node name="CharacterPointsBar" parent="." instance=ExtResource("8_f0b0k")]
-offset_top = -13.0
-offset_bottom = 27.0
+offset_top = -10.0
+offset_bottom = 30.0
 
 [node name="Alignment" parent="." instance=ExtResource("9_567rf")]
 visible = false
@@ -442,9 +340,9 @@ position = Vector2(-10, -23)
 
 [node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls", "state_machine")]
 offset_left = -10.0
-offset_top = -48.0
+offset_top = -49.0
 offset_right = 30.0
-offset_bottom = -16.0
+offset_bottom = -14.0
 theme_override_constants/line_spacing = -9
 theme_override_font_sizes/font_size = 16
 text = "Position"
@@ -514,6 +412,22 @@ position_smoothing_enabled = true
 position_smoothing_speed = 25.0
 script = ExtResource("15_k7jyn")
 
+[node name="DanglingRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("animated_sprite")]
+position = Vector2(10, 0)
+collision_mask = 4
+script = ExtResource("18_rdljg")
+animated_sprite = NodePath("../AnimatedSprite2D")
+facing_left_position = Vector2(-10, 0)
+facing_right_position = Vector2(10, 0)
+
+[node name="LadderRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 20)
+target_position = Vector2(0, -25)
+collision_mask = 2048
+hit_from_inside = true
+script = ExtResource("18_rdljg")
+metadata/_custom_type_script = "uid://bx4nlc04ew5og"
+
 [node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state", "idle_state")]
 script = ExtResource("16_ornbi")
 character = NodePath("..")
@@ -541,6 +455,10 @@ metadata/_custom_type_script = "uid://crvvlkigmoam5"
 script = ExtResource("18_bvs6l")
 animation_name = "Idle"
 metadata/_custom_type_script = "uid://dqeisjnkkturo"
+
+[node name="DanglingState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("22_ntitq")
+animation_name = "Dangling"
 
 [node name="WalkState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("19_bvefi")
@@ -643,6 +561,25 @@ script = ExtResource("39_7kyxw")
 animation_name = "Damage"
 wait_for_animation_finished = true
 dispatch_state = "idle"
+
+[node name="LadderIdleState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("42_k7jyn")
+physics_group = ExtResource("43_af6v4")
+animation_name = "Ladder Idle"
+
+[node name="LadderClimbState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("43_ornbi")
+physics_group = ExtResource("43_af6v4")
+animation_name = "Ladder Climb"
+metadata/_custom_type_script = "uid://dymnvmk5ys3e6"
+
+[node name="SwimState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("44_ornbi")
+physics_group = ExtResource("46_bvs6l")
+animation_name = "Swim"
+freeze_physics = true
+freeze_state = true
+metadata/_custom_type_script = "uid://d0fmsyj4x3pii"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.0

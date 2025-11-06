@@ -29,7 +29,14 @@ func _update_label():
 		state_name = current_state.name
 	else:
 		state_name = "None"
-	text = "%s\n%s\n%s\n%s" % [parent_position, movement_direction.normalized(), current_gold, state_name]
+
+	var physics_group_name = ""
+	if parent.character.get_physics_group():
+		physics_group_name = parent.character.get_physics_group().name
+	else:
+		physics_group_name = "None"
+
+	text = "%s\n%s\n%s\n%s\n%s" % [parent_position, movement_direction.normalized(), current_gold, state_name, physics_group_name]
 	
 func _on_gold_changed(amount):
 	current_gold = amount

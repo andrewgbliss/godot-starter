@@ -3,6 +3,9 @@ class_name FallingState extends MoveState
 func process_physics(delta: float) -> void:
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
+	if parent.is_on_ladder() and parent.controls.is_pressing_up():
+		state_machine.dispatch("ladder_climb")
+		return
 	if parent.controls.is_attacking_up():
 		state_machine.dispatch("up_thrust")
 		return

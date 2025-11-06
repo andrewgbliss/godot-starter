@@ -5,6 +5,8 @@ class_name AnimationState extends State
 @export var wait_for_animation_finished: bool = false
 @export var use_animated_sprite: bool = true
 @export var dispatch_state: String = ""
+@export var freeze_physics: bool = false
+@export var freeze_state: bool = false
 
 var is_animation_finished: bool = false
 

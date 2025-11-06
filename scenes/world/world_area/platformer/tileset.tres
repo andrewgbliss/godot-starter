@@ -1,7 +1,15 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://drxegvekcmdv2"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://drxegvekcmdv2"]
 
+[ext_resource type="Texture2D" uid="uid://bec24o4kf33vv" path="res://assets/img/environment/ladder.png" id="1_f2sc2"]
 [ext_resource type="Texture2D" uid="uid://cyenqpj37hso1" path="res://assets/img/terrains/platformer-tiles.png" id="1_tkyiq"]
 [ext_resource type="PackedScene" uid="uid://d1tx2ym7fo337" path="res://scenes/environment/spikes.tscn" id="2_gvefr"]
+[ext_resource type="Texture2D" uid="uid://c8j36u5gg36cn" path="res://assets/img/environment/water.png" id="4_4xqhc"]
+[ext_resource type="Texture2D" uid="uid://bufbnt3u0mmgb" path="res://assets/img/environment/ice.png" id="5_8us4j"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xqhc"]
+texture = ExtResource("1_f2sc2")
+0:0/0 = 0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l7ao8"]
 resource_name = "platformer"
@@ -610,11 +618,26 @@ texture = ExtResource("1_tkyiq")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f2sc2"]
 scenes/1/scene = ExtResource("2_gvefr")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8us4j"]
+texture = ExtResource("4_4xqhc")
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5a0gb"]
+texture = ExtResource("5_8us4j")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [resource]
 physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 513
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 2048
+physics_layer_1/collision_mask = 0
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Platform"
 terrain_set_0/terrain_0/color = Color(0.764619, 0.568779, 0.453147, 1)
 sources/1 = SubResource("TileSetAtlasSource_l7ao8")
 sources/2 = SubResource("TileSetScenesCollectionSource_f2sc2")
+sources/0 = SubResource("TileSetAtlasSource_4xqhc")
+sources/3 = SubResource("TileSetAtlasSource_8us4j")
+sources/4 = SubResource("TileSetAtlasSource_5a0gb")

@@ -5,7 +5,6 @@ func process_physics(delta: float) -> void:
 		state_machine.dispatch("falling")
 		return
 	var direction = parent.controls.get_movement_direction()
-	if parent.move(direction, delta):
-		parent.handle_collisions()
+	parent.move(direction, delta)
 	if direction == Vector2.ZERO:
 		state_machine.dispatch("push_idle")
