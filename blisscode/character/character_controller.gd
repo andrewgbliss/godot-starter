@@ -24,6 +24,7 @@ class_name CharacterController extends CharacterBody2D
 @export_group("Abilities")
 @export var dangling_raycast: RayCast2D
 @export var ladder_raycast: RayCast2D
+@export var ledge_grab_raycast: RayCast2D
 
 var is_alive = false
 var is_facing_right = true
@@ -40,6 +41,7 @@ var current_tilemap_collider: TileMapLayerAdvanced
 
 signal spawned(pos: Vector2)
 signal died(character: CharacterController)
+signal facing_direction_changed
 
 func _ready() -> void:
 	hide()
@@ -189,7 +191,7 @@ func is_on_land():
 
 func is_wall_clinging():
 	var is_wall = is_on_wall()
-	if is_wall:
+	if is_wall and ledge_grab_raycast.is_colliding():
 		var collision = get_last_slide_collision()
 		if collision:
 			var collider = collision.get_collider()
@@ -201,6 +203,21 @@ func is_wall_clinging():
 				elif controls.is_pressing_left() and not colliision_right:
 					return wall_cling_point
 	return null
+
+func is_ledge_grabbing():
+	if ledge_grab_raycast:
+		if not ledge_grab_raycast.is_colliding():
+			if is_on_wall():
+					if controls.is_pressing_right() and is_facing_right:
+						return true
+					elif controls.is_pressing_left() and not is_facing_right:
+						return true
+	return false
+
+func is_smashing_down():
+	if controls.is_attacking_left_hand() and controls.is_pressing_down():
+		return true
+	return false
 
 func handle_collisions(resolve: bool = false):
 	var physics = character.get_physics_group()
@@ -320,6 +337,10 @@ func die(hide_after: bool = true):
 		await get_tree().create_timer(garbage_time).timeout
 		if hide_after:
 			hide()
+
+func flip_h():
+	animated_sprite.flip_h = not is_facing_right
+	facing_direction_changed.emit()
 
 func take_damage(amount: int):
 	if not is_alive:

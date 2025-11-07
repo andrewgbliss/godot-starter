@@ -67,7 +67,4 @@ character_sheet = SubResource("Resource_87gpj")
 inventory = SubResource("Resource_5225y")
 equipment = SubResource("Resource_ig5tk")
 weapon_belt = SubResource("Resource_fmvi1")
-allow_y_controls = true
-gravity_percent = 0.0
-dash_speed_multiplier = 7.0
 metadata/_custom_type_script = "uid://dm5r6oukwhccm"

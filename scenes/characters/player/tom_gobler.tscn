@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dabgp8qon8cl6"]
+[gd_scene load_steps=70 format=3 uid="uid://dabgp8qon8cl6"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_7kyxw"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_1op74"]
@@ -47,6 +47,10 @@
 [ext_resource type="Script" uid="uid://dymnvmk5ys3e6" path="res://blisscode/state_machine/states/ladder_climb_state.gd" id="43_ornbi"]
 [ext_resource type="Script" uid="uid://d0fmsyj4x3pii" path="res://blisscode/state_machine/states/swim_state.gd" id="44_ornbi"]
 [ext_resource type="Resource" uid="uid://c7fxl34nddumx" path="res://blisscode/character/physics_groups/water_physics.tres" id="46_bvs6l"]
+[ext_resource type="Script" uid="uid://doqs1otgurbf7" path="res://blisscode/state_machine/states/ledge_grab_state.gd" id="47_bvefi"]
+[ext_resource type="Script" uid="uid://brpw06rdkd7fp" path="res://blisscode/state_machine/states/ledge_climb_state.gd" id="48_lout0"]
+[ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_ns27v"]
+[ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_nvc1a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_7kyxw")
@@ -245,7 +249,7 @@ _data = {
 &"Spawn": SubResource("Animation_ciexm")
 }
 
-[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dangling_raycast", "ladder_raycast") groups=["persist", "player"]]
+[node name="TomGobler" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dangling_raycast", "ladder_raycast", "ledge_grab_raycast") groups=["persist", "player"]]
 material = SubResource("ShaderMaterial_8kth0")
 collision_mask = 260
 script = ExtResource("2_1op74")
@@ -254,6 +258,7 @@ controls = NodePath("PlayerControls")
 state_machine = NodePath("PlatformerStateMachine")
 dangling_raycast = NodePath("DanglingRayCast2D")
 ladder_raycast = NodePath("LadderRayCast2D")
+ledge_grab_raycast = NodePath("LedgeGrabRayCast2D")
 
 [node name="PlayerControls" type="Node" parent="." node_paths=PackedStringArray("state_machine", "aim_sprite", "touch_sprite")]
 script = ExtResource("4_vluxo")
@@ -314,8 +319,7 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("6_dwp1v")
-animation = &"Idle"
-frame_progress = 0.47272238
+animation = &"Smash Down Started"
 offset = Vector2(1.125, 4.15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -412,20 +416,29 @@ position_smoothing_enabled = true
 position_smoothing_speed = 25.0
 script = ExtResource("15_k7jyn")
 
-[node name="DanglingRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("animated_sprite")]
+[node name="DanglingRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
 position = Vector2(10, 0)
 collision_mask = 4
 script = ExtResource("18_rdljg")
-animated_sprite = NodePath("../AnimatedSprite2D")
+agent = NodePath("..")
 facing_left_position = Vector2(-10, 0)
 facing_right_position = Vector2(10, 0)
 
-[node name="LadderRayCast2D" type="RayCast2D" parent="."]
+[node name="LadderRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
 position = Vector2(0, 20)
 target_position = Vector2(0, -25)
 collision_mask = 2048
 hit_from_inside = true
 script = ExtResource("18_rdljg")
+agent = NodePath("..")
+metadata/_custom_type_script = "uid://bx4nlc04ew5og"
+
+[node name="LedgeGrabRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
+target_position = Vector2(15, 0)
+collision_mask = 4
+hit_from_inside = true
+script = ExtResource("18_rdljg")
+agent = NodePath("..")
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state", "idle_state")]
@@ -580,6 +593,29 @@ animation_name = "Swim"
 freeze_physics = true
 freeze_state = true
 metadata/_custom_type_script = "uid://d0fmsyj4x3pii"
+
+[node name="LedgeGrabState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("47_bvefi")
+hand_offset = Vector2(0, 2)
+animation_name = "Ledge Grab"
+metadata/_custom_type_script = "uid://doqs1otgurbf7"
+
+[node name="LedgeClimbState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("48_lout0")
+animation_name = "Ledge Climb"
+wait_for_animation_finished = true
+
+[node name="SmashDownState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("49_ns27v")
+physics_group = ExtResource("50_nvc1a")
+animation_started = "Smash Down Started"
+animation_performed = "Smash Down Performed"
+animation_collided = "Smash Down Collided"
+collide_effect = ExtResource("6_vluxo")
+play_on_enter = false
+wait_for_animation_finished = true
+freeze_state = true
+metadata/_custom_type_script = "uid://blnadlxb5ld8"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.0

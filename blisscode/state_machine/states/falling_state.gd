@@ -15,6 +15,9 @@ func process_physics(delta: float) -> void:
 	if parent.is_on_floor():
 		state_machine.dispatch("land")
 		return
+	if parent.is_ledge_grabbing():
+		state_machine.dispatch("ledge_grab")
+		return
 	if parent.is_wall_clinging():
 		state_machine.dispatch("wall_cling")
 		return

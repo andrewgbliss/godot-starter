@@ -44,6 +44,11 @@ func _ready() -> void:
 
 	add_transition(null, states["SwimState"], "swim")
 
+	add_transition(null, states["LedgeGrabState"], "ledge_grab")
+	add_transition(states["LedgeGrabState"], states["LedgeClimbState"], "ledge_climb")
+
+	add_transition(null, states["SmashDownState"], "smash_down")
+
 	add_transition(null, states["DamageState"], "damage")
 	add_transition(null, states["DeathState"], "death")
 

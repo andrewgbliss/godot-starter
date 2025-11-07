@@ -14,14 +14,9 @@ func process_input(event: InputEvent) -> void:
 	super.process_input(event)
 
 func process_physics(_delta: float) -> void:
-	var collision_point = parent.is_wall_clinging()
-	if collision_point == null:
+	if not parent.is_wall_clinging():
 		state_machine.dispatch("falling")
 		return
-	if collision_point.x > parent.global_position.x:
-		parent.is_facing_right = true
-	else:
-		parent.is_facing_right = false
 
 func exit() -> void:
 	super.exit()

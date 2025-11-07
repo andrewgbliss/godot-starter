@@ -9,6 +9,8 @@ func process_input(event: InputEvent) -> void:
 		state_machine.dispatch("jump")
 	elif event.is_action_pressed("change_gravity_dir"):
 		GameManager.toggle_anti_gravity()
+	elif event.is_action_pressed("smash_down"):
+		state_machine.dispatch("smash_down")
 	elif event.is_action_pressed("attack_left_hand") or event.is_action_pressed("attack_right_hand"):
 		_attack()
 

@@ -49,7 +49,7 @@ position = Vector2(540, -56)
 position = Vector2(540, -40)
 
 [node name="PlayerSpawner" type="Node2D" parent="." node_paths=PackedStringArray("entity_container")]
-position = Vector2(792, 511)
+position = Vector2(256, 320)
 script = ExtResource("7_2fypn")
 player_key = "tom"
 entity_container = NodePath("../EntityContainer")
