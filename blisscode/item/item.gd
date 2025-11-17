@@ -29,7 +29,7 @@ func copy_item_from_data_store():
 	if name == "":
 		print("Name is empty")
 		return
-	var new_item = DataStore.create_item("items/" + package, name)
+	var new_item = ResourceStore.create_item("items/" + package, name)
 	if new_item == null:
 		print("Item not found")
 		return

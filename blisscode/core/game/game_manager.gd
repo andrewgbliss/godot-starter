@@ -9,7 +9,6 @@ extends Node2D
 
 signal paused_toggled(is_paused: bool)
 
-
 func open_user_folder():
 	var user_data_path = ProjectSettings.globalize_path("user://")
 	OS.shell_open(user_data_path)

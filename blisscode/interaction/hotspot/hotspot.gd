@@ -45,7 +45,7 @@ signal pickedup(item: Item, pos: Vector2)
 
 func _ready():
 	if create_random_item:
-		item = DataStore.create_random_item()
+		item = ResourceStore.create_random_item()
 
 	if in_range_area:
 		in_range_area.body_entered.connect(_on_in_range_body_entered)

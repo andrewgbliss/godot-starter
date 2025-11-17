@@ -1,68 +1,116 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwmuvj8j5mlr"]
+[gd_scene load_steps=2 format=3 uid="uid://cwmuvj8j5mlr"]
 
-[ext_resource type="Texture2D" uid="uid://ct6s243s7s3o4" path="res://blisscode/particles/rain/RainDropSingle.png" id="1_audam"]
-[ext_resource type="Script" uid="uid://gxm47gdn6yae" path="res://blisscode/weather/weather_service.gd" id="1_bhuv2"]
-[ext_resource type="Material" uid="uid://uu1tau6oeupm" path="res://blisscode/weather/particles_light_rain.tres" id="2_e5ud2"]
-[ext_resource type="Material" uid="uid://cavlnlycm34gu" path="res://blisscode/weather/particles_heavy_rain.tres" id="3_kfgnp"]
+[ext_resource type="Script" uid="uid://dfl6tkns7cni2" path="res://blisscode/weather/weather_service.gd" id="1_bhuv2"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfgnp"]
-light_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cyp2q"]
-light_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_cyp2q"]
-offsets = PackedFloat32Array(0, 0.986175)
-colors = PackedColorArray(1, 1, 1, 1, 0.572988, 0.572988, 0.572988, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_i3vn0"]
-gradient = SubResource("Gradient_cyp2q")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tqx0i"]
-particle_flag_disable_z = true
-direction = Vector3(0, -1, 0)
-spread = 90.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 50, 0)
-scale_max = 3.0
-color_ramp = SubResource("GradientTexture1D_i3vn0")
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o10lc"]
-polygon = PackedVector2Array(-88, -38, -86, 75, 119, 78, 115, -35)
-
-[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("rain_particles")]
+[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel", "debug_label")]
 script = ExtResource("1_bhuv2")
-rain_particles = NodePath("RainParticles")
-light_rain = ExtResource("2_e5ud2")
-heavy_rain = ExtResource("3_kfgnp")
+debug_panel = NodePath("CanvasLayer/Panel")
+debug_label = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer4/DebugLabel")
 
-[node name="RainParticles" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_kfgnp")
-amount = 2000
-sub_emitter = NodePath("../RainSubEmitter")
-texture = ExtResource("1_audam")
-lifetime = 24.0
-speed_scale = 2.0
-fixed_fps = 60
-visibility_rect = Rect2(0, 0, 1600, 1600)
-local_coords = true
-trail_enabled = true
-trail_lifetime = 0.07
-trail_sections = 7
-trail_section_subdivisions = 1
-process_material = ExtResource("2_e5ud2")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="RainSubEmitter" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_cyp2q")
-emitting = false
-amount = 200
-one_shot = true
-visibility_rect = Rect2(0, 0, 1600, 1600)
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_tqx0i")
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -181.0
+grow_horizontal = 0
+grow_vertical = 0
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-position = Vector2(309, 184)
-occluder = SubResource("OccluderPolygon2D_o10lc")
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Sunny, No wind, No Fog"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NoneButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "No Weather"
+
+[node name="RainButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Rain"
+
+[node name="SnowButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Snow"
+
+[node name="HailButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hail"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="BreezyButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Breezy"
+
+[node name="WindyButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Windy"
+
+[node name="LeftWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="DownWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "^"
+
+[node name="RightWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NoFogButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "No Fog"
+
+[node name="LightFogButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Light Fog"
+
+[node name="HeavyFogButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Heavy Fog"
+
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/NoneButton" to="." method="_on_none_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/RainButton" to="." method="_on_rain_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/SnowButton" to="." method="_on_snow_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/HailButton" to="." method="_on_hail_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/BreezyButton" to="." method="_on_breezy_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/WindyButton" to="." method="_on_windy_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/LeftWindButton" to="." method="_on_left_wind_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/DownWindButton" to="." method="_on_down_wind_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/RightWindButton" to="." method="_on_right_wind_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3/NoFogButton" to="." method="_on_no_fog_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3/LightFogButton" to="." method="_on_light_fog_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3/HeavyFogButton" to="." method="_on_heavy_fog_button_pressed"]

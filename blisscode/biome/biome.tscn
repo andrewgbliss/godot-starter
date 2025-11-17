@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://cbcy42rfraa12"]
+
+[ext_resource type="Script" uid="uid://bkditkbriy5j" path="res://blisscode/biome/biome.gd" id="1_0jsp5"]
+[ext_resource type="Texture2D" uid="uid://c6uggq6gfwyxb" path="res://assets/img/backgrounds/stone-mountians/Layer 6.png" id="2_geebi"]
+[ext_resource type="Texture2D" uid="uid://beqrqt30srbfq" path="res://assets/img/backgrounds/stone-mountians/Layer 3 Copy.png" id="3_cxwvv"]
+[ext_resource type="Texture2D" uid="uid://0xjc5i3i4g7a" path="res://assets/img/backgrounds/stone-mountians/Layer 1.png" id="4_mt8rh"]
+[ext_resource type="Texture2D" uid="uid://bbmtwcckoycxd" path="res://assets/img/backgrounds/stone-mountians/Layer 5.png" id="5_je82k"]
+[ext_resource type="Texture2D" uid="uid://50vunfil30bp" path="res://assets/img/backgrounds/stone-mountians/Layer 3.png" id="6_vc0di"]
+[ext_resource type="Texture2D" uid="uid://cr6i3yet74hn7" path="res://assets/img/backgrounds/stone-mountians/Layer 7.png" id="7_eqwqf"]
+[ext_resource type="Script" uid="uid://bhon2xgpy7g5i" path="res://blisscode/world_time/day_night_cycle_canvas_modulate.gd" id="8_mt8rh"]
+[ext_resource type="Texture2D" uid="uid://d77kytle7yu5" path="res://blisscode/world_time/day_night_cycle_gradient.tres" id="9_je82k"]
+[ext_resource type="PackedScene" uid="uid://be4te6c4xng8j" path="res://blisscode/weather/rain.tscn" id="10_je82k"]
+
+[sub_resource type="Environment" id="Environment_vc0di"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.02
+glow_blend_mode = 1
+
+[node name="Biome" type="Node2D"]
+script = ExtResource("1_0jsp5")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 180)
+repeat_times = 10
+
+[node name="Sky" type="Sprite2D" parent="Background/Parallax2D"]
+texture = ExtResource("2_geebi")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 0)
+repeat_times = 10
+
+[node name="MountainsBg" type="Sprite2D" parent="Background/Parallax2D2"]
+texture = ExtResource("3_cxwvv")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 0)
+repeat_times = 10
+
+[node name="Clouds" type="Sprite2D" parent="Background/Parallax2D3"]
+texture = ExtResource("4_mt8rh")
+
+[node name="Parallax2D4" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 0)
+repeat_times = 10
+
+[node name="Sand" type="Sprite2D" parent="Background/Parallax2D4"]
+position = Vector2(-1, -11)
+texture = ExtResource("5_je82k")
+
+[node name="Parallax2D5" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(320, 0)
+repeat_times = 10
+
+[node name="Mountains" type="Sprite2D" parent="Background/Parallax2D5"]
+position = Vector2(0, -6)
+texture = ExtResource("6_vc0di")
+
+[node name="Parallax2D6" type="Parallax2D" parent="Background"]
+scroll_offset = Vector2(0, 100)
+repeat_size = Vector2(320, 0)
+repeat_times = 10
+
+[node name="Ground" type="Sprite2D" parent="Background/Parallax2D6"]
+position = Vector2(-2, 68)
+texture = ExtResource("7_eqwqf")
+
+[node name="Ground2" type="Sprite2D" parent="Background/Parallax2D6"]
+position = Vector2(-6, 384)
+texture = ExtResource("7_eqwqf")
+
+[node name="Ground3" type="Sprite2D" parent="Background/Parallax2D6"]
+position = Vector2(-3, 212)
+texture = ExtResource("7_eqwqf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vc0di")
+
+[node name="DayNightCanvasModulate" type="CanvasModulate" parent="."]
+script = ExtResource("8_mt8rh")
+gradient = ExtResource("9_je82k")
+
+[node name="Rain" parent="." instance=ExtResource("10_je82k")]
+position = Vector2(-528, -320)

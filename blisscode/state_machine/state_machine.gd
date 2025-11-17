@@ -48,11 +48,11 @@ func dispatch(transition_name: String, force: bool = false):
 		return
 	if state_a == null:
 		state_a = current_state
-	if state_a:
+	if state_a and state_a.enabled:
 		state_a.exit()
 	if not state_b:
 		state_b = idle_state
-	if state_b:
+	if state_b and state_b.enabled:
 		active_state_changed.emit(state_b, state_a)
 		current_state = state_b
 		current_state.enter()

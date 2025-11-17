@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dabgp8qon8cl6"]
+[gd_scene load_steps=71 format=3 uid="uid://dabgp8qon8cl6"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_7kyxw"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_1op74"]
@@ -51,6 +51,7 @@
 [ext_resource type="Script" uid="uid://brpw06rdkd7fp" path="res://blisscode/state_machine/states/ledge_climb_state.gd" id="48_lout0"]
 [ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_ns27v"]
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_nvc1a"]
+[ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_c4gaj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_7kyxw")
@@ -319,7 +320,7 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("6_dwp1v")
-animation = &"Smash Down Started"
+animation = &"Wall Jump"
 offset = Vector2(1.125, 4.15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -616,6 +617,14 @@ play_on_enter = false
 wait_for_animation_finished = true
 freeze_state = true
 metadata/_custom_type_script = "uid://blnadlxb5ld8"
+
+[node name="RollState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+script = ExtResource("51_c4gaj")
+collision_shape = NodePath("../../CollisionShape2D")
+crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
+animation_name = "Roll"
+wait_for_animation_finished = true
+metadata/_custom_type_script = "uid://ckix7re6h2e6k"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.0

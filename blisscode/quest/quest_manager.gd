@@ -7,7 +7,7 @@ extends Node
 @export_tool_button("Copy Quest From Data Store", "Callable") var copy_quest_from_data_store_action = copy_quest_from_data_store
 
 func copy_quest_from_data_store():
-	quests = DataStore.create_quests()
+	quests = ResourceStore.create_quests()
 
 func set_quest(quest_id: String):
 	current_quest_id = quest_id

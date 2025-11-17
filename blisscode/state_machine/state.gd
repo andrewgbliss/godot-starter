@@ -1,5 +1,7 @@
 class_name State extends Node
 
+@export var enabled: bool = true
+
 var parent
 var state_machine: StateMachine
 

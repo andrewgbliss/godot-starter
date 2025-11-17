@@ -25,6 +25,7 @@ buses/default_bus_layout="res://blisscode/core/audio/default_bus_layout.tres"
 [autoload]
 
 DataStore="*res://blisscode/core/data/data_store.gd"
+ResourceStore="*res://blisscode/core/data/resource_store.gd"
 UserDataStore="*res://blisscode/core/data/user_data_store.tscn"
 EventBus="*res://blisscode/core/bus/event_bus.gd"
 GameManager="*res://blisscode/core/game/game_manager.tscn"
@@ -35,8 +36,8 @@ SpawnManager="*res://scenes/spawning/spawn_manager.tscn"
 RewindManager="*res://blisscode/core/data/rewind_manager.gd"
 NotifcationsToast="*res://blisscode/ui/notifications/notifcations_toast.tscn"
 DialogManager="*res://blisscode/dialog/dialog_manager.tscn"
-WeatherService="*res://blisscode/weather/weather_service.tscn"
 WorldTimeService="*res://blisscode/world_time/world_time_service.tscn"
+WeatherService="*res://blisscode/weather/weather_service.tscn"
 
 [display]
 
@@ -208,6 +209,11 @@ slide={
 smash_down={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":86,"key_label":0,"unicode":118,"location":0,"echo":false,"script":null)
+]
+}
+roll={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":122,"location":0,"echo":false,"script":null)
 ]
 }
 

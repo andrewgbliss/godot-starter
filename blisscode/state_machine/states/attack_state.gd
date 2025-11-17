@@ -21,6 +21,7 @@ func enter():
 		if attack_item:
 			attack_rate = attack_item.attack_rate
 	play_animation_name(left_hand_attack_animation if hand_direction == "left" else right_hand_attack_animation, attack_item == null)
+	parent.attack_momentum()
 
 func process_input(event: InputEvent) -> void:
 	if parent.paralyzed:

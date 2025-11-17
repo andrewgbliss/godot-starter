@@ -21,6 +21,7 @@ z_index = -50
 position = Vector2(760, 392)
 
 [node name="PlatformerBackground" parent="WorldAreas" instance=ExtResource("7_3u3t0")]
+position = Vector2(0, -168)
 
 [node name="Platformer" parent="WorldAreas" instance=ExtResource("6_peqdm")]
 

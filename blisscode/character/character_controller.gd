@@ -132,6 +132,12 @@ func clamp_velocity():
 func stop():
 	velocity = Vector2.ZERO
 
+func attack_momentum():
+	var physics = character.get_physics_group()
+	var direction = controls.get_facing_direction()
+	velocity.x += direction.x * physics.speed * physics.attack_momentum_multiplier
+	return direction
+
 func dash():
 	var physics = character.get_physics_group()
 	var direction = Vector2.ZERO
@@ -142,6 +148,12 @@ func dash():
 		direction = controls.get_aim_direction()
 	stop()
 	velocity += direction * physics.speed * physics.dash_speed_multiplier
+	return direction
+
+func roll():
+	var physics = character.get_physics_group()
+	var direction = controls.get_facing_direction()
+	velocity.x += direction.x * physics.speed * physics.roll_speed_multiplier
 	return direction
 
 func slide():
@@ -190,8 +202,9 @@ func is_on_land():
 	return false
 
 func is_wall_clinging():
-	var is_wall = is_on_wall()
-	if is_wall and ledge_grab_raycast.is_colliding():
+	if is_on_wall():
+		if not character.get_physics_group().require_input_direction:
+			return true
 		var collision = get_last_slide_collision()
 		if collision:
 			var collider = collision.get_collider()
@@ -218,6 +231,12 @@ func is_smashing_down():
 	if controls.is_attacking_left_hand() and controls.is_pressing_down():
 		return true
 	return false
+
+func set_flip_to_input_direction():
+	if controls.is_pressing_right():
+		animated_sprite.flip_h = false
+	elif controls.is_pressing_left():
+		animated_sprite.flip_h = true
 
 func handle_collisions(resolve: bool = false):
 	var physics = character.get_physics_group()

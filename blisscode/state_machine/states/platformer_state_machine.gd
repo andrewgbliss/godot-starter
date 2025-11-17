@@ -22,6 +22,8 @@ func _ready() -> void:
 	add_transition(null, states["FallingState"], "falling")
 	add_transition(null, states["LandState"], "land")
 
+	add_transition(null, states["RollState"], "roll")
+
 	add_transition(states["JumpState"], states["WallClingState"], "wall_cling")
 	add_transition(states["WallClingState"], states["WallJumpState"], "wall_jump")
 

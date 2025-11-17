@@ -20,6 +20,9 @@ class_name PhysicsGroup extends Resource
 @export_group("Jump")
 @export var jump_force: float = 100.0
 
+@export_group("Roll")
+@export var roll_speed_multiplier: float = 5.0
+
 @export_group("Push")
 @export var push_force: float = 300.0
 
@@ -36,3 +39,10 @@ class_name PhysicsGroup extends Resource
 @export var slide_time: float = 0.5
 @export var slide_speed_multiplier: float = 10.0
 @export var slide_stop_on_end: bool = false
+
+@export_group("Wall Cling")
+@export var require_input_direction: bool = false
+@export var wall_cling_gravity_percent: float = 0.5
+
+@export_group("Attack")
+@export var attack_momentum_multiplier: float = 5.0
