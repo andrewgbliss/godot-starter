@@ -1,10 +1,12 @@
-[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://drxegvekcmdv2"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://drxegvekcmdv2"]
 
 [ext_resource type="Texture2D" uid="uid://bec24o4kf33vv" path="res://assets/img/environment/ladder.png" id="1_f2sc2"]
 [ext_resource type="Texture2D" uid="uid://cyenqpj37hso1" path="res://assets/img/terrains/platformer-tiles.png" id="1_tkyiq"]
 [ext_resource type="PackedScene" uid="uid://d1tx2ym7fo337" path="res://scenes/environment/spikes.tscn" id="2_gvefr"]
 [ext_resource type="Texture2D" uid="uid://c8j36u5gg36cn" path="res://assets/img/environment/water.png" id="4_4xqhc"]
 [ext_resource type="Texture2D" uid="uid://bufbnt3u0mmgb" path="res://assets/img/environment/ice.png" id="5_8us4j"]
+[ext_resource type="Texture2D" uid="uid://wasysgxsa57s" path="res://assets/img/biome/grass.png" id="6_5a0gb"]
+[ext_resource type="Shader" uid="uid://dhg085sftomkn" path="res://blisscode/shaders/windy_grass.gdshader" id="6_w75pm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xqhc"]
 texture = ExtResource("1_f2sc2")
@@ -678,6 +680,67 @@ texture = ExtResource("5_8us4j")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="Gradient" id="Gradient_w75pm"]
+colors = PackedColorArray(0.11372549, 0.6862745, 0.20784314, 1, 0.11372549, 0.6862745, 0.20784314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pvfxj"]
+gradient = SubResource("Gradient_w75pm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvfxj"]
+shader = ExtResource("6_w75pm")
+shader_parameter/gradient_texture = SubResource("GradientTexture1D_pvfxj")
+shader_parameter/gradient_blend = 0.5
+shader_parameter/wind_strength = 1.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w75pm"]
+texture = ExtResource("6_5a0gb")
+0:0/0 = 0
+0:0/0/material = SubResource("ShaderMaterial_pvfxj")
+1:0/0 = 0
+1:0/0/material = SubResource("ShaderMaterial_pvfxj")
+2:0/0 = 0
+2:0/0/material = SubResource("ShaderMaterial_pvfxj")
+3:0/0 = 0
+3:0/0/material = SubResource("ShaderMaterial_pvfxj")
+0:1/0 = 0
+0:1/0/material = SubResource("ShaderMaterial_pvfxj")
+1:1/0 = 0
+1:1/0/material = SubResource("ShaderMaterial_pvfxj")
+2:1/0 = 0
+2:1/0/material = SubResource("ShaderMaterial_pvfxj")
+3:1/0 = 0
+3:1/0/material = SubResource("ShaderMaterial_pvfxj")
+0:2/0 = 0
+0:2/0/material = SubResource("ShaderMaterial_pvfxj")
+1:2/0 = 0
+1:2/0/material = SubResource("ShaderMaterial_pvfxj")
+2:2/0 = 0
+2:2/0/material = SubResource("ShaderMaterial_pvfxj")
+3:2/0 = 0
+3:2/0/material = SubResource("ShaderMaterial_pvfxj")
+0:3/0 = 0
+0:3/0/material = SubResource("ShaderMaterial_pvfxj")
+1:3/0 = 0
+1:3/0/material = SubResource("ShaderMaterial_pvfxj")
+2:3/0 = 0
+2:3/0/material = SubResource("ShaderMaterial_pvfxj")
+3:3/0 = 0
+3:3/0/material = SubResource("ShaderMaterial_pvfxj")
+0:4/0 = 0
+0:4/0/material = SubResource("ShaderMaterial_pvfxj")
+1:4/0 = 0
+1:4/0/material = SubResource("ShaderMaterial_pvfxj")
+2:4/0 = 0
+2:4/0/material = SubResource("ShaderMaterial_pvfxj")
+0:5/0 = 0
+0:5/0/material = SubResource("ShaderMaterial_pvfxj")
+1:5/0 = 0
+1:5/0/material = SubResource("ShaderMaterial_pvfxj")
+2:5/0 = 0
+2:5/0/material = SubResource("ShaderMaterial_pvfxj")
+3:5/0 = 0
+3:5/0/material = SubResource("ShaderMaterial_pvfxj")
+
 [resource]
 occlusion_layer_0/light_mask = 1
 occlusion_layer_0/sdf_collision = true
@@ -693,3 +756,4 @@ sources/2 = SubResource("TileSetScenesCollectionSource_f2sc2")
 sources/0 = SubResource("TileSetAtlasSource_4xqhc")
 sources/3 = SubResource("TileSetAtlasSource_8us4j")
 sources/4 = SubResource("TileSetAtlasSource_5a0gb")
+sources/7 = SubResource("TileSetAtlasSource_w75pm")

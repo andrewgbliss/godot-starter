@@ -33,10 +33,10 @@ polygon = PackedVector2Array(-88, -38, -86, 75, 119, 78, 115, -35)
 
 [node name="Rain" type="Node2D" node_paths=PackedStringArray("particles")]
 script = ExtResource("1_ei1c5")
-weather_service_type = 1
 particles = NodePath("RainParticles")
 light_material = ExtResource("3_fioaj")
 heavy_material = ExtResource("3_7iyyq")
+gravity_x = 25.0
 
 [node name="RainParticles" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_kfgnp")
