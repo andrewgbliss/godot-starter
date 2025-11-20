@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dfl6tkns7cni2" path="res://blisscode/weather/weather_service.gd" id="1_bhuv2"]
 
-[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel", "debug_label")]
+[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel")]
 script = ExtResource("1_bhuv2")
 debug_panel = NodePath("CanvasLayer/Panel")
-debug_label = NodePath("")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -15,8 +14,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -270.0
-offset_top = -211.0
+offset_left = -229.0
+offset_top = -249.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -35,73 +34,108 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="NoneButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "None"
-
-[node name="RainButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Rain"
-
-[node name="SnowButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Snow"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="HailButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "Hail"
-
-[node name="LeavesButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "Leaves"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="WindCheckButton" type="CheckButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Moisture"
+
+[node name="MoistureHSlider" type="HSlider" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.25
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Altitude"
+
+[node name="AltitudeHSlider" type="HSlider" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(110, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.25
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Temp"
+
+[node name="TempHSlider" type="HSlider" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(110, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.25
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Barometer"
+
+[node name="BarometerHSlider" type="HSlider" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(110, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.25
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "Wind"
 
-[node name="FogCheckButton" type="CheckButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="WindHSlider" type="HSlider" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(110, 27)
 layout_mode = 2
-text = "Fog"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HeavyCheckButton" type="CheckButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-text = "Heavy"
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.25
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Wind Direction"
+text = "Direction"
 
-[node name="LeftWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="LeftWeatherButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "<"
 
-[node name="DownWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="DownWeatherButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "^"
 
-[node name="RightWindButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="RightWeatherButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = ">"
 
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/NoneButton" to="." method="_on_none_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/RainButton" to="." method="_on_rain_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/SnowButton" to="." method="_on_snow_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer4/HailButton" to="." method="_on_hail_button_pressed"]
-[connection signal="toggled" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3/WindCheckButton" to="." method="_on_wind_check_button_toggled"]
-[connection signal="toggled" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer3/FogCheckButton" to="." method="_on_fog_check_button_toggled"]
-[connection signal="toggled" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer5/HeavyCheckButton" to="." method="_on_heavy_check_button_toggled"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/LeftWindButton" to="." method="_on_left_wind_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/DownWindButton" to="." method="_on_down_wind_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/RightWindButton" to="." method="_on_right_wind_button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MoistureHSlider" to="." method="_on_moisture_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AltitudeHSlider" to="." method="_on_altitude_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/TempHSlider" to="." method="_on_temp_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4/BarometerHSlider" to="." method="_on_barometer_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/WindHSlider" to="." method="_on_wind_h_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/LeftWeatherButton" to="." method="_on_left_weather_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/DownWeatherButton" to="." method="_on_down_weather_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/RightWeatherButton" to="." method="_on_right_weather_button_pressed"]

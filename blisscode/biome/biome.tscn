@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbcy42rfraa12"]
+[gd_scene load_steps=15 format=3 uid="uid://cbcy42rfraa12"]
 
 [ext_resource type="Script" uid="uid://bkditkbriy5j" path="res://blisscode/biome/biome.gd" id="1_0jsp5"]
 [ext_resource type="Texture2D" uid="uid://c6uggq6gfwyxb" path="res://assets/img/backgrounds/stone-mountians/Layer 6.png" id="2_geebi"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://be4te6c4xng8j" path="res://blisscode/weather/rain.tscn" id="10_je82k"]
 [ext_resource type="PackedScene" uid="uid://btuvb7awynuxo" path="res://blisscode/weather/snow.tscn" id="11_vc0di"]
 [ext_resource type="PackedScene" uid="uid://vxcwho7jr11g" path="res://blisscode/weather/wind_trails.tscn" id="12_eqwqf"]
+[ext_resource type="PackedScene" uid="uid://ls0vian2ts0" path="res://blisscode/weather/fog_overlay.tscn" id="13_kh7wf"]
 
 [sub_resource type="Environment" id="Environment_vc0di"]
 background_mode = 3
@@ -84,14 +85,46 @@ environment = SubResource("Environment_vc0di")
 [node name="DayNightCanvasModulate" type="CanvasModulate" parent="."]
 script = ExtResource("8_mt8rh")
 gradient = ExtResource("9_je82k")
+moisture_min = 0.5
+moisture_max = 1.0
+barometer_max = 0.5
+temperature_min = 0.5
+temperature_max = 1.0
 
 [node name="Rain" parent="." instance=ExtResource("10_je82k")]
 position = Vector2(-528, -320)
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_min = 0.5
+temperature_max = 1.0
+altitude_max = 0.5
+barometer_max = 0.5
+wind_speed_max = 1.0
 
 [node name="Snow" parent="." instance=ExtResource("11_vc0di")]
 position = Vector2(-544, -256)
-weather_type = 1
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_max = 0.5
+altitude_min = 0.5
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_max = 1.0
 
 [node name="WindTrails" parent="." instance=ExtResource("12_eqwqf")]
 position = Vector2(-520, -168)
-weather_type = 3
+moisture_max = 1.0
+temperature_max = 1.0
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_min = 0.25
+wind_speed_max = 1.0
+
+[node name="FogOverlay" parent="." instance=ExtResource("13_kh7wf")]
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_max = 1.0
+altitude_max = 0.5
+barometer_min = 0.5
+barometer_max = 1.0
+wind_speed_max = 1.0

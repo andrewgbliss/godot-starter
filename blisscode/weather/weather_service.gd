@@ -1,58 +1,68 @@
 extends Node
 
-@export var weather: Dictionary[String, bool] = {
-	"rain": false,
-	"snow": false,
-	"hail": false,
-	"wind_trails": false,
-	"leaves": false,
-	"fog": false,
-}:
-	set = set_weather, get = get_weather
+@export_range(0.0, 1.0) var moisture: float = 0.0:
+	set = set_moisture, get = get_moisture
 
-func set_weather(value: Dictionary[String, bool]) -> void:
-	weather = value
-	weather_changed.emit(weather, weather_intensity, wind_direction)
+func get_moisture() -> float:
+	return moisture
 
-func get_weather() -> Dictionary[String, bool]:
-	return weather
+func set_moisture(value: float) -> void:
+	moisture = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
 
-func set_weather_key(key: String, value: bool) -> void:
-	weather[key] = value
-	weather_changed.emit(weather, weather_intensity, wind_direction)
+@export_range(0.0, 1.0) var altitude: float = 0.0:
+	set = set_altitude, get = get_altitude
 
-func get_weather_key(key: String) -> bool:
-	return weather[key]
+func get_altitude() -> float:
+	return altitude
 
-enum WeatherIntensity {
-	LIGHT,
-	HEAVY,
-}
+func set_altitude(value: float) -> void:
+	altitude = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
 
-@export var weather_intensity: WeatherIntensity = WeatherIntensity.LIGHT:
-	set = set_weather_intensity, get = get_weather_intensity
+@export_range(0.0, 1.0) var temperature: float = 0.0:
+	set = set_temperature, get = get_temperature
 
-func set_weather_intensity(value: WeatherIntensity) -> void:
-	weather_intensity = value
-	weather_changed.emit(weather, weather_intensity, wind_direction)
+func get_temperature() -> float:
+	return temperature
 
-func get_weather_intensity() -> WeatherIntensity:
-	return weather_intensity
+func set_temperature(value: float) -> void:
+	temperature = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
 
-@export var wind_direction: Vector2 = Vector2.LEFT:
-	set = set_wind_direction, get = get_wind_direction
+@export_range(0.0, 1.0) var barometer: float = 0.0:
+	set = set_barometer, get = get_barometer
 
-func set_wind_direction(value: Vector2) -> void:
-	wind_direction = value
-	weather_changed.emit(weather, weather_intensity, wind_direction)
+func get_barometer() -> float:
+	return barometer
 
-func get_wind_direction() -> Vector2:
-	return wind_direction
+func set_barometer(value: float) -> void:
+	barometer = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
+
+@export_range(0.0, 1.0) var wind_speed: float = 0.0:
+	set = set_wind_speed, get = get_wind_speed
+
+func get_wind_speed() -> float:
+	return wind_speed
+
+func set_wind_speed(value: float) -> void:
+	wind_speed = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
+
+@export var weather_direction: Vector2 = Vector2.LEFT:
+	set = set_weather_direction, get = get_weather_direction
+
+func set_weather_direction(value: Vector2) -> void:
+	weather_direction = value
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
+
+func get_weather_direction() -> Vector2:
+	return weather_direction
 
 @export var debug_panel: Panel
-@export var debug_label: Label
 
-signal weather_changed(weather: Dictionary[String, bool], weather_intensity: WeatherIntensity, wind_direction: Vector2)
+signal weather_changed(moisture: float, altitude: float, temperature: float, barometer: float, wind_speed: float, weather_direction: Vector2)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F1:
@@ -66,49 +76,28 @@ func _ready() -> void:
 	call_deferred("_after_ready")
 
 func _after_ready() -> void:
-	weather_changed.emit(weather, weather_intensity, wind_direction)
+	weather_changed.emit(moisture, altitude, temperature, barometer, wind_speed, weather_direction)
 
-func _on_none_button_pressed() -> void:
-	set_weather({
-		"rain": false,
-		"snow": false,
-		"hail": false,
-		"wind_trails": false,
-		"leaves": false,
-	})
+func _on_right_weather_button_pressed() -> void:
+	set_weather_direction(Vector2.RIGHT)
 
-func _on_rain_button_pressed() -> void:
-	set_weather_key("rain", not get_weather_key("rain"))
+func _on_down_weather_button_pressed() -> void:
+	set_weather_direction(Vector2.ZERO)
 
-func _on_snow_button_pressed() -> void:
-	set_weather_key("snow", not get_weather_key("snow"))
+func _on_left_weather_button_pressed() -> void:
+	set_weather_direction(Vector2.LEFT)
 
-func _on_hail_button_pressed() -> void:
-	set_weather_key("hail", not get_weather_key("hail"))
+func _on_moisture_h_slider_value_changed(value: float) -> void:
+	set_moisture(value)
 
-func _on_breezy_button_pressed() -> void:
-	set_weather_intensity(WeatherIntensity.LIGHT)
+func _on_altitude_h_slider_value_changed(value: float) -> void:
+	set_altitude(value)
 
-func _on_windy_button_pressed() -> void:
-	set_weather_intensity(WeatherIntensity.HEAVY)
+func _on_temp_h_slider_value_changed(value: float) -> void:
+	set_temperature(value)
 
-func _on_left_wind_button_pressed() -> void:
-	set_wind_direction(Vector2.LEFT)
+func _on_barometer_h_slider_value_changed(value: float) -> void:
+	set_barometer(value)
 
-func _on_right_wind_button_pressed() -> void:
-	set_wind_direction(Vector2.RIGHT)
-
-func _on_down_wind_button_pressed() -> void:
-	set_wind_direction(Vector2.ZERO)
-	
-func _on_wind_check_button_toggled(toggled_on: bool) -> void:
-	set_weather_key("wind_trails", toggled_on)
-
-func _on_fog_check_button_toggled(toggled_on: bool) -> void:
-	set_weather_key("fog", toggled_on)
-
-func _on_heavy_check_button_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		set_weather_intensity(WeatherIntensity.HEAVY)
-	else:
-		set_weather_intensity(WeatherIntensity.LIGHT)
+func _on_wind_h_slider_value_changed(value: float) -> void:
+	set_wind_speed(value)
