@@ -1,10 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwmuvj8j5mlr"]
+[gd_scene load_steps=3 format=3 uid="uid://cwmuvj8j5mlr"]
 
 [ext_resource type="Script" uid="uid://dfl6tkns7cni2" path="res://blisscode/weather/weather_service.gd" id="1_bhuv2"]
 
-[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel")]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_audam"]
+
+[node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel", "moisture_slider", "altitude_slider", "temperature_slider", "barometer_slider", "wind_speed_slider")]
 script = ExtResource("1_bhuv2")
 debug_panel = NodePath("CanvasLayer/Panel")
+weather_pattern_noise = SubResource("FastNoiseLite_audam")
+moisture_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MoistureHSlider")
+altitude_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AltitudeHSlider")
+temperature_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3/TempHSlider")
+barometer_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer4/BarometerHSlider")
+wind_speed_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer5/WindHSlider")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

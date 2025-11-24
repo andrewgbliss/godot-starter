@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Godot Starter"
+config/name="$GAME_NAME"
 run/main_scene="uid://b67fmj68dwgra"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -32,7 +32,7 @@ GameManager="*res://blisscode/core/game/game_manager.tscn"
 SceneManager="*res://blisscode/core/scene/scene_manager.tscn"
 ScreenShake="*res://blisscode/core/camera/screen_shake/screen_shake.gd"
 GameUi="*res://blisscode/ui/game/game_ui.tscn"
-SpawnManager="*res://scenes/spawning/spawn_manager.tscn"
+SpawnManager="*res://blisscode/core/spawning/spawn_manager.tscn"
 RewindManager="*res://blisscode/core/data/rewind_manager.gd"
 NotifcationsToast="*res://blisscode/ui/notifications/notifcations_toast.tscn"
 DialogManager="*res://blisscode/dialog/dialog_manager.tscn"

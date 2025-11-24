@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cqwk88xhb2juy" path="res://blisscode/generation/room_filler.gd" id="2_t3lkn"]
 [ext_resource type="PackedScene" uid="uid://dhtvv0vpxt0sy" path="res://scenes/entities/static/static_block_entity.tscn" id="3_e3wf2"]
 [ext_resource type="PackedScene" uid="uid://bkie0rjbgvk4u" path="res://scenes/characters/npc/enemy.tscn" id="4_xqd4x"]
-[ext_resource type="PackedScene" uid="uid://vhowcttm2258" path="res://scenes/spawning/spawn_manager.tscn" id="5_jhmn6"]
+[ext_resource type="PackedScene" uid="uid://vhowcttm2258" path="res://blisscode/core/spawning/spawn_manager.tscn" id="5_jhmn6"]
 [ext_resource type="PackedScene" uid="uid://rl6uf1arw6xc" path="res://scenes/world/world_area/topdown/blue_tiles.tscn" id="6_vyrq4"]
 [ext_resource type="PackedScene" uid="uid://etx7jlxrpxhj" path="res://scenes/characters/npc/enemy_path.tscn" id="7_ibgmw"]
 [ext_resource type="Texture2D" uid="uid://dl5ed1afrnnhn" path="res://assets/img/masks/LightMask.png" id="15_t3lkn"]

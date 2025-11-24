@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dhtvv0vpxt0sy" path="res://scenes/entities/static/static_block_entity.tscn" id="2_6m72w"]
 [ext_resource type="PackedScene" uid="uid://bkie0rjbgvk4u" path="res://scenes/characters/npc/enemy.tscn" id="3_v5dby"]
 [ext_resource type="PackedScene" uid="uid://ck0salr80bwlg" path="res://scenes/world/world_area/topdown/top_down.tscn" id="5_v5dby"]
-[ext_resource type="PackedScene" uid="uid://vhowcttm2258" path="res://scenes/spawning/spawn_manager.tscn" id="8_j2gmx"]
+[ext_resource type="PackedScene" uid="uid://vhowcttm2258" path="res://blisscode/core/spawning/spawn_manager.tscn" id="8_j2gmx"]
 [ext_resource type="PackedScene" uid="uid://etx7jlxrpxhj" path="res://scenes/characters/npc/enemy_path.tscn" id="14_umvgx"]
 
 [sub_resource type="Environment" id="Environment_6m72w"]

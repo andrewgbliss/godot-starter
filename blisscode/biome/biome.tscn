@@ -97,7 +97,7 @@ moisture_min = 0.5
 moisture_max = 1.0
 temperature_min = 0.5
 temperature_max = 1.0
-altitude_max = 0.5
+altitude_max = 1.0
 barometer_max = 0.5
 wind_speed_max = 1.0
 

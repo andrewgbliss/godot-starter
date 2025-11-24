@@ -80,10 +80,6 @@ func save():
 		"music_volume": music_volume,
 		"ambience_volume": ambience_volume,
 		"effects_volume": effects_volume,
-		"movement_type": movement_type,
-		"aim_type": aim_type,
-		"facing_type": facing_type,
-		"attack_type": attack_type,
 		"custom_key_bindings": custom_key_bindings,
 		"zoom_level": zoom_level
 	}
@@ -97,38 +93,14 @@ func restore(data):
 		ambience_volume = data["ambience_volume"]
 	if data.has("effects_volume"):
 		effects_volume = data["effects_volume"]
-	if data.has("movement_type"):
-		match int(data["movement_type"]):
-			0: movement_type = MovementType.DEFAULT
-			1: movement_type = MovementType.MOUSE
-			2: movement_type = MovementType.KEYBOARD
-			3: movement_type = MovementType.JOYSTICK
-			4: movement_type = MovementType.TOUCH
-			5: movement_type = MovementType.AI
-	if data.has("aim_type"):
-		match int(data["aim_type"]):
-			0: aim_type = AimType.DEFAULT
-			1: aim_type = AimType.MOUSE
-			2: aim_type = AimType.KEYBOARD
-			3: aim_type = AimType.JOYSTICK
-			4: aim_type = AimType.TOUCH
-			5: aim_type = AimType.AI
-	if data.has("facing_type"):
-		match int(data["facing_type"]):
-			0: facing_type = FacingType.DEFAULT
-			1: facing_type = FacingType.MOUSE
-			2: facing_type = FacingType.KEYBOARD
-			3: facing_type = FacingType.JOYSTICK
-			4: facing_type = FacingType.TOUCH
-			5: facing_type = FacingType.AI
-	if data.has("attack_type"):
-		match int(data["attack_type"]):
-			0: attack_type = AttackType.DEFAULT
-			1: attack_type = AttackType.MOUSE
-			2: attack_type = AttackType.KEYBOARD
-			3: attack_type = AttackType.JOYSTICK
-			4: attack_type = AttackType.TOUCH
-			5: attack_type = AttackType.AI
+	# if data.has("movement_type"):
+	# 	movement_type = MovementType.values()[int(data["movement_type"])]
+	# if data.has("aim_type"):
+	# 	aim_type = AimType.values()[int(data["aim_type"])]
+	# if data.has("facing_type"):
+	# 	facing_type = FacingType.values()[int(data["facing_type"])]
+	# if data.has("attack_type"):
+	# 	attack_type = AttackType.values()[int(data["attack_type"])]
 	if data.has("custom_key_bindings"):
 		custom_key_bindings = data["custom_key_bindings"]
 	if data.has("zoom_level"):
@@ -149,10 +121,10 @@ func reset():
 	music_volume = 50.0
 	ambience_volume = 50.0
 	effects_volume = 50.0
-	movement_type = MovementType.DEFAULT
-	aim_type = AimType.DEFAULT
-	facing_type = FacingType.DEFAULT
-	attack_type = AttackType.DEFAULT
+	# movement_type = MovementType.DEFAULT
+	# aim_type = AimType.DEFAULT
+	# facing_type = FacingType.DEFAULT
+	# attack_type = AttackType.DEFAULT
 	custom_key_bindings.clear()
 	zoom_level = 1.0
 	save_to_file()
@@ -238,30 +210,3 @@ func _deserialize_input_event(data: Dictionary) -> InputEvent:
 			return event
 	
 	return null
-
-func print_config():
-	print("UserConfig: ", save())
-	print("AimType.DEFAULT: ", AimType.DEFAULT)
-	print("AimType.MOUSE: ", AimType.MOUSE)
-	print("AimType.KEYBOARD: ", AimType.KEYBOARD)
-	print("AimType.JOYSTICK: ", AimType.JOYSTICK)
-	print("AimType.TOUCH: ", AimType.TOUCH)
-	print("AimType.AI: ", AimType.AI)
-	print("MovementType.DEFAULT: ", MovementType.DEFAULT)
-	print("MovementType.MOUSE: ", MovementType.MOUSE)
-	print("MovementType.KEYBOARD: ", MovementType.KEYBOARD)
-	print("MovementType.JOYSTICK: ", MovementType.JOYSTICK)
-	print("MovementType.TOUCH: ", MovementType.TOUCH)
-	print("MovementType.AI: ", MovementType.AI)
-	print("FacingType.DEFAULT: ", FacingType.DEFAULT)
-	print("FacingType.MOUSE: ", FacingType.MOUSE)
-	print("FacingType.KEYBOARD: ", FacingType.KEYBOARD)
-	print("FacingType.JOYSTICK: ", FacingType.JOYSTICK)
-	print("FacingType.TOUCH: ", FacingType.TOUCH)
-	print("FacingType.AI: ", FacingType.AI)
-	print("AttackType.DEFAULT: ", AttackType.DEFAULT)
-	print("AttackType.MOUSE: ", AttackType.MOUSE)
-	print("AttackType.KEYBOARD: ", AttackType.KEYBOARD)
-	print("AttackType.JOYSTICK: ", AttackType.JOYSTICK)
-	print("AttackType.TOUCH: ", AttackType.TOUCH)
-	print("AttackType.AI: ", AttackType.AI)

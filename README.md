@@ -1,19 +1,21 @@
-### Convert png to ico
+# $GAME_NAME
 
-```
-docker run --entrypoint=magick -v ./assets/img/icons:/imgs dpokidov/imagemagick -size 1024x1024 /imgs/icons/icon-1024.png -define icon:auto-resize=256,128,64,48,32,16 icon-1024.ico
-```
+Welcome to **$GAME_NAME**!  
+This is your brand new Godot game project, freshly generated and ready for development.
 
-### Generate Keystore For Google Play
+Happy coding and good luck on your new adventure!
 
-https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html
+## Folder Structure
 
-```
-keytool -v -genkey -keystore mygame.keystore -alias mygame -keyalg RSA -validity 10000
-```
+- `addons/` - Godot engine add-ons and third-party plugins.
+- `assets/` - Game art, images, sounds, and other game assets.
+- `scenes/` - Godot scene files and core game logic.
+- `scripts/` - Project scripts (Python, Bash, Docker, etc.) for automation and tooling.
+- `build/` - Output directories for platform builds (win, linux, macos, android, web).
+- `blisscode/` - Andys core code
 
-### Copy Loading Brand To Assets
+## What this project will setup
 
-```
-cp "/mnt/d/Bliss Code/Marketing/Marketing/0-shield.png" "./assets/img/brand/"
-```
+- Copies a ready-to-use Godot project template to a new folder named after your game
+- Sets up initial folder structure for builds
+- Initializes a new Git repository

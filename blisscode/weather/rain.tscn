@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://be4te6c4xng8j"]
+[gd_scene load_steps=12 format=3 uid="uid://be4te6c4xng8j"]
 
 [ext_resource type="Script" uid="uid://gxm47gdn6yae" path="res://blisscode/weather/weather.gd" id="1_ei1c5"]
 [ext_resource type="Texture2D" uid="uid://ct6s243s7s3o4" path="res://blisscode/particles/rain/RainDropSingle.png" id="2_7iyyq"]
 [ext_resource type="Material" uid="uid://cavlnlycm34gu" path="res://blisscode/weather/particles_heavy_rain.tres" id="3_7iyyq"]
 [ext_resource type="Material" uid="uid://uu1tau6oeupm" path="res://blisscode/weather/particles_light_rain.tres" id="3_fioaj"]
+[ext_resource type="AudioStream" uid="uid://8kd1hbvcc426" path="res://assets/audio/weather/Rain.mp3" id="5_5mxem"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfgnp"]
 light_mode = 1
@@ -31,12 +32,13 @@ color_ramp = SubResource("GradientTexture1D_i3vn0")
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o10lc"]
 polygon = PackedVector2Array(-88, -38, -86, 75, 119, 78, 115, -35)
 
-[node name="Rain" type="Node2D" node_paths=PackedStringArray("particles")]
+[node name="Rain" type="Node2D" node_paths=PackedStringArray("particles", "audio_player")]
 script = ExtResource("1_ei1c5")
 particles = NodePath("RainParticles")
 light_material = ExtResource("3_fioaj")
 heavy_material = ExtResource("3_7iyyq")
 gravity_x = 25.0
+audio_player = NodePath("AudioStreamPlayer")
 
 [node name="RainParticles" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_kfgnp")
@@ -67,3 +69,8 @@ process_material = SubResource("ParticleProcessMaterial_tqx0i")
 visible = false
 position = Vector2(309, 184)
 occluder = SubResource("OccluderPolygon2D_o10lc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_5mxem")
+volume_db = -34.273
+bus = &"Ambience"
