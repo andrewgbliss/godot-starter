@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://bq5erv34tnh8w"
+path="res://.godot/imported/platformer-16x16_l_Back Head.ase_layer-a8069120bf69b80e3f8d6427c68ddc76.res"
+
+[deps]
+
+files=["res://.godot/imported/platformer-16x16_l_Back Head.ase_layer-a8069120bf69b80e3f8d6427c68ddc76.Back Head.texture.res"]
+
+source_file="res://assets/img/characters/silo/platformer-16x16_l_Back Head.ase_layer"
+dest_files=["res://.godot/imported/platformer-16x16_l_Back Head.ase_layer-a8069120bf69b80e3f8d6427c68ddc76.res", "res://.godot/imported/platformer-16x16_l_Back Head.ase_layer-a8069120bf69b80e3f8d6427c68ddc76.Back Head.texture.res"]
+
+[params]
+

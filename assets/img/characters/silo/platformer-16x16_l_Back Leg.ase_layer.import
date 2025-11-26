@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://2shullf2soo2"
+path="res://.godot/imported/platformer-16x16_l_Back Leg.ase_layer-0306ffffa194133a5789d5b9eef5b17c.res"
+
+[deps]
+
+files=["res://.godot/imported/platformer-16x16_l_Back Leg.ase_layer-0306ffffa194133a5789d5b9eef5b17c.Back Leg.texture.res"]
+
+source_file="res://assets/img/characters/silo/platformer-16x16_l_Back Leg.ase_layer"
+dest_files=["res://.godot/imported/platformer-16x16_l_Back Leg.ase_layer-0306ffffa194133a5789d5b9eef5b17c.res", "res://.godot/imported/platformer-16x16_l_Back Leg.ase_layer-0306ffffa194133a5789d5b9eef5b17c.Back Leg.texture.res"]
+
+[params]
+

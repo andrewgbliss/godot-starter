@@ -11,5 +11,5 @@ func _after_ready():
 	spawn()
 	
 func spawn():
-	player = SpawnManager.spawn_player("player", global_position, parent)
+	player = SpawnManager.spawn_player(global_position, parent)
 	EventBus.player_spawned.emit(player)

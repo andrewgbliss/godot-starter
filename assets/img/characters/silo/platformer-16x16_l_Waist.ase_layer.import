@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://0upblkxnm2jc"
+path="res://.godot/imported/platformer-16x16_l_Waist.ase_layer-16e185e964bb3aabf22f1e1017563409.res"
+
+[deps]
+
+files=["res://.godot/imported/platformer-16x16_l_Waist.ase_layer-16e185e964bb3aabf22f1e1017563409.Waist.texture.res"]
+
+source_file="res://assets/img/characters/silo/platformer-16x16_l_Waist.ase_layer"
+dest_files=["res://.godot/imported/platformer-16x16_l_Waist.ase_layer-16e185e964bb3aabf22f1e1017563409.res", "res://.godot/imported/platformer-16x16_l_Waist.ase_layer-16e185e964bb3aabf22f1e1017563409.Waist.texture.res"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ccvsjkoekpbtq"
+path="res://.godot/imported/platformer-32x32.aseprite-251e2e76ef08428299fb1d57a7615f54.res"
+
+[deps]
+
+source_file="res://assets/img/characters/silo/platformer-32x32.aseprite"
+dest_files=["res://.godot/imported/platformer-32x32.aseprite-251e2e76ef08428299fb1d57a7615f54.res"]
+
+[params]
+

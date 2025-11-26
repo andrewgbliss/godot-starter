@@ -53,6 +53,10 @@ func _ready() -> void:
 	if navigation_agent:
 		navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
+func set_skin(skin: SpriteFrames):
+	if animated_sprite:
+		animated_sprite.sprite_frames = skin
+
 func _on_gravity_dir_changed(dir: Vector2):
 	gravity_dir = dir
 

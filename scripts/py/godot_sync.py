@@ -6,7 +6,7 @@ import sys
 
 TEMPLATE_PATH = Path("D:/Code/Code/andrewgbliss/godot-starter")
 GODOT_PROJECT_ROOT_PATH = Path("D:/Code/Code/andrewgbliss")
-CURRENT_PROJECT_PATH = Path("D:/Code/Code/andrewgbliss/tom-gobbler")
+CURRENT_PROJECT_PATH = Path("D:/Code/Code/andrewgbliss/godot-jukebox")
 
 
 # python3 godot_sync.py --godot=input-map,autoloads

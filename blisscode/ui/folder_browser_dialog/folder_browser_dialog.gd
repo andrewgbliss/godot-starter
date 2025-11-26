@@ -6,6 +6,7 @@ class_name FolderBrowserDialog extends Node2D
 @export var select_button: Button
 @export var close_button: Button
 @export var path_edit: TextEdit
+@export var enter_button: Button
 
 var current_path: String = ""
 var root_path: String = "D://"
@@ -24,9 +25,18 @@ func _after_ready():
 	folder_list.item_selected.connect(_on_item_selected)
 	folder_list.item_activated.connect(_on_item_activated)
 	path_edit.text_changed.connect(_on_path_text_changed)
+	enter_button.pressed.connect(_on_enter_pressed)
 	
 	# Initialize with root path
 	set_root_path(root_path)
+
+	OS.request_permission("android.permission.READ_MEDIA_AUDIO")
+
+func _on_enter_pressed():
+	var new_path = path_edit.text.strip_edges()
+	var normalized_new_path = _normalize_path(new_path)
+	if normalized_new_path != current_path:
+		_navigate_to_path(normalized_new_path)
 
 func show_dialog():
 	panel.show()
@@ -73,31 +83,35 @@ func _populate_folder_list(path: String):
 			folder_list.add_item("../", null, false)
 			folder_list.set_item_metadata(folder_list.get_item_count() - 1, parent_path)
 	
-	# List directories first
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	# Get directories and files using modern API
+	var dir_names = dir.get_directories()
+	var file_names = dir.get_files()
 	var dirs = []
 	var files = []
 	
-	while file_name != "":
-		if file_name.begins_with("."):
-			file_name = dir.get_next()
+	# Process directories
+	for dir_name in dir_names:
+		if dir_name.begins_with("."):
 			continue
 		
-		# Use proper path joining
+		var full_path = path
+		if not path.ends_with("/"):
+			full_path += "/"
+		full_path += dir_name
+		full_path = _normalize_path(full_path)
+		dirs.append({"name": dir_name, "path": full_path, "is_dir": true})
+	
+	# Process files
+	for file_name in file_names:
+		if file_name.begins_with("."):
+			continue
+		
 		var full_path = path
 		if not path.ends_with("/"):
 			full_path += "/"
 		full_path += file_name
 		full_path = _normalize_path(full_path)
-		
-		if dir.current_is_dir():
-			dirs.append({"name": file_name, "path": full_path, "is_dir": true})
-		else:
-			files.append({"name": file_name, "path": full_path, "is_dir": false})
-		file_name = dir.get_next()
-	
-	dir.list_dir_end()
+		files.append({"name": file_name, "path": full_path, "is_dir": false})
 	
 	# Sort directories and files
 	dirs.sort_custom(func(a, b): return a.name < b.name)

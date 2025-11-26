@@ -8,6 +8,8 @@ class_name Jukebox extends Node2D
 @export var close_button_panel: bool = false
 @export var show_minimize_button: bool = true
 @export var show_title_label: bool = true
+@export var loop_on_start: bool = false
+@export var tracks_to_load: Array[AudioStream] = []
 
 @export_group("UI")
 @export var panel: Panel
@@ -47,6 +49,9 @@ func _ready():
 		minimize_button.hide()
 	if not show_title_label:
 		title_label.hide()
+	if loop_on_start:
+		repeat_button.modulate = Color.YELLOW
+		is_repeating = true
 	call_deferred("_after_ready")
 
 func _after_ready():
@@ -87,6 +92,9 @@ func _after_ready():
 		var data = DataStore.get_store_by_path("playlists/" + playlist_to_start)
 		if data:
 			_on_album_selected(data.path)
+
+	if tracks_to_load.size() > 0:
+		_on_album_selected("")
 
 	if play_on_start:
 		_on_play_button_pressed()
@@ -140,7 +148,10 @@ func _on_album_selected(path: String) -> void:
 		return
 	for c in songlist_container.get_children():
 		c.queue_free()
-	preload_mp3_folder_tracks(path, "mp3")
+	if tracks_to_load.size() > 0:
+		_preload_tracks_to_load()
+	else:
+		preload_mp3_folder_tracks(path, "mp3")
 	_build_playlist()
 	pause_button.hide()
 	stop_button.hide()
@@ -152,6 +163,16 @@ func _on_player_controls_focus_entered() -> void:
 		pause_button.grab_focus()
 	else:
 		play_button.grab_focus()
+
+func _preload_tracks_to_load() -> void:
+	for track in tracks_to_load:
+		var resource_path = track.resource_path
+		var file_name = resource_path.split("/")[-1]
+		var track_object = {
+			"name": file_name,
+			"track": track
+		}
+		preloaded_tracks.append(track_object)
 
 func preload_mp3_folder_tracks(path: String, ext: String):
 	preloaded_tracks = []
@@ -185,6 +206,8 @@ func get_playlist_track_names() -> Array:
 	return []
 
 func _on_previous_button_pressed() -> void:
+	if preloaded_tracks.size() == 0:
+		return
 	if current_track_index == 0:
 		current_track_index = preloaded_tracks.size() - 1
 	else:
@@ -199,6 +222,8 @@ func _on_next_button_pressed() -> void:
 	pause_button.grab_focus()
 
 func _next_song(index: int = -1) -> void:
+	if preloaded_tracks.size() == 0:
+		return
 	current_track_index = (index + 1) % preloaded_tracks.size()
 	current_song_container = songlist_container.get_child(current_track_index)
 
@@ -212,6 +237,8 @@ func _stop_other_songs() -> void:
 			child.stop()
 
 func _play_current_song() -> void:
+	if not current_song_container:
+		return
 	time_label.text = _get_song_length()
 	if not current_song_container.is_playing:
 		current_song_container.play()
@@ -223,6 +250,8 @@ func _play_current_song() -> void:
 	scroll_container.ensure_control_visible(current_song_container)
 
 func _get_song_length() -> String:
+	if not current_song_container:
+		return ""
 	var seconds = current_song_container.audio_stream_player.stream.get_length()
 	var minutes = seconds / 60
 	var hours = minutes / 60

@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bpvocg3gjelfh" path="res://scenes/characters/player/character_data/player_platformer.tres" id="2_do2kk"]
 [ext_resource type="Script" uid="uid://d2lsy2pdynjo3" path="res://blisscode/character/controls/player_controls.gd" id="3_r6wku"]
 [ext_resource type="Shader" uid="uid://mt14v4fja677" path="res://blisscode/shaders/teleport.gdshader" id="4_8kth0"]
-[ext_resource type="SpriteFrames" uid="uid://dynlf04grls35" path="res://assets/img/characters/platformer-16x16.res" id="4_do2kk"]
+[ext_resource type="SpriteFrames" uid="uid://dynlf04grls35" path="res://assets/img/characters/silo/platformer-16x16.res" id="4_do2kk"]
 [ext_resource type="Script" uid="uid://b0mjv3yqikegv" path="res://blisscode/character/hitbox.gd" id="5_ngigd"]
 [ext_resource type="Script" uid="uid://0vge3j1r1s0n" path="res://blisscode/character/animation/animated_sprite_facing_direction.gd" id="5_rifkl"]
 [ext_resource type="PackedScene" uid="uid://qduhqb6f8ovy" path="res://scenes/characters/ui/character_points_bar.tscn" id="6_rifkl"]

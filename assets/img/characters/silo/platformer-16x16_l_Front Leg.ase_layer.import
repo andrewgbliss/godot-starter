@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://bn8d7dt6k1is0"
+path="res://.godot/imported/platformer-16x16_l_Front Leg.ase_layer-750844c721359893427ef05a6a1cb00c.res"
+
+[deps]
+
+files=["res://.godot/imported/platformer-16x16_l_Front Leg.ase_layer-750844c721359893427ef05a6a1cb00c.Front Leg.texture.res"]
+
+source_file="res://assets/img/characters/silo/platformer-16x16_l_Front Leg.ase_layer"
+dest_files=["res://.godot/imported/platformer-16x16_l_Front Leg.ase_layer-750844c721359893427ef05a6a1cb00c.res", "res://.godot/imported/platformer-16x16_l_Front Leg.ase_layer-750844c721359893427ef05a6a1cb00c.Front Leg.texture.res"]
+
+[params]
+

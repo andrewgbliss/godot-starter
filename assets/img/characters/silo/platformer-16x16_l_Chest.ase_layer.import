@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://d2uwkry1t41d4"
+path="res://.godot/imported/platformer-16x16_l_Chest.ase_layer-ec8f379d32427416dd6688d9c50a41b0.res"
+
+[deps]
+
+files=["res://.godot/imported/platformer-16x16_l_Chest.ase_layer-ec8f379d32427416dd6688d9c50a41b0.Chest.texture.res"]
+
+source_file="res://assets/img/characters/silo/platformer-16x16_l_Chest.ase_layer"
+dest_files=["res://.godot/imported/platformer-16x16_l_Chest.ase_layer-ec8f379d32427416dd6688d9c50a41b0.res", "res://.godot/imported/platformer-16x16_l_Chest.ase_layer-ec8f379d32427416dd6688d9c50a41b0.Chest.texture.res"]
+
+[params]
+

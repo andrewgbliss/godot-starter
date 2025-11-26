@@ -3,12 +3,12 @@
 importer="aseprite_wizard.plugin.spriteframes-split"
 type="PackedDataContainer"
 uid="uid://bmmy2vg3tnc71"
-path="res://.godot/imported/platformer-16x16.aseprite-03ea8dcc96c4a5738f9d1ec6400e1d32.res"
+path="res://.godot/imported/platformer-16x16.aseprite-7db57e66cb89a09267813579a034663f.res"
 
 [deps]
 
-source_file="res://assets/img/characters/platformer-16x16.aseprite"
-dest_files=["res://.godot/imported/platformer-16x16.aseprite-03ea8dcc96c4a5738f9d1ec6400e1d32.res"]
+source_file="res://assets/img/characters/silo/platformer-16x16.aseprite"
+dest_files=["res://.godot/imported/platformer-16x16.aseprite-7db57e66cb89a09267813579a034663f.res"]
 
 [params]
 

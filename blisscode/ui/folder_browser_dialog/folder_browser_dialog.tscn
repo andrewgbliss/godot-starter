@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" uid="uid://3pei8hsje0nt" path="res://blisscode/ui/folder_browser_dialog/folder_browser_dialog.gd" id="1_folder_browser"]
 
-[node name="FolderBrowserDialog" type="Node2D" node_paths=PackedStringArray("panel", "folder_list", "select_button", "close_button", "path_edit")]
+[node name="FolderBrowserDialog" type="Node2D" node_paths=PackedStringArray("panel", "folder_list", "select_button", "close_button", "path_edit", "enter_button")]
 script = ExtResource("1_folder_browser")
 panel = NodePath("CanvasLayer/Panel")
 folder_list = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ScrollContainer/ItemList")
 select_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer/SelectButton")
 close_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer/CloseButton")
-path_edit = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/PathEdit")
+path_edit = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/PathEdit")
+enter_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/Button")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 500
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,12 +40,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PathEdit" type="TextEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PathEdit" type="TextEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "D://"
 placeholder_text = "Enter path and press Enter to navigate..."
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Enter"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

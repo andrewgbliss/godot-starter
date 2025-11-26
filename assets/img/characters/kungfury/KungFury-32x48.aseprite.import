@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bm3rladisad5y"
+path="res://.godot/imported/KungFury-32x48.aseprite-02bbbbc0fb3fe7c28f36cd9b6de3ff57.res"
+
+[deps]
+
+source_file="res://assets/img/characters/kungfury/KungFury-32x48.aseprite"
+dest_files=["res://.godot/imported/KungFury-32x48.aseprite-02bbbbc0fb3fe7c28f36cd9b6de3ff57.res"]
+
+[params]
+
