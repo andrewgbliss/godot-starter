@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dgq6syw2qe32p"]
+[gd_scene load_steps=30 format=3 uid="uid://dgq6syw2qe32p"]
 
 [ext_resource type="Script" uid="uid://bxu41q8tb6kv5" path="res://blisscode/ui/menus/game_menus.gd" id="1_od5r7"]
 [ext_resource type="Script" uid="uid://cg8iv8veotlm8" path="res://blisscode/ui/menus/menu/menu_stack.gd" id="3_ljqv8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dupq66corv17" path="res://blisscode/ui/menus/menu/buttons/menu_game_start_button.gd" id="6_od5r7"]
 [ext_resource type="Script" uid="uid://dn07iyn4dq4i4" path="res://blisscode/ui/menus/menu/buttons/menu_quit_button.gd" id="7_iwh2y"]
 [ext_resource type="PackedScene" uid="uid://c40xhlbq0xxj2" path="res://blisscode/ui/volume_slider/volume_slider.tscn" id="8_fn1d8"]
+[ext_resource type="Script" uid="uid://cvmt3mptfcet4" path="res://blisscode/ui/audio/jukebox/jukebox_open_button.gd" id="8_iwh2y"]
 [ext_resource type="Script" uid="uid://dld4x2ypkgy5l" path="res://blisscode/ui/menus/menu/buttons/menu_save_game_button.gd" id="9_062ld"]
 [ext_resource type="PackedScene" uid="uid://crehrk04266wa" path="res://blisscode/ui/menus/menu/controls_menu/controls_menu.tscn" id="9_bg78d"]
 [ext_resource type="AudioStream" uid="uid://da5oygxus6g8a" path="res://assets/audio/effects/click.mp3" id="9_kxayy"]
@@ -882,6 +883,11 @@ menu_stack = NodePath("../../../../../../..")
 to_menu = NodePath("../../../../../../../AudioMenu")
 metadata/_custom_type_script = "uid://kfj666n2xifd"
 
+[node name="JukeboxButton" type="Button" parent="MenuStack/PauseMenu/Control/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Jukebox"
+script = ExtResource("8_iwh2y")
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="MenuStack/PauseMenu/Control/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -943,6 +949,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="MenuStack/AudioMenu/Control"]
 modulate = Color(1, 1, 1, 0)
@@ -952,10 +959,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.5
-offset_top = -81.0
-offset_right = 64.5
-offset_bottom = 81.0
+offset_left = -115.0
+offset_top = -136.5
+offset_right = 115.0
+offset_bottom = 136.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -966,10 +973,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuStack/AudioMenu/Control/Panel/MarginContainer"]
 layout_mode = 2
@@ -979,17 +986,19 @@ layout_mode = 2
 text = "Audio"
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuStack/AudioMenu/Control/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuStack/AudioMenu/Control/Panel/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="VolumeSlider" parent="MenuStack/AudioMenu/Control/Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("8_fn1d8")]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 bus_idx = 1
 label_text = "Music"

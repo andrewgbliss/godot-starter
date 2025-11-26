@@ -9,6 +9,7 @@ class_name CharacterController extends CharacterBody2D
 @export var character: Character
 @export var controls: CharacterControls
 @export var state_machine: StateMachine
+@export var hide_on_ready: bool = true
 
 @export_group("Navigation")
 @export var navigation_agent: NavigationAgent2D
@@ -36,6 +37,7 @@ var default_gravity_dir: Vector2 = Vector2(0, 1)
 var spawn_position: Vector2 = Vector2.ZERO
 var flip_v_lock: bool = false
 var flip_h_lock: bool = false
+var jump_count: int = 0
 var wall_cling_point: Vector2 = Vector2.ZERO
 var current_tilemap_collider: TileMapLayerAdvanced
 
@@ -44,7 +46,8 @@ signal died(character: CharacterController)
 signal facing_direction_changed
 
 func _ready() -> void:
-	hide()
+	if hide_on_ready:
+		hide()
 	paralyzed = true
 	GameManager.game_config.gravity_dir_changed.connect(_on_gravity_dir_changed)
 	if navigation_agent:
@@ -132,6 +135,9 @@ func clamp_velocity():
 func stop():
 	velocity = Vector2.ZERO
 
+func delta_stop(delta: float):
+	velocity = velocity.move_toward(Vector2.ZERO, delta * 100)
+
 func attack_momentum():
 	var physics = character.get_physics_group()
 	var direction = controls.get_facing_direction()
@@ -164,8 +170,16 @@ func slide():
 	return direction
 
 func jump():
+	jump_count += 1
 	var physics = character.get_physics_group()
 	velocity.y = - physics.jump_force * GameManager.game_config.gravity_dir.y
+
+func can_jump():
+	var physics = character.get_physics_group()
+	return jump_count < physics.jump_count
+
+func reset_jump_count():
+	jump_count = 0
 
 func wall_jump():
 	var physics = character.get_physics_group()

@@ -19,6 +19,7 @@ class_name PhysicsGroup extends Resource
 
 @export_group("Jump")
 @export var jump_force: float = 100.0
+@export var jump_count: int = 2
 
 @export_group("Roll")
 @export var roll_speed_multiplier: float = 5.0

@@ -10,6 +10,7 @@ CURRENT_PROJECT_PATH = Path("D:/Code/Code/andrewgbliss/tom-gobbler")
 
 
 # python3 godot_sync.py --godot=input-map,autoloads
+# python3 godot_sync.py --folders=blisscode
 # python3 godot_sync.py --folders=blisscode,assets,addons,data,scenes,scripts,theme
 # python3 godot_sync.py --files=export_presets.cfg
 # python3 godot_sync.py --files=project.godot

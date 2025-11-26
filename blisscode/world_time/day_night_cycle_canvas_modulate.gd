@@ -11,6 +11,7 @@ extends CanvasModulate
 @export_range(0.0, 1.0) var temperature_max: float = 0.0
 
 var current_blend: float = 0.0
+var previous_luminance: float = 0.0
 
 func _process(_delta: float) -> void:
 	var normal_time_value = WorldTimeService.current_value
@@ -45,5 +46,11 @@ func _process(_delta: float) -> void:
 	# If the normal time value is already darker (lower) than override, use the time value
 	if normal_time_value < override_value:
 		time_value = normal_time_value
-	
+
 	color = gradient.gradient.sample(time_value)
+
+	var floored_luminance = floor(color.get_luminance() * 100.0) / 100.0
+
+	if floored_luminance != previous_luminance:
+		previous_luminance = floored_luminance
+		EventBus.daylight_level_changed.emit(floored_luminance)

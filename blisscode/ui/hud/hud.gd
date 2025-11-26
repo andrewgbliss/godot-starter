@@ -28,3 +28,7 @@ func show_hud():
 	
 func hide_hud():
 	animation_player.play("transition_out")
+
+func _on_pause_texture_button_pressed() -> void:
+	GameManager.pause()
+	GameUi.game_menus.menu_stack.push("PauseMenu")

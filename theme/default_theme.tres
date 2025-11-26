@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b2r2bk4bp4lgv"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://b2r2bk4bp4lgv"]
 
 [ext_resource type="Texture2D" uid="uid://dbk0i2wssgrct" path="res://assets/img/ui/sets/FunWoodSet.png" id="1_0ref1"]
 [ext_resource type="FontFile" uid="uid://bpemy6eb6xjf5" path="res://assets/fonts/PixelFont.ttf" id="1_knrol"]
@@ -52,6 +52,15 @@ axis_stretch_vertical = 2
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4tj8r"]
 texture = ExtResource("2_xul1n")
 
+[sub_resource type="Gradient" id="Gradient_xul1n"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehq15"]
+gradient = SubResource("Gradient_xul1n")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwelr"]
+texture = SubResource("GradientTexture1D_ehq15")
+
 [resource]
 default_font = ExtResource("1_knrol")
 default_font_size = 32
@@ -62,3 +71,5 @@ NormalPanel/styles/panel = SubResource("StyleBoxFlat_xul1n")
 Panel/styles/panel = SubResource("StyleBoxTexture_ehq15")
 SlotPanel/base_type = &"Panel"
 SlotPanel/styles/panel = SubResource("StyleBoxTexture_4tj8r")
+ThickPanel/base_type = &"Panel"
+ThickPanel/styles/panel = SubResource("StyleBoxTexture_dwelr")

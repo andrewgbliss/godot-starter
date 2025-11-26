@@ -57,6 +57,8 @@ func float_text(text: String, pos: Vector2, duration: float = 1.0, parent = null
 	label.text = text
 	label.modulate = color
 	label.position = pos
+	label.material = CanvasItemMaterial.new()
+	label.material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
 	label.add_theme_font_size_override("font_size", 16)
 	if parent:
 		parent.add_child(label)

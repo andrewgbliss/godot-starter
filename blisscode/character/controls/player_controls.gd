@@ -301,6 +301,9 @@ func is_attacking_down() -> bool:
 func is_pressing_slide() -> bool:
 	return is_action_pressed("slide") and is_pressing_down()
 
+func is_pressing_jump() -> bool:
+	return is_action_pressed("jump")
+
 func is_pushing():
 	if parent.is_on_wall():
 			if parent.is_facing_right and parent.controls.is_pressing_right():

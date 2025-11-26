@@ -3,6 +3,9 @@ class_name PushIdleState extends MoveState
 func process_physics(delta: float) -> void:
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
+	if parent.controls.is_pressing_down():
+		state_machine.dispatch("crouch_idle")
+		return
 	if direction != Vector2.ZERO:
 		if parent.controls.is_pushing():
 			state_machine.dispatch("push")

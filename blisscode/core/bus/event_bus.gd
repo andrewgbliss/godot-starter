@@ -8,3 +8,4 @@ signal world_changed(to_room_id: String, from_room_id: String, scene_path: Strin
 signal inventory_item_dropped(i: Item, item_slot_type_from: ItemSlot.ItemSlotType, item_slot_type_to: ItemSlot.ItemSlotType, from_index: int, to_index: int)
 signal equipment_item_dropped(i: Item, item_slot_type_from: ItemSlot.ItemSlotType, item_slot_type_to: ItemSlot.ItemSlotType, from_equipment_slot: Equipment.EquipmentSlotType, to_equipment_slot: Equipment.EquipmentSlotType)
 signal weapon_belt_item_dropped(i: Item, item_slot_type_from: ItemSlot.ItemSlotType, item_slot_type_to: ItemSlot.ItemSlotType, from_equipment_slot: Equipment.EquipmentSlotType, to_equipment_slot: Equipment.EquipmentSlotType)
+signal daylight_level_changed(daylight_level: float)

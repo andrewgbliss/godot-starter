@@ -5,7 +5,7 @@ func process_input(event: InputEvent) -> void:
 		return
 	elif event.is_action_pressed("dash"):
 		state_machine.dispatch("dash")
-	elif event.is_action_pressed("jump"):
+	elif event.is_action_pressed("jump") and parent.can_jump():
 		state_machine.dispatch("jump")
 	elif event.is_action_pressed("change_gravity_dir"):
 		GameManager.toggle_anti_gravity()

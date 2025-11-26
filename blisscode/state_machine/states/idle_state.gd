@@ -6,6 +6,8 @@ func process_physics(delta: float) -> void:
 		return
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
+	if parent.is_on_floor():
+		parent.reset_jump_count()
 	if direction != Vector2.ZERO:
 		if parent.controls.is_pressing_down():
 			state_machine.dispatch("crouch_idle")

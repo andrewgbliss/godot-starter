@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://cee3qv5p7fskl"]
+
+[ext_resource type="Script" uid="uid://bkditkbriy5j" path="res://blisscode/biome/biome.gd" id="1_ftgbb"]
+[ext_resource type="Script" uid="uid://bhon2xgpy7g5i" path="res://blisscode/world_time/day_night_cycle_canvas_modulate.gd" id="8_sm6hm"]
+[ext_resource type="Texture2D" uid="uid://d77kytle7yu5" path="res://blisscode/world_time/day_night_cycle_gradient.tres" id="9_r4yt5"]
+[ext_resource type="PackedScene" uid="uid://be4te6c4xng8j" path="res://blisscode/weather/rain.tscn" id="10_2uvvm"]
+[ext_resource type="PackedScene" uid="uid://btuvb7awynuxo" path="res://blisscode/weather/snow.tscn" id="11_h3bsw"]
+[ext_resource type="PackedScene" uid="uid://vxcwho7jr11g" path="res://blisscode/weather/wind_trails.tscn" id="12_tm33y"]
+[ext_resource type="PackedScene" uid="uid://ls0vian2ts0" path="res://blisscode/weather/fog_overlay.tscn" id="13_nm5e6"]
+
+[sub_resource type="Environment" id="Environment_vc0di"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.06
+glow_blend_mode = 1
+
+[node name="WeatherBiome" type="Node2D"]
+script = ExtResource("1_ftgbb")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vc0di")
+
+[node name="DayNightCanvasModulate" type="CanvasModulate" parent="."]
+script = ExtResource("8_sm6hm")
+gradient = ExtResource("9_r4yt5")
+moisture_min = 0.5
+moisture_max = 1.0
+barometer_max = 0.5
+temperature_min = 0.5
+temperature_max = 1.0
+
+[node name="Rain" parent="." instance=ExtResource("10_2uvvm")]
+position = Vector2(-528, -320)
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_min = 0.5
+temperature_max = 1.0
+altitude_max = 1.0
+barometer_max = 0.5
+wind_speed_max = 1.0
+
+[node name="Snow" parent="." instance=ExtResource("11_h3bsw")]
+position = Vector2(-544, -256)
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_max = 0.5
+altitude_min = 0.5
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_max = 1.0
+
+[node name="WindTrails" parent="." instance=ExtResource("12_tm33y")]
+position = Vector2(-520, -168)
+moisture_max = 1.0
+temperature_max = 1.0
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_min = 0.25
+wind_speed_max = 1.0
+
+[node name="FogOverlay" parent="." instance=ExtResource("13_nm5e6")]
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_max = 1.0
+altitude_max = 0.5
+barometer_min = 0.5
+barometer_max = 1.0
+wind_speed_max = 1.0
+
+[node name="Rain2" parent="." instance=ExtResource("10_2uvvm")]
+position = Vector2(1392, -320)
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_min = 0.5
+temperature_max = 1.0
+altitude_max = 1.0
+barometer_max = 0.5
+wind_speed_max = 1.0
+
+[node name="Snow2" parent="." instance=ExtResource("11_h3bsw")]
+position = Vector2(1376, -256)
+moisture_min = 0.5
+moisture_max = 1.0
+temperature_max = 0.5
+altitude_min = 0.5
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_max = 1.0
+
+[node name="WindTrails2" parent="." instance=ExtResource("12_tm33y")]
+position = Vector2(1400, -168)
+moisture_max = 1.0
+temperature_max = 1.0
+altitude_max = 1.0
+barometer_max = 1.0
+wind_speed_min = 0.25
+wind_speed_max = 1.0

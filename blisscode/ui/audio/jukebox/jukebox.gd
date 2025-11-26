@@ -1,12 +1,17 @@
 class_name Jukebox extends Node2D
 
+@export var hide_on_start: bool = true
 @export var play_on_start: bool = false
 @export var fade_duration: float = 5.0
 @export var data_store_dir: String = "playlists"
+@export var playlist_to_start: String = ""
+@export var close_button_panel: bool = false
+@export var show_minimize_button: bool = true
+@export var show_title_label: bool = true
 
 @export_group("UI")
-@export var playlist_name_label: Label
-@export var song_name_label: Label
+@export var panel: Panel
+@export var title_label: Label
 @export var previous_button: TextureButton
 @export var play_button: TextureButton
 @export var stop_button: TextureButton
@@ -19,12 +24,11 @@ class_name Jukebox extends Node2D
 @export var song_container_scene: PackedScene
 @export var scroll_container: ScrollContainer
 @export var player_controls: HBoxContainer
-@export var load_folder_button: Button
-@export var load_album_button: Button
-@export var load_folder_text_edit: TextEdit
-@export var folder_tree: Tree
 @export var minimize_button: TextureButton
 @export var close_button: TextureButton
+@export var add_folder_button: Button
+@export var folder_browser_dialog: FolderBrowserDialog
+@export var folders_container: VBoxContainer
 
 var is_playing: bool = false
 var is_repeating: bool = false
@@ -37,27 +41,84 @@ var is_seeking: bool = false
 var current_playlist: String = ""
 
 func _ready():
+	if hide_on_start:
+		panel.hide()
+	if not show_minimize_button:
+		minimize_button.hide()
+	if not show_title_label:
+		title_label.hide()
 	call_deferred("_after_ready")
 
 func _after_ready():
-	previous_button.pressed.connect(_on_previous_button_pressed)
-	play_button.pressed.connect(_on_play_button_pressed)
-	stop_button.pressed.connect(_on_stop_button_pressed)
-	pause_button.pressed.connect(_on_pause_button_pressed)
-	repeat_button.pressed.connect(_on_repeat_button_pressed)
-	next_button.pressed.connect(_on_next_button_pressed)
-	track_progress.value_changed.connect(_on_track_progress_changed)
-	load_folder_button.pressed.connect(_on_load_folder_button_pressed)
-	load_album_button.pressed.connect(_on_album_selected)
-	folder_tree.item_activated.connect(_on_album_selected)
-	minimize_button.pressed.connect(_on_minimize_button_pressed)
-	close_button.pressed.connect(_on_close_button_pressed)
+	if previous_button:
+		previous_button.pressed.connect(_on_previous_button_pressed)
+	if play_button:
+		play_button.pressed.connect(_on_play_button_pressed)
+	if stop_button:
+		stop_button.pressed.connect(_on_stop_button_pressed)
+	if pause_button:
+		pause_button.pressed.connect(_on_pause_button_pressed)
+	if repeat_button:
+		repeat_button.pressed.connect(_on_repeat_button_pressed)
+	if next_button:
+		next_button.pressed.connect(_on_next_button_pressed)
+	if track_progress:
+		track_progress.value_changed.connect(_on_track_progress_changed)
+	if minimize_button:
+		minimize_button.pressed.connect(_on_minimize_button_pressed)
+	if close_button:
+		close_button.pressed.connect(_on_close_button_pressed)
+	if add_folder_button:
+		add_folder_button.pressed.connect(_on_add_folder_button_pressed)
+	if folder_browser_dialog:
+		folder_browser_dialog.folder_selected.connect(_on_folder_selected)
 
-	stop_button.hide()
-	pause_button.hide()
+	if stop_button:
+		stop_button.hide()
+	if pause_button:
+		pause_button.hide()
+	if play_button:
+		play_button.show()
+		play_button.grab_focus()
 
-	play_button.show()
-	play_button.grab_focus()
+	_build_folders()
+
+	if playlist_to_start:
+		var data = DataStore.get_store_by_path("playlists/" + playlist_to_start)
+		if data:
+			_on_album_selected(data.path)
+
+	if play_on_start:
+		_on_play_button_pressed()
+
+func _build_folders() -> void:
+	if not folders_container:
+		return
+	for c in folders_container.get_children():
+		c.queue_free()
+	for path in GameManager.user_config.jukebox_folder_paths:
+		var hbox = HBoxContainer.new()
+		var label = Label.new()
+		var button = Button.new()
+		button.text = "Load"
+
+		button.pressed.connect(func(): _on_folder_loaded(path))
+		label.text = path
+		hbox.add_child(label)
+		hbox.add_child(button)
+		folders_container.add_child(hbox)
+
+func _on_folder_loaded(path: String) -> void:
+	_on_album_selected(path)
+
+func _on_add_folder_button_pressed() -> void:
+	folder_browser_dialog.show_dialog()
+
+func _on_folder_selected(path: String) -> void:
+	folder_browser_dialog.hide_dialog()
+	GameManager.user_config.jukebox_folder_paths.append(path)
+	GameManager.user_config.save_to_file()
+	_build_folders()
 
 func _process(_delta: float) -> void:
 	if current_song_container and current_song_container.is_playing:
@@ -67,29 +128,19 @@ func _on_minimize_button_pressed() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED);
 	
 func _on_close_button_pressed() -> void:
-	get_tree().quit()
-
-func _on_load_folder_button_pressed() -> void:
-	folder_tree.clear()
-	var folder_path = load_folder_text_edit.text
-	if folder_path:
-		var dir = DirAccess.open(folder_path)
-		var dirs = dir.get_directories()
-		var root = folder_tree.create_item()
-		root.set_text(0, "Albums")
-		for d in dirs:
-			var child = folder_tree.create_item(root)
-			child.set_text(0, d)
-			
+	if close_button_panel:
+		hide_panel()
+	else:
+		get_tree().quit()
 	
-func _on_album_selected() -> void:
+func _on_album_selected(path: String) -> void:
 	current_track_index = -1
 	preloaded_tracks = []
+	if not songlist_container:
+		return
 	for c in songlist_container.get_children():
 		c.queue_free()
-	var selected_item = folder_tree.get_selected()
-	var full_path = load_folder_text_edit.text + "/" + selected_item.get_text(0)
-	preload_mp3_folder_tracks(full_path, "mp3")
+	preload_mp3_folder_tracks(path, "mp3")
 	_build_playlist()
 	pause_button.hide()
 	stop_button.hide()
@@ -104,7 +155,11 @@ func _on_player_controls_focus_entered() -> void:
 
 func preload_mp3_folder_tracks(path: String, ext: String):
 	preloaded_tracks = []
+	print("Preloading tracks from: ", path)
 	var dir = DirAccess.open(path)
+	if not dir:
+		print("Failed to open directory: ", path)
+		return
 	var files = dir.get_files()
 	for file in files:
 		if file.ends_with(ext):
@@ -165,7 +220,6 @@ func _play_current_song() -> void:
 	play_button.hide()
 	pause_button.grab_focus()
 	_stop_other_songs()
-	song_name_label.text = current_song_container.track_name.text
 	scroll_container.ensure_control_visible(current_song_container)
 
 func _get_song_length() -> String:
@@ -240,8 +294,6 @@ func _on_repeat_button_pressed() -> void:
 		play_button.grab_focus()
 #
 func _build_playlist() -> void:
-	playlist_name_label.text = ""
-	song_name_label.text = ""
 	for track in preloaded_tracks:
 		var song_container = song_container_scene.instantiate()
 		for pr_track in preloaded_tracks:
@@ -279,3 +331,9 @@ func _on_song_double_click_pressed(container: SongContainer) -> void:
 			current_song_container = songlist_container.get_child(current_track_index)
 			_play_current_song()
 			break
+
+func show_panel() -> void:
+	panel.show()
+
+func hide_panel() -> void:
+	panel.hide()

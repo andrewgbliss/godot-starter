@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://b31r4po3jgb3u"]
+[gd_scene load_steps=21 format=3 uid="uid://b31r4po3jgb3u"]
 
 [ext_resource type="Script" uid="uid://stobcojgfp8s" path="res://blisscode/ui/audio/jukebox/jukebox.gd" id="1_lj7v1"]
 [ext_resource type="PackedScene" uid="uid://cyd1wnj2k44f" path="res://blisscode/ui/audio/jukebox/song_container.tscn" id="2_cjec2"]
 [ext_resource type="Texture2D" uid="uid://bw1opjjdb64cd" path="res://assets/img/ui/audio/AudioControls_Prev.png" id="2_utn00"]
 [ext_resource type="Script" uid="uid://cq4duwfquvhh" path="res://blisscode/ui/audio/jukebox/jukebox_title.gd" id="3_382q3"]
+[ext_resource type="PackedScene" uid="uid://dqofak3a5q7ey" path="res://blisscode/ui/folder_browser_dialog/folder_browser_dialog.tscn" id="3_04351"]
 [ext_resource type="Texture2D" uid="uid://bucrtj6i7n6up" path="res://assets/img/ui/audio/AudioControls_Play.png" id="3_cjec2"]
 [ext_resource type="PackedScene" uid="uid://c40xhlbq0xxj2" path="res://blisscode/ui/volume_slider/volume_slider.tscn" id="3_x3yxh"]
 [ext_resource type="Texture2D" uid="uid://c86etx1qn71pf" path="res://assets/img/ui/audio/AudioControls_Stop.png" id="4_6qej7"]
@@ -23,31 +24,35 @@
 spacing_top = -4
 spacing_bottom = -12
 
-[node name="Jukebox" type="Node2D" node_paths=PackedStringArray("playlist_name_label", "song_name_label", "previous_button", "play_button", "stop_button", "pause_button", "repeat_button", "next_button", "songlist_container", "track_progress", "time_label", "scroll_container", "player_controls", "load_folder_button", "load_album_button", "load_folder_text_edit", "folder_tree", "minimize_button", "close_button")]
+[node name="Jukebox" type="Node2D" node_paths=PackedStringArray("panel", "title_label", "previous_button", "play_button", "stop_button", "pause_button", "repeat_button", "next_button", "songlist_container", "track_progress", "time_label", "scroll_container", "player_controls", "minimize_button", "close_button", "add_folder_button", "folder_browser_dialog", "folders_container")]
 process_mode = 3
 script = ExtResource("1_lj7v1")
-playlist_name_label = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/PlaylistNameLabel")
-song_name_label = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/SongNameLabel")
-previous_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/PrevButton")
-play_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/PlayButton")
-stop_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/StopButton")
-pause_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/PauseButton")
-repeat_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/RepeatButton")
-next_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls/NextButton")
-songlist_container = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/ScrollContainer/SongListContainer")
-track_progress = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TrackProgress")
-time_label = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TimeLabel")
+play_on_start = true
+playlist_to_start = "chiptune_1"
+panel = NodePath("CanvasLayer/Panel")
+title_label = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/Label")
+previous_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/PrevButton")
+play_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/PlayButton")
+stop_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/StopButton")
+pause_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/PauseButton")
+repeat_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/RepeatButton")
+next_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer/NextButton")
+songlist_container = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/ScrollContainer/SongListContainer")
+track_progress = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/HBoxContainer/TrackProgress")
+time_label = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/HBoxContainer/TimeLabel")
 song_container_scene = ExtResource("2_cjec2")
-scroll_container = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/ScrollContainer")
-player_controls = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls")
-load_folder_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Button")
-load_album_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Button")
-load_folder_text_edit = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/TextEdit")
-folder_tree = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Control/Tree")
+scroll_container = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/ScrollContainer")
+player_controls = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls")
 minimize_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/MinimizeButton")
 close_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/CloseButton")
+add_folder_button = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer/HBoxContainer/AddFolderButton")
+folder_browser_dialog = NodePath("FolderBrowserDialog")
+folders_container = NodePath("CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer")
+
+[node name="FolderBrowserDialog" parent="." instance=ExtResource("3_04351")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 450
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
@@ -55,7 +60,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"NormalPanel"
+mouse_filter = 2
+theme_type_variation = &"ThickPanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
 layout_mode = 1
@@ -75,6 +81,7 @@ theme_override_constants/margin_bottom = -10
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
+alignment = 2
 script = ExtResource("3_382q3")
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
@@ -99,164 +106,153 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer"]
 layout_mode = 2
+current_tab = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Player" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer"]
+[node name="SongListContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PlaylistNameLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Playlist Name"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "D:\\Music\\Ozzy Osbourne"
-placeholder_text = "path"
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Load Folder"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Tree" type="Tree" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 109.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Load Album"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VolumeSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/BoxContainer" instance=ExtResource("3_x3yxh")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-bus_idx = 1
-label_text = "Volume"
-
-[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/BoxContainer/VolumeSlider/VBoxContainer" index="1"]
-focus_next = NodePath("../../../../../../HBoxContainer/TrackProgress")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-follow_focus = true
-horizontal_scroll_mode = 0
-
-[node name="SongListContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="SongNameLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Song Name"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TimeLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_x3yxh")
 text = "0:00"
 
-[node name="TrackProgress" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TrackProgress" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_bottom = NodePath("../../PlayerControls/PlayButton")
-focus_next = NodePath("../../PlayerControls/PlayButton")
+focus_neighbor_bottom = NodePath("../../PlayerControls/HBoxContainer/HBoxContainer/PlayButton")
+focus_next = NodePath("../../PlayerControls/HBoxContainer/HBoxContainer/PlayButton")
 max_value = 1.0
 step = 0.01
 
-[node name="PlayerControls" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerControls" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_next = NodePath("../HBoxContainer2/VBoxContainer2/BoxContainer/VolumeSlider/VBoxContainer/HSlider")
+focus_next = NodePath("HBoxContainer/HBoxContainer2/VolumeSlider/VBoxContainer/HSlider")
 focus_previous = NodePath("../HBoxContainer/TrackProgress")
 alignment = 1
 
-[node name="PrevButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="PrevButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../NextButton")
 focus_next = NodePath("../PlayButton")
 texture_normal = ExtResource("2_utn00")
 texture_focused = ExtResource("5_1o4q0")
 
-[node name="PlayButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="PlayButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../HBoxContainer/TrackProgress")
+focus_neighbor_top = NodePath("../../../../HBoxContainer/TrackProgress")
 focus_next = NodePath("../RepeatButton")
 texture_normal = ExtResource("3_cjec2")
 texture_focused = ExtResource("6_sh6ne")
 
-[node name="PauseButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="PauseButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_next = NodePath("../StopButton")
 texture_normal = ExtResource("5_8g36o")
 texture_focused = ExtResource("7_838yk")
 
-[node name="StopButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="StopButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_previous = NodePath("../PauseButton")
 texture_normal = ExtResource("4_6qej7")
 texture_focused = ExtResource("9_j2eg5")
 
-[node name="RepeatButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="RepeatButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("6_u7i2i")
 texture_focused = ExtResource("12_wqjp7")
 
-[node name="NextButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/PlayerControls"]
+[node name="NextButton" type="TextureButton" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_right = NodePath("../PrevButton")
 focus_previous = NodePath("../RepeatButton")
 texture_normal = ExtResource("7_up0q2")
 texture_focused = ExtResource("14_st5x3")
 
-[editable path="CanvasLayer/Panel/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/BoxContainer/VolumeSlider"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="VolumeSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer2" instance=ExtResource("3_x3yxh")]
+layout_mode = 2
+size_flags_horizontal = 3
+bus_idx = 1
+label_text = "Volume"
+
+[node name="Label" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer2/VolumeSlider/VBoxContainer" index="0"]
+visible = false
+
+[node name="HSlider" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer2/VolumeSlider/VBoxContainer" index="1"]
+focus_next = NodePath("../../../../../../HBoxContainer/TrackProgress")
+
+[node name="Folders" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddFolderButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Add Folder"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Folders/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[editable path="CanvasLayer/Panel/VBoxContainer/MarginContainer/TabContainer/Player/MarginContainer/VBoxContainer/PlayerControls/HBoxContainer/HBoxContainer2/VolumeSlider"]

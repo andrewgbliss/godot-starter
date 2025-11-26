@@ -52,3 +52,9 @@ func get_current_time_string() -> String:
 		hour_12 = 12
 	
 	return "%02d:%02d %s" % [hour_12, minute, period]
+
+func get_hour() -> int:
+	var total_minutes = int(time / INGAME_TO_REAL_MINUTE_DURATION)
+	var current_day_minutes = total_minutes % MINUTES_PER_DAY
+	@warning_ignore("integer_division")
+	return int(current_day_minutes / MINUTES_PER_HOUR)

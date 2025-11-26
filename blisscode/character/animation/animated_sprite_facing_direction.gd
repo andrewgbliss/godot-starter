@@ -6,7 +6,7 @@ class_name AnimatedSpriteFacingDirection extends Node2D
 
 var default_offset: Vector2 = Vector2.ZERO
 var is_facing_right: bool = true
-var previous_velocity: Vector2 = Vector2.ZERO
+var previous_facing_right: bool = true
 
 func _ready():
 	default_offset = animated_sprite.offset
@@ -35,15 +35,13 @@ func _update_facing_direction():
 			UserConfig.FacingType.TOUCH:
 				new_is_facing_right = agent.controls.touch_position.x > agent.global_position.x
 			UserConfig.FacingType.KEYBOARD:
-				if previous_velocity != agent.velocity and agent.velocity != Vector2.ZERO:
+				if agent.velocity.x != 0:
 					new_is_facing_right = agent.velocity.x > 0
-				previous_velocity = agent.velocity
 			UserConfig.FacingType.JOYSTICK:
 				new_is_facing_right = agent.controls.get_aim_direction().x > 0
 			UserConfig.FacingType.DEFAULT:
-				if previous_velocity != agent.velocity and agent.velocity != Vector2.ZERO:
+				if agent.velocity.x != 0:
 					new_is_facing_right = agent.velocity.x > 0
-				previous_velocity = agent.velocity
 	if new_is_facing_right != is_facing_right:
 		is_facing_right = new_is_facing_right
 		agent.is_facing_right = is_facing_right

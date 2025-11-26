@@ -19,7 +19,7 @@ size_flags_vertical = 1
 text = "Label"
 
 [node name="HSlider" type="HSlider" parent="VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
 [connection signal="value_changed" from="VBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dabgp8qon8cl6"]
+[gd_scene load_steps=72 format=3 uid="uid://dabgp8qon8cl6"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_7kyxw"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_1op74"]
@@ -52,6 +52,7 @@
 [ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_ns27v"]
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_nvc1a"]
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_c4gaj"]
+[ext_resource type="Script" uid="uid://mkjqnaq1oabe" path="res://blisscode/light/point_light_2d_advanced.gd" id="53_m5srl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_7kyxw")
@@ -265,7 +266,9 @@ ledge_grab_raycast = NodePath("LedgeGrabRayCast2D")
 script = ExtResource("4_vluxo")
 state_machine = NodePath("../PlatformerStateMachine")
 aim_sprite = NodePath("../Crosshairs")
+show_aim_sprite = false
 touch_sprite = NodePath("../TouchCircle")
+show_touch_sprite = false
 metadata/_custom_type_script = "uid://d2lsy2pdynjo3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -320,7 +323,7 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("6_dwp1v")
-animation = &"Wall Jump"
+animation = &"Idle"
 offset = Vector2(1.125, 4.15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -336,6 +339,7 @@ flip_offset = Vector2(1.125, 8.15)
 metadata/_custom_type_script = "uid://0vge3j1r1s0n"
 
 [node name="CharacterPointsBar" parent="." instance=ExtResource("8_f0b0k")]
+visible = false
 offset_top = -10.0
 offset_bottom = 30.0
 
@@ -344,6 +348,7 @@ visible = false
 position = Vector2(-10, -23)
 
 [node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls", "state_machine")]
+visible = false
 offset_left = -10.0
 offset_top = -49.0
 offset_right = 30.0
@@ -364,6 +369,7 @@ offset_bottom = 7.0
 texture = ExtResource("11_7kyxw")
 
 [node name="Crosshairs" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(61, 0)
 texture = ExtResource("12_ntitq")
 
@@ -409,10 +415,6 @@ remote_path = NodePath("../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, 15)
-limit_left = 0
-limit_top = 0
-limit_right = 2000
-limit_bottom = 1000
 position_smoothing_enabled = true
 position_smoothing_speed = 25.0
 script = ExtResource("15_k7jyn")
@@ -432,6 +434,28 @@ collision_mask = 2048
 hit_from_inside = true
 script = ExtResource("18_rdljg")
 agent = NodePath("..")
+metadata/_custom_type_script = "uid://bx4nlc04ew5og"
+
+[node name="TopRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
+position = Vector2(-4, 20)
+target_position = Vector2(0, -25)
+collision_mask = 4
+hit_from_inside = true
+script = ExtResource("18_rdljg")
+agent = NodePath("..")
+facing_left_position = Vector2(-4, 20)
+facing_right_position = Vector2(-4, 20)
+metadata/_custom_type_script = "uid://bx4nlc04ew5og"
+
+[node name="TopRayCast2D2" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
+position = Vector2(6, 20)
+target_position = Vector2(0, -25)
+collision_mask = 4
+hit_from_inside = true
+script = ExtResource("18_rdljg")
+agent = NodePath("..")
+facing_left_position = Vector2(6, 20)
+facing_right_position = Vector2(6, 20)
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="LedgeGrabRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
@@ -541,17 +565,21 @@ hitbox = NodePath("../../UpthrustHitbox")
 animation_name = "Up Thrust"
 metadata/_custom_type_script = "uid://lbc7hxobl82o"
 
-[node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+[node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
 script = ExtResource("34_s1kwg")
 collision_shape = NodePath("../../CollisionShape2D")
 crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
+top_raycast_left = NodePath("../../TopRayCast2D")
+top_raycast_right = NodePath("../../TopRayCast2D2")
 animation_name = "Crouch Idle"
 metadata/_custom_type_script = "uid://d23xdwefkddhf"
 
-[node name="CrouchWalkState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+[node name="CrouchWalkState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
 script = ExtResource("35_f0b0k")
 collision_shape = NodePath("../../CollisionShape2D")
 crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
+top_raycast_left = NodePath("../../TopRayCast2D")
+top_raycast_right = NodePath("../../TopRayCast2D2")
 animation_name = "Crouch Walk"
 metadata/_custom_type_script = "uid://qfh8rf6645xi"
 
@@ -599,12 +627,14 @@ metadata/_custom_type_script = "uid://d0fmsyj4x3pii"
 script = ExtResource("47_bvefi")
 hand_offset = Vector2(0, 2)
 animation_name = "Ledge Grab"
+enabled = false
 metadata/_custom_type_script = "uid://doqs1otgurbf7"
 
 [node name="LedgeClimbState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("48_lout0")
 animation_name = "Ledge Climb"
 wait_for_animation_finished = true
+enabled = false
 
 [node name="SmashDownState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("49_ns27v")
@@ -627,6 +657,9 @@ wait_for_animation_finished = true
 metadata/_custom_type_script = "uid://ckix7re6h2e6k"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 0.0
+position = Vector2(0, 8)
+energy = 2.0
 shadow_enabled = true
 texture = ExtResource("30_er127")
+texture_scale = 4.0
+script = ExtResource("53_m5srl")

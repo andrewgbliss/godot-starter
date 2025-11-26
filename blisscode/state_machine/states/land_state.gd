@@ -1,5 +1,9 @@
 class_name LandState extends MoveState
 
+func enter() -> void:
+	super.enter()
+	parent.reset_jump_count()
+
 func process_physics(delta: float) -> void:
 	var direction = parent.controls.get_movement_direction()
 	if direction == Vector2.ZERO:

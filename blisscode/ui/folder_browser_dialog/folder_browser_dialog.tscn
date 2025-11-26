@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqofak3a5q7ey"]
+
+[ext_resource type="Script" uid="uid://3pei8hsje0nt" path="res://blisscode/ui/folder_browser_dialog/folder_browser_dialog.gd" id="1_folder_browser"]
+
+[node name="FolderBrowserDialog" type="Node2D" node_paths=PackedStringArray("panel", "folder_list", "select_button", "close_button", "path_edit")]
+script = ExtResource("1_folder_browser")
+panel = NodePath("CanvasLayer/Panel")
+folder_list = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ScrollContainer/ItemList")
+select_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer/SelectButton")
+close_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer/CloseButton")
+path_edit = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/PathEdit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 500
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"ThickPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PathEdit" type="TextEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+text = "D://"
+placeholder_text = "Enter path and press Enter to navigate..."
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="SelectButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select"
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Close"

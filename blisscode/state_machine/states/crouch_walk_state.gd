@@ -2,6 +2,8 @@ class_name CrouchWalkState extends MoveState
 
 @export var collision_shape: CollisionShape2D
 @export var crouch_collision_shape: CollisionShape2D
+@export var top_raycast_left: RayCast2D
+@export var top_raycast_right: RayCast2D
 
 func enter() -> void:
 	super.enter()
@@ -18,12 +20,15 @@ func exit() -> void:
 		crouch_collision_shape.disabled = true
 
 func process_physics(delta: float) -> void:
-	if parent.is_falling():
+	var is_top_colliding_left = top_raycast_left.is_colliding()
+	var is_top_colliding_right = top_raycast_right.is_colliding()
+	var is_top_colliding = is_top_colliding_left or is_top_colliding_right
+	if parent.is_falling() and not is_top_colliding:
 		state_machine.dispatch("falling")
 		return
 	var direction = parent.controls.get_movement_direction()
 	parent.move(direction, delta)
 	if direction == Vector2.ZERO:
 		state_machine.dispatch("crouch_idle")
-	elif not parent.controls.is_pressing_down():
+	elif not parent.controls.is_pressing_down() and not is_top_colliding:
 		state_machine.dispatch("idle")

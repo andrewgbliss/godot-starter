@@ -3,7 +3,7 @@ class_name RunState extends MoveState
 func process_input(event: InputEvent) -> void:
 	if parent.paralyzed:
 		return
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("jump") and parent.can_jump():
 		state_machine.dispatch("jump_flip")
 		return
 	super.process_input(event)

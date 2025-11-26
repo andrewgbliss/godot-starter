@@ -22,6 +22,7 @@ var master_volume: float = 50.0
 var music_volume: float = 50.0
 var ambience_volume: float = 50.0
 var effects_volume: float = 50.0
+var jukebox_folder_paths: Array = []
 
 # Key bindings storage
 var custom_key_bindings: Dictionary = {}
@@ -80,6 +81,7 @@ func save():
 		"music_volume": music_volume,
 		"ambience_volume": ambience_volume,
 		"effects_volume": effects_volume,
+		"jukebox_folder_paths": jukebox_folder_paths,
 		"custom_key_bindings": custom_key_bindings,
 		"zoom_level": zoom_level
 	}
@@ -93,6 +95,8 @@ func restore(data):
 		ambience_volume = data["ambience_volume"]
 	if data.has("effects_volume"):
 		effects_volume = data["effects_volume"]
+	if data.has("jukebox_folder_paths"):
+		jukebox_folder_paths = data["jukebox_folder_paths"]
 	# if data.has("movement_type"):
 	# 	movement_type = MovementType.values()[int(data["movement_type"])]
 	# if data.has("aim_type"):
