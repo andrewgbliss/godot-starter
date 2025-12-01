@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://87eqnxhrvspi"]
+[gd_scene load_steps=69 format=3 uid="uid://87eqnxhrvspi"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_2b6yq"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_4utb2"]
@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://iy021d8gnrks" path="res://assets/img/cursors/crosshairs.png" id="14_ap8r2"]
 [ext_resource type="Texture2D" uid="uid://bxqd1qybg36cl" path="res://assets/img/cursors/circle.png" id="15_0l5u3"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="16_vcapd"]
-[ext_resource type="Script" uid="uid://chigi4pyju8x5" path="res://scenes/characters/player/player_camera.gd" id="17_gsj6n"]
 [ext_resource type="Script" uid="uid://bx4nlc04ew5og" path="res://blisscode/physics/raycast_2d_advanced.gd" id="18_c6pgu"]
 [ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="19_rt4q4"]
 [ext_resource type="Script" uid="uid://c3rd0mfca06gc" path="res://blisscode/state_machine/states/spawn_state.gd" id="20_ly2vv"]
@@ -51,8 +50,6 @@
 [ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_sf7oj"]
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_feth6"]
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_j8tn3"]
-[ext_resource type="Texture2D" uid="uid://dl5ed1afrnnhn" path="res://assets/img/masks/LightMask.png" id="52_njkhj"]
-[ext_resource type="Script" uid="uid://mkjqnaq1oabe" path="res://blisscode/light/point_light_2d_advanced.gd" id="53_0vxv1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_2b6yq")
@@ -258,6 +255,7 @@ script = ExtResource("2_4utb2")
 character = ExtResource("3_37y6l")
 controls = NodePath("PlayerControls")
 state_machine = NodePath("PlatformerStateMachine")
+hide_on_ready = false
 dangling_raycast = NodePath("DanglingRayCast2D")
 ladder_raycast = NodePath("LadderRayCast2D")
 ledge_grab_raycast = NodePath("LedgeGrabRayCast2D")
@@ -418,15 +416,6 @@ action_right = "aim_right"
 action_up = "aim_up"
 action_down = "aim_down"
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-remote_path = NodePath("../Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, 15)
-position_smoothing_enabled = true
-position_smoothing_speed = 25.0
-script = ExtResource("17_gsj6n")
-
 [node name="DanglingRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
 position = Vector2(6, -19)
 collision_mask = 4
@@ -480,6 +469,7 @@ metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 [node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state", "idle_state")]
 script = ExtResource("19_rt4q4")
 character = NodePath("..")
+enabled = false
 initial_state = NodePath("SpawnState")
 idle_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://bti4mwhmm58cm"
@@ -666,10 +656,3 @@ crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
 animation_name = "Roll"
 wait_for_animation_finished = true
 metadata/_custom_type_script = "uid://ckix7re6h2e6k"
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, 3)
-shadow_enabled = true
-texture = ExtResource("52_njkhj")
-texture_scale = 2.0
-script = ExtResource("53_0vxv1")

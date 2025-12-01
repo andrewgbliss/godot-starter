@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ci10hfkrxef21"
+path="res://.godot/imported/Deer.aseprite-bf0f4b8960878bad4368edc487f152f6.res"
+
+[deps]
+
+source_file="res://assets/img/characters/deer/Deer.aseprite"
+dest_files=["res://.godot/imported/Deer.aseprite-bf0f4b8960878bad4368edc487f152f6.res"]
+
+[params]
+

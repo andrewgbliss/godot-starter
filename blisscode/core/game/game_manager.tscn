@@ -6,15 +6,15 @@
 
 [sub_resource type="Resource" id="Resource_snmpb"]
 script = ExtResource("3_clrac")
-movement_type = 3
-facing_type = 2
-attack_type = 3
-zoom_level = 3.0
+movement_type = 2
+aim_type = 1
+facing_type = 1
+attack_type = 1
 metadata/_custom_type_script = "uid://wt1gsnxxpmq1"
 
 [sub_resource type="Resource" id="Resource_6wep7"]
 script = ExtResource("6_snmpb")
-default_world_path = "res://scenes/world/world_top_down_grass.tscn"
+default_world_path = "res://scenes/world/world_platformer.tscn"
 metadata/_custom_type_script = "uid://bxl4a6ucqrl6h"
 
 [node name="GameManager" type="Node2D"]

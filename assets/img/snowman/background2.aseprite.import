@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://yh6q82ijowb3"
+path="res://.godot/imported/background2.aseprite-7c096e8f468e271fc96b442fba6f6526.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/background2.aseprite"
+dest_files=["res://.godot/imported/background2.aseprite-7c096e8f468e271fc96b442fba6f6526.res"]
+
+[params]
+

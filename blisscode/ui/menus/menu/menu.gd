@@ -9,6 +9,8 @@ class_name Menu extends CanvasLayer
 
 @export var required_game_state: GameConfig.GAME_STATE = GameConfig.GAME_STATE.GAME_PLAY
 @export var pause_game: bool = true
+@export var hide_on_ready: bool = true
+@export var show_menu_on_ready: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -30,7 +32,10 @@ func _input(event: InputEvent) -> void:
 						GameUi.game_menus.menu_stack.pop_all()
 
 func _ready():
-	_off()
+	if hide_on_ready:
+		_off()
+	if show_menu_on_ready:
+		transition_in()
 
 func _off():
 	hide()

@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn2g0c4fe1ma8"]
+
+[ext_resource type="Script" uid="uid://dke5fh6vi3lh4" path="res://blisscode/core/user/user_manager.gd" id="1_kx8xj"]
+[ext_resource type="Script" uid="uid://x8nak3yjl2j4" path="res://blisscode/core/user/user_profile.gd" id="2_walge"]
+
+[sub_resource type="Resource" id="Resource_s8puf"]
+script = ExtResource("2_walge")
+metadata/_custom_type_script = "uid://x8nak3yjl2j4"
+
+[sub_resource type="Resource" id="Resource_t34sl"]
+script = ExtResource("2_walge")
+metadata/_custom_type_script = "uid://x8nak3yjl2j4"
+
+[sub_resource type="Resource" id="Resource_yja8l"]
+script = ExtResource("2_walge")
+metadata/_custom_type_script = "uid://x8nak3yjl2j4"
+
+[sub_resource type="Resource" id="Resource_plgb4"]
+script = ExtResource("2_walge")
+metadata/_custom_type_script = "uid://x8nak3yjl2j4"
+
+[node name="UserManager" type="Node"]
+script = ExtResource("1_kx8xj")
+user_profiles = Array[ExtResource("2_walge")]([SubResource("Resource_s8puf"), SubResource("Resource_t34sl"), SubResource("Resource_yja8l"), SubResource("Resource_plgb4")])

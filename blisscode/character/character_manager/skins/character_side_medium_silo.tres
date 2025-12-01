@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterSkin" load_steps=4 format=3 uid="uid://d0clumx8fqrqi"]
+
+[ext_resource type="PackedScene" uid="uid://87eqnxhrvspi" path="res://scenes/characters/player/player_side_32.tscn" id="1_2wgfy"]
+[ext_resource type="Script" uid="uid://hw2qlwve1g6s" path="res://blisscode/character/character_manager/character_skin.gd" id="1_5k616"]
+[ext_resource type="SpriteFrames" uid="uid://cb0m7ad0i4fnl" path="res://assets/img/characters/silo/platformer-32x32.res" id="2_5k616"]
+
+[resource]
+script = ExtResource("1_5k616")
+sprite_frames = ExtResource("2_5k616")
+character_body = ExtResource("1_2wgfy")
+metadata/_custom_type_script = "uid://hw2qlwve1g6s"

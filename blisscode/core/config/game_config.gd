@@ -6,6 +6,9 @@ enum GAME_STATE {
 	INIT_LOAD,
 	SPLASH_SCREENS,
 	GAME_MENU,
+	GAME_CHARACTER_CREATE,
+	GAME_CHARACTER_SELECT,
+	GAME_START,
 	GAME_PLAY,
 	GAME_SAVE,
 	GAME_RESTORE,
@@ -18,6 +21,7 @@ enum GAME_STATE {
 @export var game_start_scene: String = "res://scenes/game_start.tscn"
 @export var game_restore_scene: String = "res://scenes/game_restore.tscn"
 @export var default_world_path: String = "res://scenes/world/world.tscn"
+@export var character_create_scene: String = "res://blisscode/character/character_create/character_create.tscn"
 @export var grid_size: int = 16
 @export var gravity_dir: Vector2 = Vector2(0, 1)
 

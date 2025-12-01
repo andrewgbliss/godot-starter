@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://cibqtabp8a7f1"]
+
+[ext_resource type="Texture2D" uid="uid://hbtyw4bj4h6x" path="res://assets/img/snowman/Background.png" id="1_kmqmc"]
+[ext_resource type="Texture2D" uid="uid://c71so31hxvgvw" path="res://assets/img/snowman/Full Dirt.png" id="2_b4cuu"]
+[ext_resource type="Texture2D" uid="uid://bm318uqlmysir" path="res://assets/img/snowman/dirt.png" id="2_hthus"]
+[ext_resource type="Texture2D" uid="uid://nr6c7yw7sqla" path="res://assets/img/snowman/clouds1.png" id="2_ngsf3"]
+[ext_resource type="Texture2D" uid="uid://bmlbxbp6yg6t2" path="res://assets/img/snowman/clouds2.png" id="3_14dsu"]
+[ext_resource type="Texture2D" uid="uid://k8a21u3fnvdf" path="res://assets/img/snowman/clouds3.png" id="4_ey857"]
+[ext_resource type="Texture2D" uid="uid://dqagvajdqjyes" path="res://assets/img/snowman/Hills.png" id="4_he255"]
+[ext_resource type="Texture2D" uid="uid://db5rq05iw0as8" path="res://assets/img/snowman/Trees Short.png" id="9_aaxqo"]
+
+[node name="ParallaxBackground" type="Node2D"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 180)
+repeat_times = 12
+
+[node name="Sky" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(0, -166)
+texture = ExtResource("1_kmqmc")
+centered = false
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+repeat_times = 12
+
+[node name="Dirt" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(0, 15)
+texture = ExtResource("2_b4cuu")
+centered = false
+
+[node name="Dirt2" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(0, 193)
+texture = ExtResource("2_b4cuu")
+centered = false
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+repeat_times = 12
+
+[node name="Mountains" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(0, -3)
+texture = ExtResource("2_hthus")
+centered = false
+
+[node name="Parallax2D4" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+repeat_times = 12
+
+[node name="Clouds1" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(-32, -120)
+texture = ExtResource("2_ngsf3")
+
+[node name="Clouds6" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(315, -87)
+texture = ExtResource("2_ngsf3")
+
+[node name="Clouds2" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(-199, -57)
+texture = ExtResource("3_14dsu")
+
+[node name="Clouds5" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(107, -35)
+texture = ExtResource("3_14dsu")
+
+[node name="Clouds3" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(-46, -6)
+texture = ExtResource("4_ey857")
+
+[node name="Clouds4" type="Sprite2D" parent="Parallax2D4"]
+modulate = Color(1, 1, 1, 0.811765)
+position = Vector2(269, -4)
+texture = ExtResource("4_ey857")
+
+[node name="Parallax2D5" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+repeat_times = 12
+
+[node name="Hills" type="Sprite2D" parent="Parallax2D5"]
+position = Vector2(0, 24)
+texture = ExtResource("4_he255")
+centered = false
+
+[node name="Parallax2D6" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+repeat_times = 12
+
+[node name="Trees" type="Sprite2D" parent="Parallax2D6"]
+position = Vector2(0, 31)
+texture = ExtResource("9_aaxqo")
+centered = false

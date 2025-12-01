@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://t6utsfy7e5hd"
+path="res://.godot/imported/santa.aseprite-dfc602b704dc528cb5751264c4e6825a.res"
+
+[deps]
+
+source_file="res://assets/img/characters/santa/santa.aseprite"
+dest_files=["res://.godot/imported/santa.aseprite-dfc602b704dc528cb5751264c4e6825a.res"]
+
+[params]
+

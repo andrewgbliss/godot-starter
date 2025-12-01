@@ -104,6 +104,8 @@ func apply_gravity(delta: float):
 	return get_gravity() * gravity_dir.normalized() * physics.gravity_percent * delta
 
 func move_toward(direction: Vector2, s: float):
+	if paralyzed:
+		return Vector2.ZERO
 	var physics = character.get_physics_group()
 	var result_velocity = velocity
 	
@@ -346,7 +348,6 @@ func spawn():
 	position = spawn_position
 	character.character_sheet.spawn_reset()
 	show()
-	focus()
 	spawned.emit(global_position)
 	
 func spawn_random_from_nav():

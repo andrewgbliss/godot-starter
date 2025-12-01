@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="1_yan2r"]
 [ext_resource type="Script" uid="uid://dm5r6oukwhccm" path="res://blisscode/character/character.gd" id="2_cfvnr"]
 [ext_resource type="Script" uid="uid://bkcl7yhvmiokh" path="res://blisscode/character/character_sheet.gd" id="2_w56a4"]
-[ext_resource type="Texture2D" uid="uid://cx3q7w5dkyvxa" path="res://assets/img/characters/mech/mech-2-export.png" id="4_dskel"]
+[ext_resource type="SpriteFrames" uid="uid://bc6gq5cy8tjgt" path="res://assets/img/characters/elf/Elf.res" id="4_cfvnr"]
 [ext_resource type="Script" uid="uid://brschogihfiwm" path="res://blisscode/character/controls/ai_controls.gd" id="5_ananl"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bwp3hqywp4err" path="res://scenes/characters/player/animations/player_walk_states.tres" id="7_q5dgt"]
 [ext_resource type="Script" uid="uid://bnbbi7tcoi6sg" path="res://blisscode/behavior_tree/bt_blackboard.gd" id="15_u1qma"]
@@ -35,115 +35,31 @@ metadata/_custom_type_script = "uid://dm5r6oukwhccm"
 
 [sub_resource type="Animation" id="Animation_vmatd"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
 
 [sub_resource type="Animation" id="Animation_apbv3"]
 resource_name = "idle_down"
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
 
 [sub_resource type="Animation" id="Animation_po7bs"]
 resource_name = "idle_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
 
 [sub_resource type="Animation" id="Animation_xokow"]
 resource_name = "idle_up"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
 
 [sub_resource type="Animation" id="Animation_ohvsh"]
 resource_name = "walk_down"
 length = 0.6
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
 
 [sub_resource type="Animation" id="Animation_67j34"]
 resource_name = "walk_right"
 length = 0.6
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.366667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [6, 7, 8]
-}
 
 [sub_resource type="Animation" id="Animation_5b8nr"]
 resource_name = "walk_up"
 length = 0.6
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [3, 4, 5]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wudon"]
 _data = {
@@ -172,7 +88,6 @@ radius = 202.022
 [node name="EnemyPath" type="CharacterBody2D" node_paths=PackedStringArray("controls", "behavior_trees") groups=["npc", "persist"]]
 collision_layer = 64
 collision_mask = 103
-motion_mode = 1
 script = ExtResource("1_yan2r")
 character = SubResource("Resource_dskel")
 controls = NodePath("AIControls")
@@ -184,11 +99,11 @@ metadata/_custom_type_script = "uid://cyhaw1qyjtrhn"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_84hc2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("4_dskel")
-hframes = 3
-vframes = 3
-frame = 1
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+sprite_frames = ExtResource("4_cfvnr")
+animation = &"Idle"
+offset = Vector2(0, -12)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -269,6 +184,7 @@ require_target = true
 metadata/_custom_type_script = "uid://b8x28spcn1q3a"
 
 [node name="CharacterPointsBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("28_dqdtj")]
+visible = false
 character = NodePath("..")
 
 [node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls")]

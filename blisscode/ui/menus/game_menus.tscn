@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cfidra8l63jcf" path="res://blisscode/ui/menus/menu/menu.gd" id="4_bg78d"]
 [ext_resource type="Script" uid="uid://kfj666n2xifd" path="res://blisscode/ui/menus/menu/buttons/menu_stack_button.gd" id="5_vwoi7"]
 [ext_resource type="Script" uid="uid://jnyn4yy8houc" path="res://blisscode/ui/menus/menu/buttons/menu_back_button.gd" id="6_0bqtc"]
-[ext_resource type="Script" uid="uid://dupq66corv17" path="res://blisscode/ui/menus/menu/buttons/menu_game_start_button.gd" id="6_od5r7"]
+[ext_resource type="PackedScene" uid="uid://b0mjj28rh0u4r" path="res://blisscode/ui/menus/menu/player_profile_select_menu/player_profile_select_menu.tscn" id="6_iwh2y"]
 [ext_resource type="Script" uid="uid://dn07iyn4dq4i4" path="res://blisscode/ui/menus/menu/buttons/menu_quit_button.gd" id="7_iwh2y"]
 [ext_resource type="PackedScene" uid="uid://c40xhlbq0xxj2" path="res://blisscode/ui/volume_slider/volume_slider.tscn" id="8_fn1d8"]
 [ext_resource type="Script" uid="uid://cvmt3mptfcet4" path="res://blisscode/ui/audio/jukebox/jukebox_open_button.gd" id="8_iwh2y"]
@@ -547,10 +547,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.5
-offset_top = -56.0
-offset_right = 64.5
-offset_bottom = 56.0
+offset_left = -125.5
+offset_top = -129.5
+offset_right = 125.5
+offset_bottom = 129.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -561,10 +561,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuStack/MainMenu/Control/Panel/MarginContainer"]
 layout_mode = 2
@@ -578,7 +578,7 @@ layout_mode = 2
 text = "Play"
 script = ExtResource("5_vwoi7")
 menu_stack = NodePath("../../../../../..")
-to_menu = NodePath("../../../../../../PlayerSelectMenu")
+to_menu = NodePath("../../../../../../PlayerProfileSelectMenu")
 
 [node name="ButtonLoadGame" type="Button" parent="MenuStack/MainMenu/Control/Panel/MarginContainer/VBoxContainer" node_paths=PackedStringArray("menu_stack", "to_menu")]
 layout_mode = 2
@@ -605,132 +605,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_hibng")
 }
 
-[node name="PlayerSelectMenu" type="CanvasLayer" parent="MenuStack"]
-script = ExtResource("4_bg78d")
-metadata/_custom_type_script = "uid://cfidra8l63jcf"
-
-[node name="Control" type="Control" parent="MenuStack/PlayerSelectMenu"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="MenuStack/PlayerSelectMenu/Control"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = -86.0
-offset_right = 112.0
-offset_bottom = 88.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Select Player"
-
-[node name="HSeparator" type="HSeparator" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Player 1"
-
-[node name="MenuGameStateButton" type="Button" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Start"
-script = ExtResource("6_od5r7")
-metadata/_custom_type_script = "uid://dyvdlqotxd88t"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Player 2"
-
-[node name="MenuGameStateButton" type="Button" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Start"
-script = ExtResource("6_od5r7")
-metadata/_custom_type_script = "uid://dyvdlqotxd88t"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Player 3"
-
-[node name="MenuGameStateButton" type="Button" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-text = "Start"
-script = ExtResource("6_od5r7")
-metadata/_custom_type_script = "uid://dyvdlqotxd88t"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Player 4"
-
-[node name="MenuGameStateButton" type="Button" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer/Control/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "Start"
-script = ExtResource("6_od5r7")
-metadata/_custom_type_script = "uid://dyvdlqotxd88t"
-
-[node name="ButtonBack" type="Button" parent="MenuStack/PlayerSelectMenu/Control/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Back"
-script = ExtResource("6_0bqtc")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuStack/PlayerSelectMenu"]
-libraries = {
-&"": SubResource("AnimationLibrary_hibng")
-}
+[node name="PlayerProfileSelectMenu" parent="MenuStack" instance=ExtResource("6_iwh2y")]
 
 [node name="SettingsMenu" type="CanvasLayer" parent="MenuStack"]
 script = ExtResource("4_bg78d")

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://chdr74sbanmwn"
+path="res://.godot/imported/FlameThrower.aseprite-8dc60d271062e7e1e839c9fb8215769d.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/FlameThrower.aseprite"
+dest_files=["res://.godot/imported/FlameThrower.aseprite-8dc60d271062e7e1e839c9fb8215769d.res"]
+
+[params]
+

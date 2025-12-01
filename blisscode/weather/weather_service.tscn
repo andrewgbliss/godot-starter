@@ -6,6 +6,9 @@
 
 [node name="WeatherService" type="Node2D" node_paths=PackedStringArray("debug_panel", "moisture_slider", "altitude_slider", "temperature_slider", "barometer_slider", "wind_speed_slider")]
 script = ExtResource("1_bhuv2")
+dont_change_temperature = true
+dont_change_moisture = true
+moisture = 1.0
 debug_panel = NodePath("CanvasLayer/Panel")
 weather_pattern_noise = SubResource("FastNoiseLite_audam")
 moisture_slider = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MoistureHSlider")

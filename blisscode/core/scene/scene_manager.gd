@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var default_transition: String = "Fade"
+@export var backdrop: Sprite2D
 
 var current_scene = null
 var scene_transitions: Dictionary[String, SceneTransition] = {}
@@ -91,3 +92,11 @@ func transition_next():
 			transition_play(next_transition.name)
 			return true
 	return false
+
+func hide_backdrop():
+	if backdrop:
+		backdrop.hide()
+
+func show_backdrop():
+	if backdrop:
+		backdrop.show()

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c1a2u315xtijb"
+path="res://.godot/imported/SnowTiles.aseprite-e20b1e67cf2a8f489007a711d3f50de2.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/SnowTiles.aseprite"
+dest_files=["res://.godot/imported/SnowTiles.aseprite-e20b1e67cf2a8f489007a711d3f50de2.res"]
+
+[params]
+

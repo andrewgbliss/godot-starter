@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bscscai5wbke1"
+path="res://.godot/imported/santa.aseprite-18834ca9ef772781b74400748ae9da37.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/santa.aseprite"
+dest_files=["res://.godot/imported/santa.aseprite-18834ca9ef772781b74400748ae9da37.res"]
+
+[params]
+

@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=4 uid="uid://b5ltjioj67j0w"]
+
+[ext_resource type="Script" uid="uid://c4o3tgmi8orwn" path="res://blisscode/character/character_create/character_create.gd" id="1_qf5cq"]
+[ext_resource type="PackedScene" uid="uid://h7fl106k8gn" path="res://scenes/world/world_area/platformer/platformer_background.tscn" id="5_eh34o"]
+[ext_resource type="TileSet" uid="uid://drxegvekcmdv2" path="res://scenes/world/world_area/platformer/tileset.tres" id="6_rtrjd"]
+[ext_resource type="Script" uid="uid://dfp07djigitpu" path="res://blisscode/generation/tile_map_layer_advanced.gd" id="7_pb8on"]
+
+[node name="CharacterCreate" type="Node2D" node_paths=PackedStringArray("character_container", "camera", "character_type_options", "character_size_options", "character_skin_options", "create_button")]
+script = ExtResource("1_qf5cq")
+character_name = "Silo"
+character_container = NodePath("CharacterContainer")
+camera = NodePath("Camera2D")
+character_type_options = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/CharacterType")
+character_size_options = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/CharacterSize")
+character_skin_options = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/CharacterSkin")
+create_button = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/Button")
+
+[node name="PlatformerBackground" parent="." instance=ExtResource("5_eh34o")]
+position = Vector2(0, -168)
+
+[node name="Platform" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAGAP3/AQACAAgAAAAFAP3/AQACAAgAAAAEAP3/AQABAAgAAAAHAP3/AQACAAgAAAAIAP3/AQADAAgAAAAVABMAAQALAAgAAAAVABIAAQALAAcAAAAVABEAAQALAAcAAAAVABAAAQALAAcAAAAVAA8AAQALAAcAAAAVAA4AAQALAAcAAAAVAA0AAQALAAUAAAAUABMAAQAJAAgAAAAUABIAAQAJAAcAAAAUABEAAQAJAAcAAAAUABAAAQAJAAcAAAAUAA8AAQAJAAcAAAAUAA4AAQAJAAcAAAAUAA0AAQAKAAUAAAATABMAAQAJAAgAAAATABIAAQAJAAcAAAATABEAAQAJAAcAAAATABAAAQAJAAcAAAATAA8AAQAJAAcAAAATAA4AAQAJAAcAAAATAA0AAQAKAAUAAAASABMAAQAJAAgAAAASABIAAQAJAAcAAAASABEAAQAJAAcAAAASABAAAQAJAAcAAAASAA8AAQAJAAcAAAASAA4AAQAJAAcAAAASAA0AAQAKAAUAAAARABMAAQAJAAgAAAARABIAAQAJAAcAAAARABEAAQAJAAcAAAARABAAAQAJAAcAAAARAA8AAQAJAAcAAAARAA4AAQAJAAcAAAARAA0AAQAKAAUAAAAQABMAAQAJAAgAAAAQABIAAQAJAAcAAAAQABEAAQAJAAcAAAAQABAAAQAJAAcAAAAQAA8AAQAJAAcAAAAQAA4AAQAJAAcAAAAQAA0AAQAKAAUAAAAPABMAAQAJAAgAAAAPABIAAQAJAAcAAAAPABEAAQAJAAcAAAAPABAAAQAJAAcAAAAPAA8AAQAJAAcAAAAPAA4AAQAJAAcAAAAPAA0AAQAKAAUAAAAOABMAAQAJAAgAAAAOABIAAQAJAAcAAAAOABEAAQAJAAcAAAAOABAAAQAJAAcAAAAOAA8AAQAJAAcAAAAOAA4AAQAJAAcAAAAOAA0AAQAKAAUAAAANABMAAQAJAAgAAAANABIAAQAJAAcAAAANABEAAQAJAAcAAAANABAAAQAJAAcAAAANAA8AAQAJAAcAAAANAA4AAQAJAAcAAAANAA0AAQAKAAUAAAAMABMAAQAJAAgAAAAMABIAAQAJAAcAAAAMABEAAQAJAAcAAAAMABAAAQAJAAcAAAAMAA8AAQAJAAcAAAAMAA4AAQAJAAcAAAAMAA0AAQAKAAUAAAALABMAAQAJAAgAAAALABIAAQAJAAcAAAALABEAAQAJAAcAAAALABAAAQAJAAcAAAALAA8AAQAJAAcAAAALAA4AAQAJAAcAAAALAA0AAQAKAAUAAAAKABMAAQAJAAgAAAAKABIAAQAJAAcAAAAKABEAAQAJAAcAAAAKABAAAQAJAAcAAAAKAA8AAQAJAAcAAAAKAA4AAQAJAAcAAAAKAA0AAQAKAAUAAAAJABMAAQAJAAgAAAAJABIAAQAJAAcAAAAJABEAAQAJAAcAAAAJABAAAQAJAAcAAAAJAA8AAQAJAAcAAAAJAA4AAQAJAAcAAAAJAA0AAQAKAAUAAAAIABMAAQAIAAgAAAAIABIAAQAIAAYAAAAIABEAAQAIAAYAAAAIABAAAQAIAAYAAAAIAA8AAQAIAAYAAAAIAA4AAQAIAAYAAAAIAA0AAQAIAAUAAAA=")
+tile_set = ExtResource("6_rtrjd")
+script = ExtResource("7_pb8on")
+default_terrain_type = 8
+
+[node name="CharacterContainer" type="Node2D" parent="."]
+position = Vector2(234, 205)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 447.0
+offset_top = 70.0
+offset_right = 640.0
+offset_bottom = 290.0
+theme_type_variation = &"NormalPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="CharacterName" type="TextEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_constants/line_spacing = -6
+placeholder_text = "Name:"
+
+[node name="CharacterType" type="OptionButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Side"
+popup/item_0/id = 0
+popup/item_1/text = "TopDown"
+popup/item_1/id = 1
+
+[node name="CharacterSize" type="OptionButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Small"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Large"
+popup/item_2/id = 2
+popup/item_3/text = "XLARGE"
+popup/item_3/id = 3
+
+[node name="CharacterSkin" type="OptionButton" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Silo"
+popup/item_0/id = 0
+popup/item_1/text = "KungFury"
+popup/item_1/id = 1
+popup/item_2/text = "Tom"
+popup/item_2/id = 2
+popup/item_3/text = "Snowman"
+popup/item_3/id = 3
+popup/item_4/text = "Santa"
+popup/item_4/id = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 6.0
+offset_right = 192.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 48
+text = "Create Character"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(237, 176)
+offset = Vector2(0, 15)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 25.0

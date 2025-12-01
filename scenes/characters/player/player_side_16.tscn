@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://cfwyg6l86r11e"]
+[gd_scene load_steps=69 format=3 uid="uid://cfwyg6l86r11e"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_ll86u"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_n30tf"]
@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://iy021d8gnrks" path="res://assets/img/cursors/crosshairs.png" id="14_udtcf"]
 [ext_resource type="Texture2D" uid="uid://bxqd1qybg36cl" path="res://assets/img/cursors/circle.png" id="15_1jx46"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="16_scjan"]
-[ext_resource type="Script" uid="uid://chigi4pyju8x5" path="res://scenes/characters/player/player_camera.gd" id="17_yd0qc"]
 [ext_resource type="Script" uid="uid://bx4nlc04ew5og" path="res://blisscode/physics/raycast_2d_advanced.gd" id="18_aberx"]
 [ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="19_6hp8t"]
 [ext_resource type="Script" uid="uid://c3rd0mfca06gc" path="res://blisscode/state_machine/states/spawn_state.gd" id="20_mbhx5"]
@@ -51,8 +50,6 @@
 [ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_qa4bk"]
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_vtdn5"]
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_xd7qn"]
-[ext_resource type="Texture2D" uid="uid://dl5ed1afrnnhn" path="res://assets/img/masks/LightMask.png" id="52_3oldh"]
-[ext_resource type="Script" uid="uid://mkjqnaq1oabe" path="res://blisscode/light/point_light_2d_advanced.gd" id="53_mpce4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_ll86u")
@@ -67,10 +64,10 @@ shader_parameter/pulse_cycle = true
 shader_parameter/pulse_mode = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
-size = Vector2(5, 12)
+size = Vector2(4, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1kwg"]
-size = Vector2(10, 9)
+size = Vector2(5, 8.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1x7x"]
 size = Vector2(9, 9)
@@ -258,6 +255,7 @@ script = ExtResource("2_n30tf")
 character = ExtResource("3_arvne")
 controls = NodePath("PlayerControls")
 state_machine = NodePath("PlatformerStateMachine")
+hide_on_ready = false
 dangling_raycast = NodePath("DanglingRayCast2D")
 ladder_raycast = NodePath("LadderRayCast2D")
 ledge_grab_raycast = NodePath("LedgeGrabRayCast2D")
@@ -272,15 +270,16 @@ show_touch_sprite = false
 metadata/_custom_type_script = "uid://d2lsy2pdynjo3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 6)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_wocps")
 
 [node name="CrouchCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 7.5)
+position = Vector2(-0.5, -2.25)
 shape = SubResource("RectangleShape2D_s1kwg")
 disabled = true
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("animated_sprite")]
+position = Vector2(-1, -9)
 collision_layer = 512
 collision_mask = 1028
 script = ExtResource("5_ck218")
@@ -295,7 +294,7 @@ shape = SubResource("RectangleShape2D_l1x7x")
 disabled = true
 
 [node name="DownthrustHitbox" type="Area2D" parent="." node_paths=PackedStringArray("animated_sprite")]
-position = Vector2(0, -10)
+position = Vector2(-1, -19)
 collision_layer = 512
 collision_mask = 1028
 script = ExtResource("5_ck218")
@@ -311,7 +310,7 @@ shape = SubResource("RectangleShape2D_1h4ch")
 disabled = true
 
 [node name="UpthrustHitbox" type="Area2D" parent="." node_paths=PackedStringArray("animated_sprite")]
-position = Vector2(0, -1)
+position = Vector2(-1, -10)
 collision_layer = 512
 collision_mask = 1028
 script = ExtResource("5_ck218")
@@ -327,8 +326,8 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 sprite_frames = ExtResource("8_ll86u")
-animation = &"Wall Jump"
-offset = Vector2(1.125, 4.15)
+animation = &"Idle"
+offset = Vector2(0, -6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -414,66 +413,63 @@ action_right = "aim_right"
 action_up = "aim_up"
 action_down = "aim_down"
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-remote_path = NodePath("../Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, 15)
-position_smoothing_enabled = true
-position_smoothing_speed = 25.0
-script = ExtResource("17_yd0qc")
-
 [node name="DanglingRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
-position = Vector2(4, 0)
+position = Vector2(3, -8)
 target_position = Vector2(0, 25)
 collision_mask = 4
 script = ExtResource("18_aberx")
 agent = NodePath("..")
-facing_left_position = Vector2(-6, 0)
-facing_right_position = Vector2(6, 0)
+facing_left_position = Vector2(-3, -8)
+facing_right_position = Vector2(3, -8)
 
 [node name="LadderRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
-position = Vector2(0, 9)
+position = Vector2(0, 1)
 target_position = Vector2(0, -25)
 collision_mask = 2048
 hit_from_inside = true
 script = ExtResource("18_aberx")
 agent = NodePath("..")
+facing_left_position = Vector2(0, 1)
+facing_right_position = Vector2(0, 1)
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="TopRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
-position = Vector2(-2, 9)
+position = Vector2(-3, 1)
 target_position = Vector2(0, -25)
 collision_mask = 4
 hit_from_inside = true
 script = ExtResource("18_aberx")
 agent = NodePath("..")
-facing_left_position = Vector2(-2, 9)
-facing_right_position = Vector2(2, 9)
+facing_left_position = Vector2(-3, 1)
+facing_right_position = Vector2(-3, 1)
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="TopRayCast2D2" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
-position = Vector2(2, 9)
+position = Vector2(3, 1)
 target_position = Vector2(0, -25)
 collision_mask = 4
 hit_from_inside = true
 script = ExtResource("18_aberx")
 agent = NodePath("..")
-facing_left_position = Vector2(-2, 9)
-facing_right_position = Vector2(2, 9)
+facing_left_position = Vector2(3, 1)
+facing_right_position = Vector2(3, 1)
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="LedgeGrabRayCast2D" type="RayCast2D" parent="." node_paths=PackedStringArray("agent")]
+position = Vector2(0, -12)
 target_position = Vector2(15, 0)
 collision_mask = 4
 hit_from_inside = true
 script = ExtResource("18_aberx")
 agent = NodePath("..")
+facing_left_position = Vector2(0, -12)
+facing_right_position = Vector2(0, -12)
 metadata/_custom_type_script = "uid://bx4nlc04ew5og"
 
 [node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state", "idle_state")]
 script = ExtResource("19_6hp8t")
 character = NodePath("..")
+enabled = false
 initial_state = NodePath("SpawnState")
 idle_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://bti4mwhmm58cm"
@@ -660,9 +656,3 @@ crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
 animation_name = "Roll"
 wait_for_animation_finished = true
 metadata/_custom_type_script = "uid://ckix7re6h2e6k"
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, 8)
-shadow_enabled = true
-texture = ExtResource("52_3oldh")
-script = ExtResource("53_mpce4")

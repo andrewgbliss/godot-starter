@@ -11,8 +11,10 @@ class_name AIControls extends CharacterControls
 var run: bool = false
 
 func get_movement_direction() -> Vector2:
-	var direction: Vector2 = blackboard.get_var(movement_direction_var, Vector2.ZERO)
-	return direction
+	if blackboard:
+		var direction: Vector2 = blackboard.get_var(movement_direction_var, Vector2.ZERO)
+		return direction
+	return Vector2.ZERO
 
 func get_aim_direction() -> Vector2:
 	var target: CharacterBody2D = blackboard.get_var(target_var, null)
@@ -50,3 +52,18 @@ func is_attacking_left_hand():
 func is_attacking_right_hand():
 	var right = blackboard.get_var(right_hand_var, false)
 	return right
+
+func is_attacking_up() -> bool:
+	return false
+
+func is_attacking_down() -> bool:
+	return false
+
+func is_pressing_slide() -> bool:
+	return false
+
+func is_pressing_jump() -> bool:
+	return false
+
+func is_pushing():
+	return false

@@ -3,13 +3,19 @@ class_name AnimatedSpriteFacingDirection extends Node2D
 @export var agent: CharacterController
 @export var animated_sprite: AnimatedSprite2D
 @export var flip_offset: Vector2 = Vector2.ZERO
+@export var face_right: bool = true
 
 var default_offset: Vector2 = Vector2.ZERO
 var is_facing_right: bool = true
 var previous_facing_right: bool = true
 
 func _ready():
+	call_deferred("_after_ready")
+	
+func _after_ready():
 	default_offset = animated_sprite.offset
+	if not face_right:
+		agent.flip_h()
 	is_facing_right = agent.is_facing_right
 	
 func _process(_delta: float) -> void:

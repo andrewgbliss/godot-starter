@@ -41,6 +41,22 @@ var fade_tween: Tween
 var current_song_container: SongContainer = null
 var is_seeking: bool = false
 var current_playlist: String = ""
+var did_double_press_back: bool = false
+var last_prev_song_press_time: float = 0.0
+var double_press_timeout: float = 0.5 # Time window for double press (in seconds)
+var reset_double_press_timer: float = 0.0
+var reset_double_press_timeout: float = 2.0 # Time before resetting did_double_press_back (in seconds)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if Input.is_action_just_pressed("next_song"):
+			_on_next_button_pressed()
+		if Input.is_action_just_pressed("prev_song"):
+			_on_previous_button_pressed()
+		if Input.is_action_just_pressed("stop_song"):
+			_on_stop_button_pressed()
+		if Input.is_action_just_pressed("play_song"):
+			_on_play_button_pressed()
 
 func _ready():
 	if hide_on_start:
@@ -78,8 +94,6 @@ func _after_ready():
 	if folder_browser_dialog:
 		folder_browser_dialog.folder_selected.connect(_on_folder_selected)
 
-	if stop_button:
-		stop_button.hide()
 	if pause_button:
 		pause_button.hide()
 	if play_button:
@@ -111,7 +125,7 @@ func _build_folders() -> void:
 		button.text = "Load"
 
 		button.pressed.connect(func(): _on_folder_loaded(path))
-		label.text = path
+		label.text = path.split("/")[-1]
 		hbox.add_child(label)
 		hbox.add_child(button)
 		folders_container.add_child(hbox)
@@ -131,6 +145,13 @@ func _on_folder_selected(path: String) -> void:
 func _process(_delta: float) -> void:
 	if current_song_container and current_song_container.is_playing:
 		_update_time_label()
+	
+	# Reset did_double_press_back after timeout
+	if did_double_press_back and reset_double_press_timer > 0.0:
+		var current_time = Time.get_ticks_msec() / 1000.0
+		if current_time - reset_double_press_timer >= reset_double_press_timeout:
+			did_double_press_back = false
+			reset_double_press_timer = 0.0
 
 func _on_minimize_button_pressed() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED);
@@ -154,7 +175,6 @@ func _on_album_selected(path: String) -> void:
 		preload_mp3_folder_tracks(path, "mp3")
 	_build_playlist()
 	pause_button.hide()
-	stop_button.hide()
 	play_button.show()
 	play_button.grab_focus()
 
@@ -206,6 +226,20 @@ func get_playlist_track_names() -> Array:
 	return []
 
 func _on_previous_button_pressed() -> void:
+	var current_time = Time.get_ticks_msec() / 1000.0
+	var time_since_last_press = current_time - last_prev_song_press_time
+	
+	# Check if this is a double press (within the time window)
+	if last_prev_song_press_time > 0.0 and time_since_last_press < double_press_timeout:
+		did_double_press_back = true
+		reset_double_press_timer = current_time
+	
+	last_prev_song_press_time = current_time
+	
+	if current_song_container and current_song_container.is_playing:
+		if not did_double_press_back:
+			current_song_container.audio_stream_player.seek(0)
+			return
 	if preloaded_tracks.size() == 0:
 		return
 	if current_track_index == 0:
@@ -215,6 +249,9 @@ func _on_previous_button_pressed() -> void:
 	current_song_container = songlist_container.get_child(current_track_index)
 	_play_current_song()
 	pause_button.grab_focus()
+	# Reset double press flag when song actually changes
+	did_double_press_back = false
+	reset_double_press_timer = 0.0
 
 func _on_next_button_pressed() -> void:
 	_next_song(current_track_index)
@@ -243,7 +280,6 @@ func _play_current_song() -> void:
 	if not current_song_container.is_playing:
 		current_song_container.play()
 	pause_button.show()
-	stop_button.show()
 	play_button.hide()
 	pause_button.grab_focus()
 	_stop_other_songs()
@@ -274,28 +310,34 @@ func _update_time_label() -> void:
 func _on_play_button_pressed() -> void:
 	play_button.hide()
 	pause_button.show()
-	stop_button.show()
 	if current_song_container == null:
 		_next_song(-1)
 
 	_play_current_song()
 	track_progress.focus_neighbor_bottom = pause_button.get_path()
+	# Reset double press flag
+	did_double_press_back = false
+	reset_double_press_timer = 0.0
 	
 func _on_pause_button_pressed() -> void:
 	pause_button.hide()
 	play_button.show()
-	stop_button.hide()
 	play_button.grab_focus()
 	current_song_container.pause()
 	track_progress.focus_neighbor_bottom = play_button.get_path()
+	# Reset double press flag
+	did_double_press_back = false
+	reset_double_press_timer = 0.0
 
 func _on_stop_button_pressed() -> void:
 	play_button.show()
 	pause_button.hide()
-	stop_button.hide()
 	play_button.grab_focus()
 	_stop_all_songs()
 	track_progress.focus_neighbor_bottom = play_button.get_path()
+	# Reset double press flag
+	did_double_press_back = false
+	reset_double_press_timer = 0.0
 	
 
 func _on_song_play_button_pressed(container: SongContainer) -> void:

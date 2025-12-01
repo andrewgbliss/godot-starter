@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://yinkcfuitmfy"]
+
+[ext_resource type="Script" uid="uid://ck4t0u5723rej" path="res://scenes/weapons/flame_thrower/flame_thrower.gd" id="1_msc7y"]
+[ext_resource type="Texture2D" uid="uid://di3gnjqlv1cwd" path="res://assets/img/snowman/FlameThrower.png" id="1_txncd"]
+[ext_resource type="PackedScene" uid="uid://b6wo8pccnwul8" path="res://blisscode/particles/fire/flame.tscn" id="2_8oqc3"]
+
+[node name="FlameThrower" type="Node2D"]
+script = ExtResource("1_msc7y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_txncd")
+
+[node name="Flame" parent="." instance=ExtResource("2_8oqc3")]
+position = Vector2(7, 0)

@@ -1,0 +1,330 @@
+[gd_scene load_steps=52 format=3 uid="uid://bfx4atrqgi4tm"]
+
+[ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="1_osuh0"]
+[ext_resource type="Script" uid="uid://bkcl7yhvmiokh" path="res://blisscode/character/character_sheet.gd" id="2_3r5r8"]
+[ext_resource type="Resource" uid="uid://c8om865drvjg" path="res://blisscode/character/physics_groups/default_character.tres" id="3_jrwcd"]
+[ext_resource type="Script" uid="uid://dm5r6oukwhccm" path="res://blisscode/character/character.gd" id="3_o83x7"]
+[ext_resource type="SpriteFrames" uid="uid://bc6gq5cy8tjgt" path="res://assets/img/characters/elf/Elf.res" id="4_4u005"]
+[ext_resource type="Script" uid="uid://brschogihfiwm" path="res://blisscode/character/controls/ai_controls.gd" id="6_5kl5t"]
+[ext_resource type="Script" uid="uid://bnbbi7tcoi6sg" path="res://blisscode/behavior_tree/bt_blackboard.gd" id="7_b0yrh"]
+[ext_resource type="Script" uid="uid://0vge3j1r1s0n" path="res://blisscode/character/animation/animated_sprite_facing_direction.gd" id="7_npdhi"]
+[ext_resource type="Script" uid="uid://b3mlg2cpf7tdl" path="res://blisscode/behavior_tree/bt_player.gd" id="8_wdtno"]
+[ext_resource type="Script" uid="uid://dnm2cmvm2uh0v" path="res://blisscode/behavior_tree/composite/bt_selector_node.gd" id="9_bojf7"]
+[ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="9_ixy2f"]
+[ext_resource type="Script" uid="uid://xwbo18yggp15" path="res://blisscode/behavior_tree/composite/bt_sequence_node.gd" id="10_4e4ta"]
+[ext_resource type="Script" uid="uid://c3rd0mfca06gc" path="res://blisscode/state_machine/states/spawn_state.gd" id="10_51dci"]
+[ext_resource type="Script" uid="uid://crvvlkigmoam5" path="res://blisscode/state_machine/states/death_state.gd" id="11_k63td"]
+[ext_resource type="Script" uid="uid://dqeisjnkkturo" path="res://blisscode/state_machine/states/idle_state.gd" id="12_ai03k"]
+[ext_resource type="Script" uid="uid://bxxnffmlkej1k" path="res://blisscode/state_machine/states/dangling_state.gd" id="13_crec8"]
+[ext_resource type="Script" uid="uid://b8x28spcn1q3a" path="res://blisscode/behavior_tree/action/bt_follow_path_process.gd" id="14_fxbe1"]
+[ext_resource type="Script" uid="uid://cutl0tw1jj08w" path="res://blisscode/state_machine/states/walk_state.gd" id="14_heivp"]
+[ext_resource type="Script" uid="uid://qa0dobmwpw5o" path="res://blisscode/state_machine/states/run_state.gd" id="15_npdhi"]
+[ext_resource type="Script" uid="uid://8lo347gc3bwp" path="res://blisscode/state_machine/states/jump_state.gd" id="16_hclpo"]
+[ext_resource type="Script" uid="uid://cv887a08k4env" path="res://blisscode/state_machine/states/jump_flip_state.gd" id="17_7larc"]
+[ext_resource type="PackedScene" uid="uid://qduhqb6f8ovy" path="res://scenes/characters/ui/character_points_bar.tscn" id="17_kbn3i"]
+[ext_resource type="Script" uid="uid://cjqdbfekfsfa0" path="res://blisscode/state_machine/states/falling_state.gd" id="18_ph4e8"]
+[ext_resource type="Script" uid="uid://c30av3xht06qh" path="res://blisscode/character/debug_label.gd" id="18_u6807"]
+[ext_resource type="Script" uid="uid://dbt5kmkhjpnf3" path="res://blisscode/state_machine/states/land_state.gd" id="19_npuur"]
+[ext_resource type="Script" uid="uid://bof7671wkkqnu" path="res://blisscode/state_machine/states/wall_cling_state.gd" id="20_m1mk8"]
+[ext_resource type="Script" uid="uid://boa3aj1iefxc0" path="res://blisscode/state_machine/states/wall_jump_state.gd" id="21_nqcpp"]
+[ext_resource type="Script" uid="uid://bnn0ai7ycx13p" path="res://blisscode/state_machine/states/dash_state.gd" id="22_2ucto"]
+[ext_resource type="Script" uid="uid://bu0p0lqos7mk" path="res://blisscode/state_machine/states/attack_state.gd" id="23_3ip4m"]
+[ext_resource type="Script" uid="uid://dqwiv83jman" path="res://blisscode/state_machine/states/down_thrust_state.gd" id="24_g5jdx"]
+[ext_resource type="Script" uid="uid://lbc7hxobl82o" path="res://blisscode/state_machine/states/up_thrust_state.gd" id="25_81jik"]
+[ext_resource type="Script" uid="uid://d23xdwefkddhf" path="res://blisscode/state_machine/states/crouch_idle_state.gd" id="26_76vh1"]
+[ext_resource type="Script" uid="uid://qfh8rf6645xi" path="res://blisscode/state_machine/states/crouch_walk_state.gd" id="27_dl3vg"]
+[ext_resource type="Script" uid="uid://buntc3r35qfyw" path="res://blisscode/state_machine/states/slide_state.gd" id="28_ekhmi"]
+[ext_resource type="Script" uid="uid://cwsrpsim4luso" path="res://blisscode/state_machine/states/push_state.gd" id="29_m1t3r"]
+[ext_resource type="Script" uid="uid://cgcehadtgns7q" path="res://blisscode/state_machine/states/push_idle_state.gd" id="30_shdhl"]
+[ext_resource type="Script" uid="uid://byldeukkv8onr" path="res://blisscode/state_machine/states/damage_state.gd" id="31_3eb3s"]
+[ext_resource type="Script" uid="uid://bgq7bvojk3aav" path="res://blisscode/state_machine/states/ladder_idle_state.gd" id="32_eucsw"]
+[ext_resource type="Resource" uid="uid://dn5hcqjto66jn" path="res://blisscode/character/physics_groups/ladder_physics.tres" id="33_qljsy"]
+[ext_resource type="Script" uid="uid://dymnvmk5ys3e6" path="res://blisscode/state_machine/states/ladder_climb_state.gd" id="34_bxe1q"]
+[ext_resource type="Script" uid="uid://d0fmsyj4x3pii" path="res://blisscode/state_machine/states/swim_state.gd" id="35_m3tfd"]
+[ext_resource type="Resource" uid="uid://c7fxl34nddumx" path="res://blisscode/character/physics_groups/water_physics.tres" id="36_o5mu8"]
+[ext_resource type="Script" uid="uid://doqs1otgurbf7" path="res://blisscode/state_machine/states/ledge_grab_state.gd" id="37_3vbrb"]
+[ext_resource type="Script" uid="uid://brpw06rdkd7fp" path="res://blisscode/state_machine/states/ledge_climb_state.gd" id="38_2cedb"]
+[ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="39_suxjw"]
+[ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="40_q4i2i"]
+[ext_resource type="PackedScene" uid="uid://m5xmcne3gd3q" path="res://scenes/effects/collisions/particle_damage.tscn" id="41_bsank"]
+[ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="42_lxqds"]
+
+[sub_resource type="Resource" id="Resource_m4jla"]
+script = ExtResource("2_3r5r8")
+health = 100
+max_health = 100
+metadata/_custom_type_script = "uid://bkcl7yhvmiokh"
+
+[sub_resource type="Resource" id="Resource_dskel"]
+script = ExtResource("3_o83x7")
+character_sheet = SubResource("Resource_m4jla")
+physics_group = ExtResource("3_jrwcd")
+metadata/_custom_type_script = "uid://dm5r6oukwhccm"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84hc2"]
+
+[node name="EnemyBasic" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine") groups=["npc", "persist"]]
+collision_layer = 64
+collision_mask = 4
+script = ExtResource("1_osuh0")
+character = SubResource("Resource_dskel")
+controls = NodePath("AIControls")
+state_machine = NodePath("PlatformerStateMachine")
+garbage = true
+garbage_time = 0.1
+metadata/_custom_type_script = "uid://cyhaw1qyjtrhn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_84hc2")
+
+[node name="AIControls" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
+script = ExtResource("6_5kl5t")
+blackboard = NodePath("../BTBlackboard")
+metadata/_custom_type_script = "uid://brschogihfiwm"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+sprite_frames = ExtResource("4_4u005")
+animation = &"Land"
+offset = Vector2(0, -12)
+
+[node name="AnimatedSpriteFacingDirection" type="Node2D" parent="." node_paths=PackedStringArray("agent", "animated_sprite")]
+script = ExtResource("7_npdhi")
+agent = NodePath("..")
+animated_sprite = NodePath("../AnimatedSprite2D")
+flip_offset = Vector2(1.125, 8.15)
+face_right = false
+metadata/_custom_type_script = "uid://0vge3j1r1s0n"
+
+[node name="CharacterPointsBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("17_kbn3i")]
+visible = false
+character = NodePath("..")
+
+[node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("controls")]
+visible = false
+offset_left = -10.0
+offset_top = -56.0
+offset_right = 30.0
+offset_bottom = -24.0
+theme_override_constants/line_spacing = -9
+theme_override_font_sizes/font_size = 16
+text = "State
+Position"
+script = ExtResource("18_u6807")
+controls = NodePath("../AIControls")
+
+[node name="PlatformerStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "initial_state", "idle_state")]
+script = ExtResource("9_ixy2f")
+character = NodePath("..")
+enabled = false
+initial_state = NodePath("SpawnState")
+idle_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://bti4mwhmm58cm"
+
+[node name="SpawnState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("10_51dci")
+animation_name = "Spawn"
+wait_for_animation_finished = true
+use_animated_sprite = false
+dispatch_state = "idle"
+metadata/_custom_type_script = "uid://c3rd0mfca06gc"
+
+[node name="DeathState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("11_k63td")
+animation_name = "Death"
+wait_for_animation_finished = true
+use_animated_sprite = false
+dispatch_state = "spawn"
+metadata/_custom_type_script = "uid://crvvlkigmoam5"
+
+[node name="IdleState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("12_ai03k")
+animation_name = "Idle"
+metadata/_custom_type_script = "uid://dqeisjnkkturo"
+
+[node name="DanglingState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("13_crec8")
+animation_name = "Dangling"
+
+[node name="WalkState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("14_heivp")
+animation_name = "Walk"
+metadata/_custom_type_script = "uid://cutl0tw1jj08w"
+
+[node name="RunState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("15_npdhi")
+animation_name = "Run"
+metadata/_custom_type_script = "uid://qa0dobmwpw5o"
+
+[node name="JumpState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("16_hclpo")
+animation_name = "Jump"
+metadata/_custom_type_script = "uid://8lo347gc3bwp"
+
+[node name="JumpFlipState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("17_7larc")
+animation_name = "Jump Flip"
+metadata/_custom_type_script = "uid://cv887a08k4env"
+
+[node name="FallingState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("18_ph4e8")
+animation_name = "Fall"
+metadata/_custom_type_script = "uid://cjqdbfekfsfa0"
+
+[node name="LandState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("19_npuur")
+animation_name = "Land"
+wait_for_animation_finished = true
+dispatch_state = "idle"
+metadata/_custom_type_script = "uid://dbt5kmkhjpnf3"
+
+[node name="WallClingState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("20_m1mk8")
+animation_name = "Wall Cling"
+metadata/_custom_type_script = "uid://bof7671wkkqnu"
+
+[node name="WallJumpState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("21_nqcpp")
+animation_name = "Wall Jump"
+metadata/_custom_type_script = "uid://boa3aj1iefxc0"
+
+[node name="DashState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("22_2ucto")
+animation_name = "Dash"
+metadata/_custom_type_script = "uid://bnn0ai7ycx13p"
+
+[node name="AttackState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("23_3ip4m")
+left_hand_attack_animation = "Punch"
+right_hand_attack_animation = "Kick"
+play_on_enter = false
+use_animated_sprite = false
+metadata/_custom_type_script = "uid://bu0p0lqos7mk"
+
+[node name="DownThrustState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("24_g5jdx")
+hitbox = NodePath("")
+animation_name = "Down Thrust"
+metadata/_custom_type_script = "uid://dqwiv83jman"
+
+[node name="UpThrustState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("25_81jik")
+hitbox = NodePath("")
+animation_name = "Up Thrust"
+metadata/_custom_type_script = "uid://lbc7hxobl82o"
+
+[node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
+script = ExtResource("26_76vh1")
+collision_shape = NodePath("")
+crouch_collision_shape = NodePath("")
+top_raycast_left = NodePath("")
+top_raycast_right = NodePath("")
+animation_name = "Crouch Idle"
+metadata/_custom_type_script = "uid://d23xdwefkddhf"
+
+[node name="CrouchWalkState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
+script = ExtResource("27_dl3vg")
+collision_shape = NodePath("")
+crouch_collision_shape = NodePath("")
+top_raycast_left = NodePath("")
+top_raycast_right = NodePath("")
+animation_name = "Crouch Walk"
+metadata/_custom_type_script = "uid://qfh8rf6645xi"
+
+[node name="SlideState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+script = ExtResource("28_ekhmi")
+collision_shape = NodePath("")
+crouch_collision_shape = NodePath("")
+animation_name = "Slide"
+
+[node name="PushState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("29_m1t3r")
+animation_name = "Push"
+
+[node name="PushIdleState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("30_shdhl")
+animation_name = "Push Idle"
+metadata/_custom_type_script = "uid://cgcehadtgns7q"
+
+[node name="DamageState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("31_3eb3s")
+animation_name = "Damage"
+wait_for_animation_finished = true
+dispatch_state = "idle"
+
+[node name="LadderIdleState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("32_eucsw")
+physics_group = ExtResource("33_qljsy")
+animation_name = "Ladder Idle"
+
+[node name="LadderClimbState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("34_bxe1q")
+physics_group = ExtResource("33_qljsy")
+animation_name = "Ladder Climb"
+metadata/_custom_type_script = "uid://dymnvmk5ys3e6"
+
+[node name="SwimState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("35_m3tfd")
+physics_group = ExtResource("36_o5mu8")
+animation_name = "Swim"
+freeze_physics = true
+freeze_state = true
+metadata/_custom_type_script = "uid://d0fmsyj4x3pii"
+
+[node name="LedgeGrabState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("37_3vbrb")
+hand_offset = Vector2(0, 2)
+animation_name = "Ledge Grab"
+enabled = false
+metadata/_custom_type_script = "uid://doqs1otgurbf7"
+
+[node name="LedgeClimbState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("38_2cedb")
+animation_name = "Ledge Climb"
+wait_for_animation_finished = true
+enabled = false
+
+[node name="SmashDownState" type="Node" parent="PlatformerStateMachine"]
+script = ExtResource("39_suxjw")
+physics_group = ExtResource("40_q4i2i")
+animation_started = "Smash Down Started"
+animation_performed = "Smash Down Performed"
+animation_collided = "Smash Down Collided"
+collide_effect = ExtResource("41_bsank")
+play_on_enter = false
+wait_for_animation_finished = true
+freeze_state = true
+metadata/_custom_type_script = "uid://blnadlxb5ld8"
+
+[node name="RollState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+script = ExtResource("42_lxqds")
+collision_shape = NodePath("")
+crouch_collision_shape = NodePath("")
+animation_name = "Roll"
+wait_for_animation_finished = true
+metadata/_custom_type_script = "uid://ckix7re6h2e6k"
+
+[node name="BTBlackboard" type="Node" parent="."]
+script = ExtResource("7_b0yrh")
+metadata/_custom_type_script = "uid://bnbbi7tcoi6sg"
+
+[node name="BTPlayer" type="Node" parent="." node_paths=PackedStringArray("root_node", "blackboard", "agent")]
+script = ExtResource("8_wdtno")
+root_node = NodePath("BTSelectorNode")
+blackboard = NodePath("../BTBlackboard")
+agent = NodePath("..")
+is_running = true
+metadata/_custom_type_script = "uid://b3mlg2cpf7tdl"
+
+[node name="BTSelectorNode" type="Node" parent="BTPlayer"]
+script = ExtResource("9_bojf7")
+metadata/_custom_type_script = "uid://dnm2cmvm2uh0v"
+
+[node name="Wander" type="Node" parent="BTPlayer/BTSelectorNode"]
+script = ExtResource("10_4e4ta")
+metadata/_custom_type_script = "uid://xwbo18yggp15"
+
+[node name="BTFollowPathProcess" type="Node" parent="BTPlayer/BTSelectorNode/Wander"]
+script = ExtResource("14_fxbe1")
+acquire_target = true
+metadata/_custom_type_script = "uid://b8x28spcn1q3a"

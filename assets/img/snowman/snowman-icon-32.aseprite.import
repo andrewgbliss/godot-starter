@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://kcf6kf2fijj1"
+path="res://.godot/imported/snowman-icon-32.aseprite-015a183ea22870df5dfd53012c78ded2.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/snowman-icon-32.aseprite"
+dest_files=["res://.godot/imported/snowman-icon-32.aseprite-015a183ea22870df5dfd53012c78ded2.res"]
+
+[params]
+

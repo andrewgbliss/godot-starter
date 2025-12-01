@@ -59,6 +59,7 @@ func _on_world_changed(to_room_id: String, from_room_id: String, _scene_path: St
 	game_config.to_world_door_id = to_room_id
 	
 func game_start():
+	GameManager.game_config.set_state(GameConfig.GAME_STATE.GAME_START)
 	GameUi.game_menus.menu_stack.pop_all()
 	SceneManager.goto_scene(GameManager.game_config.game_start_scene)
 
@@ -66,6 +67,11 @@ func game_restore():
 	GameManager.game_config.set_state(GameConfig.GAME_STATE.GAME_RESTORE)
 	GameUi.game_menus.menu_stack.pop_all()
 	SceneManager.goto_scene(GameManager.game_config.game_restore_scene)
+
+func game_character_create():
+	GameManager.game_config.set_state(GameConfig.GAME_STATE.GAME_CHARACTER_CREATE)
+	GameUi.game_menus.menu_stack.pop_all()
+	SceneManager.goto_scene(GameManager.game_config.character_create_scene)
 
 func reset():
 	user_config.reset()

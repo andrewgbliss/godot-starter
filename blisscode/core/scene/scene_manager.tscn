@@ -1,226 +1,35 @@
-[gd_scene load_steps=27 format=3 uid="uid://d2nvrc0q8455o"]
+[gd_scene load_steps=37 format=3 uid="uid://d2nvrc0q8455o"]
 
 [ext_resource type="Script" uid="uid://ng0wv0ah607s" path="res://blisscode/core/scene/scene_manager.gd" id="1_42i0j"]
 [ext_resource type="Script" uid="uid://ckct5b6ritvey" path="res://blisscode/core/scene/scene_transition.gd" id="2_7wwds"]
 [ext_resource type="Shader" uid="uid://b63aqxllrx8tu" path="res://blisscode/shaders/fader.gdshader" id="3_8lvuf"]
-[ext_resource type="AudioStream" uid="uid://da5oygxus6g8a" path="res://assets/audio/effects/click.mp3" id="4_x6p6n"]
+[ext_resource type="Texture2D" uid="uid://bjkhmn6p133or" path="res://assets/img/brand/sponsors/godot.png" id="3_x6p6n"]
+[ext_resource type="Texture2D" uid="uid://cexb4qmpnjy5b" path="res://assets/img/brand/brand-shield.png" id="4_2dy58"]
+[ext_resource type="Texture2D" uid="uid://dki18rxe123b6" path="res://assets/img/brand/brand-sword.png" id="5_gpoq0"]
 
-[sub_resource type="Animation" id="Animation_slsk0"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Label:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Label:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
+[sub_resource type="Gradient" id="Gradient_x6p6n"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_gpoq0"]
-resource_name = "blink"
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Label:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Label:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-
-[sub_resource type="Animation" id="Animation_x6p6n"]
-resource_name = "transition_in"
-length = 0.5
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Label:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Label:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-
-[sub_resource type="Animation" id="Animation_2dy58"]
-resource_name = "transition_out"
-length = 0.5
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Label:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Label:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_36hqf"]
-_data = {
-&"RESET": SubResource("Animation_slsk0"),
-&"blink": SubResource("Animation_gpoq0"),
-&"transition_in": SubResource("Animation_x6p6n"),
-&"transition_out": SubResource("Animation_2dy58")
-}
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2dy58"]
+gradient = SubResource("Gradient_x6p6n")
 
 [sub_resource type="Animation" id="Animation_o5qli"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_ratio")
+tracks/0/path = NodePath("TextureRectShield:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Label2:modulate:r")
+tracks/1/path = NodePath("TextureRectShield:modulate:g")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -231,7 +40,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Label2:modulate:g")
+tracks/2/path = NodePath("TextureRectShield:modulate:b")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -242,29 +51,29 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Label2:modulate:b")
+tracks/3/path = NodePath("TextureRectShield:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Label2:modulate:a")
+tracks/4/path = NodePath("TextureRectSword:modulate:r")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Label:modulate:r")
+tracks/5/path = NodePath("TextureRectSword:modulate:g")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -275,7 +84,7 @@ tracks/5/keys = {
 tracks/6/type = "bezier"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Label:modulate:g")
+tracks/6/path = NodePath("TextureRectSword:modulate:b")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -286,67 +95,34 @@ tracks/6/keys = {
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Label:modulate:b")
+tracks/7/path = NodePath("TextureRectSword:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/8/type = "bezier"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Label:modulate:a")
+tracks/8/path = NodePath("TextureRectSword:position:x")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(64, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/9/type = "bezier"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("TextureRect:modulate:r")
+tracks/9/path = NodePath("TextureRectSword:position:y")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/10/type = "bezier"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("TextureRect:modulate:g")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/11/type = "bezier"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("TextureRect:modulate:b")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/12/type = "bezier"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("TextureRect:modulate:a")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.0005, 0, 0.0005, 0),
+"points": PackedFloat32Array(-64, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 
@@ -354,107 +130,119 @@ tracks/12/keys = {
 resource_name = "blink"
 length = 1.5
 loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label2:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.766667, 1.5)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label2:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.766667, 1.5)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Label2:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.766667, 1.5)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Label2:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.766667, 1.5)
-}
 
 [sub_resource type="Animation" id="Animation_sgp6g"]
 resource_name = "transition_in"
+length = 2.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_ratio")
+tracks/0/path = NodePath("TextureRectShield:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:modulate:r")
+tracks/1/path = NodePath("TextureRectShield:modulate:g")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.52)
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("TextureRect:modulate:g")
+tracks/2/path = NodePath("TextureRectShield:modulate:b")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.52)
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("TextureRect:modulate:b")
+tracks/3/path = NodePath("TextureRectShield:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.52)
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("TextureRect:modulate:a")
+tracks/4/path = NodePath("TextureRectSword:modulate:r")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.52)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(0.01999998, 0.49)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextureRectSword:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(0.01999998, 0.49)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextureRectSword:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(0.01999998, 0.49)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TextureRectSword:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.07833334, -0.16666669, 0, 0),
+"times": PackedFloat32Array(0.01999998, 0.49)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TextureRectSword:position:x")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(64, -0.25, 0, 0.25, 0, 0, -0.08166667, 10.666667, 0, 0),
+"times": PackedFloat32Array(0, 0.26666665)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TextureRectSword:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-64, -0.25, 0, 0.25, 0, 0, -0.08166667, -10.666667, 0, 0),
+"times": PackedFloat32Array(0, 0.26666665)
 }
 
 [sub_resource type="Animation" id="Animation_sugp2"]
@@ -463,134 +251,112 @@ length = 0.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/path = NodePath("TextureRectShield:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/path = NodePath("TextureRectShield:modulate:g")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/path = NodePath("TextureRectShield:modulate:b")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/path = NodePath("TextureRectShield:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.083333336, -0.16666667, 0, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Label2:modulate:r")
+tracks/4/path = NodePath("TextureRectSword:modulate:r")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(-0.0033333302, 0.4666667)
 }
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Label2:modulate:g")
+tracks/5/path = NodePath("TextureRectSword:modulate:g")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(-0.0033333302, 0.4666667)
 }
 tracks/6/type = "bezier"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Label2:modulate:b")
+tracks/6/path = NodePath("TextureRectSword:modulate:b")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.07833334, 0, 0, 0),
+"times": PackedFloat32Array(-0.0033333302, 0.4666667)
 }
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Label2:modulate:a")
+tracks/7/path = NodePath("TextureRectSword:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07833334, -0.16666669, 0, 0),
+"times": PackedFloat32Array(-0.0033333302, 0.4666667)
 }
 tracks/8/type = "bezier"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("TextureRect:modulate:r")
+tracks/8/path = NodePath("TextureRectSword:position:x")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 tracks/9/type = "bezier"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("TextureRect:modulate:g")
+tracks/9/path = NodePath("TextureRectSword:position:y")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/10/type = "bezier"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("TextureRect:modulate:b")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
-}
-tracks/11/type = "bezier"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("TextureRect:modulate:a")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5)
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wfyh"]
@@ -601,11 +367,287 @@ _data = {
 &"transition_out": SubResource("Animation_sugp2")
 }
 
-[sub_resource type="Gradient" id="Gradient_0wfyh"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_g1sk4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LogoVerticalColorDark:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LogoVerticalColorDark:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LogoVerticalColorDark:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LogoVerticalColorDark:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Label:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_slsk0"]
-gradient = SubResource("Gradient_0wfyh")
+[sub_resource type="Animation" id="Animation_vndcs"]
+resource_name = "transition_in"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LogoVerticalColorDark:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LogoVerticalColorDark:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LogoVerticalColorDark:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LogoVerticalColorDark:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Label:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_cet11"]
+resource_name = "transition_out"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LogoVerticalColorDark:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LogoVerticalColorDark:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LogoVerticalColorDark:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LogoVerticalColorDark:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, -0.16666667, 0, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Label:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.083333336, -0.16666667, 0, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ooxuu"]
+_data = {
+&"RESET": SubResource("Animation_g1sk4"),
+&"transition_in": SubResource("Animation_vndcs"),
+&"transition_out": SubResource("Animation_cet11")
+}
 
 [sub_resource type="Animation" id="Animation_b7ib8"]
 length = 0.001
@@ -960,6 +1002,376 @@ _data = {
 &"transition_out": SubResource("Animation_eq0dc")
 }
 
+[sub_resource type="Animation" id="Animation_gpoq0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_2dy58"]
+resource_name = "transition_in"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_ooxuu"]
+resource_name = "transition_out"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l8utk"]
+_data = {
+&"RESET": SubResource("Animation_gpoq0"),
+&"transition_in": SubResource("Animation_2dy58"),
+&"transition_out": SubResource("Animation_ooxuu")
+}
+
+[sub_resource type="Animation" id="Animation_o2qbi"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ricgj"]
+resource_name = "blink"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.165, 0, 0, 0, 1, -0.17, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.73333335, 1.4333333)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.165, 0, 0, 0, 1, -0.17, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.73333335, 1.4333333)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.165, 0, 0, 0, 1, -0.17, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.73333335, 1.4333333)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.165, 0.16666667, 0, 0, 1, -0.17, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.73333335, 1.4333333)
+}
+
+[sub_resource type="Animation" id="Animation_l8utk"]
+resource_name = "transition_in"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.08166667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+
+[sub_resource type="Animation" id="Animation_g1uaj"]
+resource_name = "transition_out"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.08166667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.49)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.08166667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ricgj"]
+_data = {
+&"RESET": SubResource("Animation_o2qbi"),
+&"blink": SubResource("Animation_ricgj"),
+&"transition_in": SubResource("Animation_l8utk"),
+&"transition_out": SubResource("Animation_g1uaj")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7ib8"]
 shader = ExtResource("3_8lvuf")
 shader_parameter/progress = 0.0
@@ -1013,99 +1425,111 @@ _data = {
 &"transition_out": SubResource("Animation_oilqa")
 }
 
-[node name="SceneManager" type="Node2D"]
+[node name="SceneManager" type="Node2D" node_paths=PackedStringArray("backdrop")]
 process_mode = 3
 script = ExtResource("1_42i0j")
+backdrop = NodePath("BlackBackdrop")
 
-[node name="InitSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click", "next_transition")]
+[node name="BlackBackdrop" type="Sprite2D" parent="."]
+z_index = -1000
+scale = Vector2(2.507, 360)
+texture = SubResource("GradientTexture1D_2dy58")
+centered = false
+
+[node name="InitSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("next_transition")]
 script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
-next_transition = NodePath("../SponserSplashScreen")
+animation_blink = ""
+next_transition = NodePath("../BrandSplashScreen")
+time_to_live = 0.1
+any_key_to_next = true
 
 [node name="Label" type="Label" parent="InitSplashScreen"]
+visible = false
 modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
-offset_bottom = 16.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -94.0
+offset_top = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "Init Loading"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InitSplashScreen"]
-libraries = {
-&"": SubResource("AnimationLibrary_36hqf")
-}
-
-[node name="SponserSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click", "next_transition")]
+[node name="BrandSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("next_transition")]
 script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
-next_transition = NodePath("../BrandSplashScreen")
-
-[node name="Label" type="Label" parent="SponserSplashScreen"]
-modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
-offset_bottom = 16.0
-text = "Sponsor"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SponserSplashScreen"]
-libraries = {
-&"": SubResource("AnimationLibrary_36hqf")
-}
-
-[node name="BrandSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click", "next_transition")]
-script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
-next_transition = NodePath("../Loading2")
+animation_blink = ""
+next_transition = NodePath("../SponserSplashScreen")
+time_to_live = 0.1
+any_key_to_next = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BrandSplashScreen"]
 libraries = {
 &"": SubResource("AnimationLibrary_0wfyh")
 }
 
-[node name="TextureRect" type="TextureRect" parent="BrandSplashScreen"]
+[node name="TextureRectShield" type="TextureRect" parent="BrandSplashScreen"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_slsk0")
+texture = ExtResource("4_2dy58")
 
-[node name="Label" type="Label" parent="BrandSplashScreen"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -8.0
-offset_right = 20.0
-offset_bottom = 8.0
+[node name="TextureRectSword" type="TextureRect" parent="BrandSplashScreen"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "BlissCode
-Godot Game Starter"
-visible_characters = 0
-visible_characters_behavior = 1
-visible_ratio = 0.0
+texture = ExtResource("5_gpoq0")
 
-[node name="Label2" type="Label" parent="BrandSplashScreen"]
+[node name="SponserSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("next_transition")]
+script = ExtResource("2_7wwds")
+animation_blink = ""
+next_transition = NodePath("../Loading2")
+time_to_live = 2.0
+any_key_to_next = true
+
+[node name="LogoVerticalColorDark" type="Sprite2D" parent="SponserSplashScreen"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(320, 189)
+texture = ExtResource("3_x6p6n")
+
+[node name="Label" type="Label" parent="SponserSplashScreen"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = 12.0
-offset_right = 26.0
-offset_bottom = 28.0
+offset_left = -40.0
+offset_top = -57.0
+offset_right = 40.0
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Press any key"
+text = "Powered By"
 
-[node name="Loading2" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click", "next_transition")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SponserSplashScreen"]
+libraries = {
+&"": SubResource("AnimationLibrary_ooxuu")
+}
+
+[node name="Loading2" type="CanvasLayer" parent="." node_paths=PackedStringArray("next_transition")]
 script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
+animation_blink = ""
 next_transition = NodePath("../GameSplashScreen")
+time_to_live = 0.1
+any_key_to_next = true
 metadata/_custom_type_script = "uid://ckct5b6ritvey"
 
 [node name="ColorRect" type="ColorRect" parent="Loading2"]
@@ -1140,41 +1564,63 @@ libraries = {
 &"": SubResource("AnimationLibrary_yqh4d")
 }
 
-[node name="GameSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click", "next_transition")]
+[node name="GameSplashScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("next_transition")]
 script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
+animation_blink = ""
 next_transition = NodePath("../PressStartScreen")
+time_to_live = 3.0
+any_key_to_next = true
 
 [node name="Label" type="Label" parent="GameSplashScreen"]
 modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.0
+offset_right = 35.0
 offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Game Title"
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameSplashScreen"]
 libraries = {
-&"": SubResource("AnimationLibrary_36hqf")
+&"": SubResource("AnimationLibrary_l8utk")
 }
 
-[node name="PressStartScreen" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click")]
+[node name="PressStartScreen" type="CanvasLayer" parent="."]
 script = ExtResource("2_7wwds")
-audio_click = NodePath("../AudioClick")
+any_key_to_next = true
+goto_state = 3
 
 [node name="Label" type="Label" parent="PressStartScreen"]
 modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -16.0
+offset_right = 42.0
 offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Press Start"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PressStartScreen"]
 libraries = {
-&"": SubResource("AnimationLibrary_36hqf")
+&"": SubResource("AnimationLibrary_ricgj")
 }
 
-[node name="Loading" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click")]
+[node name="Loading" type="CanvasLayer" parent="."]
 script = ExtResource("2_7wwds")
 animation_blink = ""
-audio_click = NodePath("../AudioClick")
 metadata/_custom_type_script = "uid://ckct5b6ritvey"
 
 [node name="ColorRect" type="ColorRect" parent="Loading"]
@@ -1207,10 +1653,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_yqh4d")
 }
 
-[node name="Fade" type="CanvasLayer" parent="." node_paths=PackedStringArray("audio_click")]
+[node name="Fade" type="CanvasLayer" parent="."]
 script = ExtResource("2_7wwds")
 animation_blink = ""
-audio_click = NodePath("../AudioClick")
 metadata/_custom_type_script = "uid://ckct5b6ritvey"
 
 [node name="ColorRect" type="ColorRect" parent="Fade"]
@@ -1227,7 +1672,3 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_bsqf5")
 }
-
-[node name="AudioClick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_x6p6n")
-bus = &"Effects"

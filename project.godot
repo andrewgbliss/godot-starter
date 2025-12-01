@@ -14,7 +14,7 @@ config/name="$GAME_NAME"
 run/main_scene="uid://b67fmj68dwgra"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="uid://5yytbw2yrv5q"
+boot_splash/image="uid://cexb4qmpnjy5b"
 config/icon="uid://cy6uvrtu635v"
 config/windows_native_icon="res://assets/img/icons/icon-1024.ico"
 
@@ -38,6 +38,8 @@ NotifcationsToast="*res://blisscode/ui/notifications/notifcations_toast.tscn"
 DialogManager="*res://blisscode/dialog/dialog_manager.tscn"
 WorldTimeService="*res://blisscode/world_time/world_time_service.tscn"
 WeatherService="*res://blisscode/weather/weather_service.tscn"
+CharacterManager="*res://blisscode/character/character_manager/character_manager.tscn"
+UserManager="*res://blisscode/core/user/user_manager.tscn"
 
 [display]
 

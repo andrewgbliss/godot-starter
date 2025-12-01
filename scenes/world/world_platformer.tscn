@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6n48akbpddmx"]
+[gd_scene load_steps=8 format=3 uid="uid://b6n48akbpddmx"]
 
 [ext_resource type="Script" uid="uid://bm85budamtxnd" path="res://blisscode/core/world/world.gd" id="1_3u3t0"]
 [ext_resource type="PackedScene" uid="uid://d1uon38qbt45i" path="res://scenes/entities/rigid/rigid_block_entity.tscn" id="4_ffbjb"]
+[ext_resource type="Script" uid="uid://chigi4pyju8x5" path="res://scenes/characters/player/player_camera.gd" id="6_2fypn"]
+[ext_resource type="Resource" uid="uid://bjhy8s3fbub38" path="res://blisscode/character/character_manager/skins/character_side_small_silo.tres" id="6_oxsc1"]
 [ext_resource type="PackedScene" uid="uid://db1iljm7ig5j0" path="res://scenes/world/world_area/platformer/platformer.tscn" id="6_peqdm"]
 [ext_resource type="Script" uid="uid://baibi6vypqgi8" path="res://blisscode/core/spawning/player_spawner.gd" id="7_2fypn"]
 [ext_resource type="PackedScene" uid="uid://h7fl106k8gn" path="res://scenes/world/world_area/platformer/platformer_background.tscn" id="7_3u3t0"]
@@ -43,7 +45,13 @@ position = Vector2(540, -56)
 [node name="RigidBlockEntity8" parent="WorldAreas" instance=ExtResource("4_ffbjb")]
 position = Vector2(540, -40)
 
-[node name="PlayerSpawner" type="Node2D" parent="."]
+[node name="PlayerSpawner" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 position = Vector2(256, 322)
 script = ExtResource("7_2fypn")
+default_skin = ExtResource("6_oxsc1")
+camera = NodePath("../PlayerCamera")
 metadata/_custom_type_script = "uid://ddlo01mfc118i"
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+script = ExtResource("6_2fypn")
+metadata/_custom_type_script = "uid://chigi4pyju8x5"

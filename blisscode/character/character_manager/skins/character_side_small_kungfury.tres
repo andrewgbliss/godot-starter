@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterSkin" load_steps=4 format=3 uid="uid://ba20j4h0uwcow"]
+
+[ext_resource type="Script" uid="uid://hw2qlwve1g6s" path="res://blisscode/character/character_manager/character_skin.gd" id="1_dtgxn"]
+[ext_resource type="PackedScene" uid="uid://cfwyg6l86r11e" path="res://scenes/characters/player/player_side_16.tscn" id="1_hwj4o"]
+[ext_resource type="SpriteFrames" uid="uid://721wka8ck8ny" path="res://assets/img/characters/kungfury/KungFury-16x16.res" id="2_dtgxn"]
+
+[resource]
+script = ExtResource("1_dtgxn")
+character_skin_name = "kungfury"
+character_size = 0
+sprite_frames = ExtResource("2_dtgxn")
+character_body = ExtResource("1_hwj4o")
+metadata/_custom_type_script = "uid://hw2qlwve1g6s"

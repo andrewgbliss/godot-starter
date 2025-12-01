@@ -1,5 +1,13 @@
 extends Node
 
+@export var dont_change_altitude: bool = false
+@export var dont_change_temperature: bool = false
+@export var dont_change_barometer: bool = false
+@export var dont_change_wind_speed: bool = false
+@export var dont_change_weather_direction: bool = false
+@export var dont_change_moisture: bool = false
+
+
 @export_range(0.0, 1.0) var moisture: float = 0.0:
 	set = set_moisture, get = get_moisture
 
@@ -79,6 +87,7 @@ const UPDATE_INTERVAL: float = 5.0
 
 func _ready() -> void:
 	debug_panel.hide()
+	_update_sliders()
 
 func _process(delta: float) -> void:
 	_update_weather(delta)
@@ -101,17 +110,25 @@ func _update_weather(delta: float) -> void:
 		# Randomly update one parameter at a time (excluding altitude)
 		match randi() % 10:
 			0: # Moisture
-				set_moisture((weather_pattern_noise.get_noise_2d(time_scale, time_scale + 100.0) + 1.0) / 2.0)
-				did_update = true
+				if not dont_change_moisture:
+					set_moisture((weather_pattern_noise.get_noise_2d(time_scale, time_scale + 100.0) + 1.0) / 2.0)
+					did_update = true
 			1: # Temperature
-				set_temperature((weather_pattern_noise.get_noise_2d(time_scale + 400.0, time_scale + 500.0) + 1.0) / 2.0)
-				did_update = true
+				if not dont_change_temperature:
+					set_temperature((weather_pattern_noise.get_noise_2d(time_scale + 400.0, time_scale + 500.0) + 1.0) / 2.0)
+					did_update = true
 			2: # Barometer
-				set_barometer((weather_pattern_noise.get_noise_2d(time_scale + 600.0, time_scale + 700.0) + 1.0) / 2.0)
-				did_update = true
+				if not dont_change_barometer:
+					set_barometer((weather_pattern_noise.get_noise_2d(time_scale + 600.0, time_scale + 700.0) + 1.0) / 2.0)
+					did_update = true
 			3: # Wind Speed
-				set_wind_speed((weather_pattern_noise.get_noise_2d(time_scale + 800.0, time_scale + 900.0) + 1.0) / 2.0)
-				did_update = true
+				if not dont_change_wind_speed:
+					set_wind_speed((weather_pattern_noise.get_noise_2d(time_scale + 800.0, time_scale + 900.0) + 1.0) / 2.0)
+					did_update = true
+			4: # Altitude
+				if not dont_change_altitude:
+					set_altitude((weather_pattern_noise.get_noise_2d(time_scale + 1000.0, time_scale + 1100.0) + 1.0) / 2.0)
+					did_update = true
 			_:
 				pass
 		

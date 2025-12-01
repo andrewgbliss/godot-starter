@@ -1,5 +1,6 @@
 class_name StateMachine extends Node
 
+@export var enabled: bool = true
 @export var initial_state: State
 @export var idle_state: State
 
@@ -17,10 +18,12 @@ func init(parent) -> void:
 		states[child.name] = child
 
 func start() -> void:
-	if initial_state:
+	if enabled and initial_state:
 		change_state(initial_state)
 		
 func change_state(new_state: State) -> void:
+	if not enabled:
+		return
 	if current_state == new_state:
 		return
 	if current_state:
@@ -30,15 +33,23 @@ func change_state(new_state: State) -> void:
 	current_state.enter()
 	
 func process_input(event: InputEvent) -> void:
+	if not enabled:
+		return
 	current_state.process_input(event)
 
 func process_frame(delta: float) -> void:
+	if not enabled:
+		return
 	current_state.process_frame(delta)
 
 func process_physics(delta: float) -> void:
+	if not enabled:
+		return
 	current_state.process_physics(delta)
 		
 func dispatch(transition_name: String, force: bool = false):
+	if not enabled:
+		return
 	if not transitions.has(transition_name):
 		return
 	var s = transitions[transition_name]
@@ -57,7 +68,6 @@ func dispatch(transition_name: String, force: bool = false):
 		current_state = state_b
 		current_state.enter()
 
-	
 func add_transition(state_a: State, state_b: State, transition_name: String):
 	if transitions.has(transition_name):
 		return

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ijb12jcni8g5"
+path="res://.godot/imported/Elf-Sheet.aseprite-f671c29fd6f1b5cab5adb6728d53a64d.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/Elf-Sheet.aseprite"
+dest_files=["res://.godot/imported/Elf-Sheet.aseprite-f671c29fd6f1b5cab5adb6728d53a64d.res"]
+
+[params]
+

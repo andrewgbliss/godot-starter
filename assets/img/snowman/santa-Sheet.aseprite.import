@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bgt4640vg2npp"
+path="res://.godot/imported/santa-Sheet.aseprite-d092ccd8c5f6c1aef373a2954e783636.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/santa-Sheet.aseprite"
+dest_files=["res://.godot/imported/santa-Sheet.aseprite-d092ccd8c5f6c1aef373a2954e783636.res"]
+
+[params]
+

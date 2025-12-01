@@ -26,9 +26,7 @@ func spawn_paths(entity_name: String, spawn_position: Vector2, paths: Array[Path
 		entity.paths = paths
 	return entity
 
-func spawn_player(spawn_position: Vector2, parent = null):
-	var entity_name = 'player_side_16'
-
+func spawn_player(entity_name: String, spawn_position: Vector2, parent = null):
 	if not entities.has(entity_name):
 		return null
 	
@@ -38,8 +36,6 @@ func spawn_player(spawn_position: Vector2, parent = null):
 	entity.position = spawn_position
 	
 	if entity is CharacterController:
-		if entity.character:
-			entity.set_skin(entity.character.skin)
 		entity.spawn_position = spawn_position
 
 	if parent:

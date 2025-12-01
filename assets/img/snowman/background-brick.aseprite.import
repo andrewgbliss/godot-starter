@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bf37y4iok5yc8"
+path="res://.godot/imported/background-brick.aseprite-79d187bc1025d1bbdb2fc309630b95a5.res"
+
+[deps]
+
+source_file="res://assets/img/snowman/background-brick.aseprite"
+dest_files=["res://.godot/imported/background-brick.aseprite-79d187bc1025d1bbdb2fc309630b95a5.res"]
+
+[params]
+

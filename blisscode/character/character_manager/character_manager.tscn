@@ -1,0 +1,16 @@
+[gd_scene load_steps=11 format=3 uid="uid://bqkeqh7h2s6ea"]
+
+[ext_resource type="Script" uid="uid://d0d5r38fb40sh" path="res://blisscode/character/character_manager/character_manager.gd" id="1_wmhx2"]
+[ext_resource type="Script" uid="uid://hw2qlwve1g6s" path="res://blisscode/character/character_manager/character_skin.gd" id="2_bd2cx"]
+[ext_resource type="Resource" uid="uid://ccn7bl1ltqu4c" path="res://blisscode/character/character_manager/skins/character_side_medium_kungfury.tres" id="3_u867u"]
+[ext_resource type="Resource" uid="uid://caoil85u843me" path="res://blisscode/character/character_manager/skins/character_side_medium_santa.tres" id="4_h15pv"]
+[ext_resource type="Resource" uid="uid://d0clumx8fqrqi" path="res://blisscode/character/character_manager/skins/character_side_medium_silo.tres" id="5_fv0bc"]
+[ext_resource type="Resource" uid="uid://dvkgmtfj35m6d" path="res://blisscode/character/character_manager/skins/character_side_medium_snowman.tres" id="6_y00no"]
+[ext_resource type="Resource" uid="uid://bm4ks50uv6fc7" path="res://blisscode/character/character_manager/skins/character_side_medium_tom.tres" id="7_68k8m"]
+[ext_resource type="Resource" uid="uid://ba20j4h0uwcow" path="res://blisscode/character/character_manager/skins/character_side_small_kungfury.tres" id="8_yokb8"]
+[ext_resource type="Resource" uid="uid://bjhy8s3fbub38" path="res://blisscode/character/character_manager/skins/character_side_small_silo.tres" id="9_sf36c"]
+[ext_resource type="Resource" uid="uid://die2cnioihh5y" path="res://blisscode/character/character_manager/skins/character_side_medium_elf.tres" id="10_mapw4"]
+
+[node name="CharacterManager" type="Node"]
+script = ExtResource("1_wmhx2")
+character_skins = Array[ExtResource("2_bd2cx")]([ExtResource("3_u867u"), ExtResource("4_h15pv"), ExtResource("5_fv0bc"), ExtResource("6_y00no"), ExtResource("7_68k8m"), ExtResource("8_yokb8"), ExtResource("9_sf36c"), ExtResource("10_mapw4")])

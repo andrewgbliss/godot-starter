@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://my3u8hq7vm1y"
+path="res://.godot/imported/StoreClerk.aseprite-f7ea99b409b535a36bf63a90e3ec5b28.res"
+
+[deps]
+
+source_file="res://assets/img/characters/storeclerk/StoreClerk.aseprite"
+dest_files=["res://.godot/imported/StoreClerk.aseprite-f7ea99b409b535a36bf63a90e3ec5b28.res"]
+
+[params]
+
