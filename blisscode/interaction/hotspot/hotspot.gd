@@ -104,16 +104,16 @@ func _on_mouse_exited():
 		return
 	is_mouse_over = false
 	mouseout.emit()
-	if label and is_instance_valid(label):
-		SpawnManager.fade_out_text(label)
+	# if label and is_instance_valid(label):
+	# 	SpawnManager.fade_out_text(label)
 
 func _interact_handler(body, pos: Vector2):
 	if not in_range or has_interacted:
 		return
 	if interact_audio:
 		interact_audio.play()
-	if label and is_instance_valid(label):
-		SpawnManager.fade_out_text(label)
+	# if label and is_instance_valid(label):
+	# 	SpawnManager.fade_out_text(label)
 	has_interacted = true
 	if item:
 		_pickup_handler(body, pos)
@@ -135,8 +135,8 @@ func _on_in_range_body_exited(_body):
 	in_range = false
 	current_body = null
 	has_interacted = false
-	if label and is_instance_valid(label):
-		SpawnManager.fade_out_text(label)
+	# if label and is_instance_valid(label):
+	# 	SpawnManager.fade_out_text(label)
 
 func _on_body_entered(body):
 	if not use_collision:

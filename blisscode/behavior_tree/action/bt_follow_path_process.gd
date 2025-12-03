@@ -21,8 +21,6 @@ func _select_path():
 			var random_index = randi() % agent.paths.size()
 			path = agent.paths[random_index]
 			path_follow = path.get_child(0)
-		else:
-			push_error("No paths available for FollowPathProcess")
 
 func enter():
 	super ()

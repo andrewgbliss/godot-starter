@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://87eqnxhrvspi"]
+[gd_scene load_steps=71 format=3 uid="uid://87eqnxhrvspi"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_2b6yq"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_4utb2"]
@@ -50,6 +50,8 @@
 [ext_resource type="Script" uid="uid://blnadlxb5ld8" path="res://blisscode/state_machine/states/smash_down_state.gd" id="49_sf7oj"]
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="50_feth6"]
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_j8tn3"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="51_yw5n6"]
+[ext_resource type="Resource" uid="uid://euybd2w0bax" path="res://addons/phantom_camera/examples/resources/tween/player_phantom_camera_2d_tween.tres" id="52_yw5n6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_2b6yq")
@@ -656,3 +658,14 @@ crouch_collision_shape = NodePath("../../CrouchCollisionShape2D")
 animation_name = "Roll"
 wait_for_animation_finished = true
 metadata/_custom_type_script = "uid://ckix7re6h2e6k"
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+script = ExtResource("51_yw5n6")
+priority = 5
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = ExtResource("52_yw5n6")
+follow_damping = true
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

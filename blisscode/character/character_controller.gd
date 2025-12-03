@@ -4,7 +4,7 @@ class_name CharacterController extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var camera: Camera2D = $Camera2D
+@onready var camera: PhantomCamera2D = $PhantomCamera2D
 
 @export var character: Character
 @export var controls: CharacterControls
@@ -303,15 +303,15 @@ func face_direction(_direction: Vector2):
 	pass
 
 
-func item_pickup(item: Item, pos: Vector2):
+func item_pickup(item: Item):
 	if item is Currency:
 		character.inventory.add_gold(item)
 	elif item is Equipable:
-		equip(item, pos)
+		equip(item)
 	elif item is Consumable:
-		consume(item, pos)
+		consume(item)
 
-func consume(item: Item, _pos: Vector2):
+func consume(item: Item):
 	if item.consume_on_pickup:
 		if item.health > 0:
 			character.character_sheet.add_health(item.health)
@@ -322,7 +322,7 @@ func consume(item: Item, _pos: Vector2):
 	else:
 		character.inventory.add(item)
 
-func equip(item: Item, _pos: Vector2):
+func equip(item: Item):
 	if item.equip_on_pickup:
 		character.weapon_belt.set_next_belt_slot(item)
 		character.equipment.equip(item, character.equipment.get_slot_type(item.slot))
@@ -331,8 +331,9 @@ func equip(item: Item, _pos: Vector2):
 
 func focus():
 	if camera:
-		camera.enabled = true
-		camera.make_current()
+		camera.set_priority(10)
+		#camera.enabled = true
+		#camera.make_current()
 
 func spawn():
 	var physics = character.get_physics_group()

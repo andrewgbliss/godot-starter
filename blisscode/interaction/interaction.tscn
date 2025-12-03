@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhtnq88sel843"]
+
+[ext_resource type="Script" uid="uid://ci1gdhk7pg65i" path="res://blisscode/interaction/interaction.gd" id="1_u4lru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o8su"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oi14e"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02mn5"]
+
+[node name="Interaction" type="Node2D" node_paths=PackedStringArray("interact_area", "in_range_area", "collision_area")]
+script = ExtResource("1_u4lru")
+interact_area = NodePath("InteractArea2D")
+in_range_area = NodePath("InRangeArea2D")
+collision_area = NodePath("CollisionArea2D")
+metadata/_custom_type_script = "uid://ci1gdhk7pg65i"
+
+[node name="InteractArea2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea2D"]
+shape = SubResource("RectangleShape2D_6o8su")
+
+[node name="InRangeArea2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InRangeArea2D"]
+shape = SubResource("CircleShape2D_oi14e")
+
+[node name="CollisionArea2D" type="Area2D" parent="."]
+collision_layer = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea2D"]
+shape = SubResource("RectangleShape2D_02mn5")

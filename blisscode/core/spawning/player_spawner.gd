@@ -1,7 +1,6 @@
 class_name PlayerSpawner extends Node2D
 
 @export var default_skin: CharacterSkin
-@export var camera: Camera2D
 
 var parent: World
 var player: CharacterController
@@ -19,11 +18,7 @@ func spawn():
 	if not skin:
 		skin = default_skin
 	player = CharacterManager.instantiate_character_from_skin(skin, parent)
-	var remote_transform = RemoteTransform2D.new()
-	remote_transform.remote_path = camera.get_path()
 	player.spawn_position = global_position
-	player.add_child(remote_transform)
-	player.camera = camera
 	player.focus()
 	player.state_machine.enabled = true
 	player.state_machine.start()

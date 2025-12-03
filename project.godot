@@ -40,6 +40,7 @@ WorldTimeService="*res://blisscode/world_time/world_time_service.tscn"
 WeatherService="*res://blisscode/weather/weather_service.tscn"
 CharacterManager="*res://blisscode/character/character_manager/character_manager.tscn"
 UserManager="*res://blisscode/core/user/user_manager.tscn"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
 
@@ -48,12 +49,11 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
