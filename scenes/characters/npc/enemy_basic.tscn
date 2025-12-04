@@ -7,7 +7,6 @@
 [ext_resource type="SpriteFrames" uid="uid://bc6gq5cy8tjgt" path="res://assets/img/characters/elf/Elf.res" id="4_4u005"]
 [ext_resource type="Script" uid="uid://brschogihfiwm" path="res://blisscode/character/controls/ai_controls.gd" id="6_5kl5t"]
 [ext_resource type="Script" uid="uid://bnbbi7tcoi6sg" path="res://blisscode/behavior_tree/bt_blackboard.gd" id="7_b0yrh"]
-[ext_resource type="Script" uid="uid://0vge3j1r1s0n" path="res://blisscode/character/animation/animated_sprite_facing_direction.gd" id="7_npdhi"]
 [ext_resource type="Script" uid="uid://b3mlg2cpf7tdl" path="res://blisscode/behavior_tree/bt_player.gd" id="8_wdtno"]
 [ext_resource type="Script" uid="uid://dnm2cmvm2uh0v" path="res://blisscode/behavior_tree/composite/bt_selector_node.gd" id="9_bojf7"]
 [ext_resource type="Script" uid="uid://bti4mwhmm58cm" path="res://blisscode/state_machine/states/platformer_state_machine.gd" id="9_ixy2f"]
@@ -48,6 +47,7 @@
 [ext_resource type="Resource" uid="uid://b67684th5w7q0" path="res://blisscode/character/physics_groups/smash_down_physics.tres" id="40_q4i2i"]
 [ext_resource type="PackedScene" uid="uid://m5xmcne3gd3q" path="res://scenes/effects/collisions/particle_damage.tscn" id="41_bsank"]
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="42_lxqds"]
+[ext_resource type="PackedScene" uid="uid://dkr5b11mpccfv" path="res://blisscode/dialog/dialog_bubble.tscn" id="49_hclpo"]
 
 [sub_resource type="Resource" id="Resource_m4jla"]
 script = ExtResource("2_3r5r8")
@@ -63,13 +63,15 @@ metadata/_custom_type_script = "uid://dm5r6oukwhccm"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84hc2"]
 
-[node name="EnemyBasic" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine") groups=["npc", "persist"]]
+[node name="EnemyBasic" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dialog_bubble") groups=["npc", "persist"]]
 collision_layer = 64
 collision_mask = 4
 script = ExtResource("1_osuh0")
 character = SubResource("Resource_dskel")
 controls = NodePath("AIControls")
 state_machine = NodePath("PlatformerStateMachine")
+dialog_bubble = NodePath("DialogBubble")
+is_facing_right = false
 garbage = true
 garbage_time = 0.1
 metadata/_custom_type_script = "uid://cyhaw1qyjtrhn"
@@ -87,14 +89,6 @@ use_parent_material = true
 sprite_frames = ExtResource("4_4u005")
 animation = &"Land"
 offset = Vector2(0, -12)
-
-[node name="AnimatedSpriteFacingDirection" type="Node2D" parent="." node_paths=PackedStringArray("agent", "animated_sprite")]
-script = ExtResource("7_npdhi")
-agent = NodePath("..")
-animated_sprite = NodePath("../AnimatedSprite2D")
-flip_offset = Vector2(1.125, 8.15)
-face_right = false
-metadata/_custom_type_script = "uid://0vge3j1r1s0n"
 
 [node name="CharacterPointsBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("17_kbn3i")]
 visible = false
@@ -201,40 +195,28 @@ play_on_enter = false
 use_animated_sprite = false
 metadata/_custom_type_script = "uid://bu0p0lqos7mk"
 
-[node name="DownThrustState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("hitbox")]
+[node name="DownThrustState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("24_g5jdx")
-hitbox = NodePath("")
 animation_name = "Down Thrust"
 metadata/_custom_type_script = "uid://dqwiv83jman"
 
-[node name="UpThrustState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("hitbox")]
+[node name="UpThrustState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("25_81jik")
-hitbox = NodePath("")
 animation_name = "Up Thrust"
 metadata/_custom_type_script = "uid://lbc7hxobl82o"
 
-[node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
+[node name="CrouchIdleState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("26_76vh1")
-collision_shape = NodePath("")
-crouch_collision_shape = NodePath("")
-top_raycast_left = NodePath("")
-top_raycast_right = NodePath("")
 animation_name = "Crouch Idle"
 metadata/_custom_type_script = "uid://d23xdwefkddhf"
 
-[node name="CrouchWalkState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape", "top_raycast_left", "top_raycast_right")]
+[node name="CrouchWalkState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("27_dl3vg")
-collision_shape = NodePath("")
-crouch_collision_shape = NodePath("")
-top_raycast_left = NodePath("")
-top_raycast_right = NodePath("")
 animation_name = "Crouch Walk"
 metadata/_custom_type_script = "uid://qfh8rf6645xi"
 
-[node name="SlideState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+[node name="SlideState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("28_ekhmi")
-collision_shape = NodePath("")
-crouch_collision_shape = NodePath("")
 animation_name = "Slide"
 
 [node name="PushState" type="Node" parent="PlatformerStateMachine"]
@@ -296,10 +278,8 @@ wait_for_animation_finished = true
 freeze_state = true
 metadata/_custom_type_script = "uid://blnadlxb5ld8"
 
-[node name="RollState" type="Node" parent="PlatformerStateMachine" node_paths=PackedStringArray("collision_shape", "crouch_collision_shape")]
+[node name="RollState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("42_lxqds")
-collision_shape = NodePath("")
-crouch_collision_shape = NodePath("")
 animation_name = "Roll"
 wait_for_animation_finished = true
 metadata/_custom_type_script = "uid://ckix7re6h2e6k"
@@ -328,3 +308,6 @@ metadata/_custom_type_script = "uid://xwbo18yggp15"
 script = ExtResource("14_fxbe1")
 acquire_target = true
 metadata/_custom_type_script = "uid://b8x28spcn1q3a"
+
+[node name="DialogBubble" parent="." instance=ExtResource("49_hclpo")]
+position = Vector2(-45, -38)

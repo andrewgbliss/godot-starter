@@ -11,9 +11,9 @@ class_name AIControls extends CharacterControls
 var run: bool = false
 
 func get_movement_direction() -> Vector2:
-	if blackboard:
-		var direction: Vector2 = blackboard.get_var(movement_direction_var, Vector2.ZERO)
-		return direction
+	#if blackboard:
+		#var direction: Vector2 = blackboard.get_var(movement_direction_var, Vector2.ZERO)
+		#return direction
 	return Vector2.ZERO
 
 func get_aim_direction() -> Vector2:

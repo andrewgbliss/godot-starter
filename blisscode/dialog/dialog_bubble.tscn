@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkr5b11mpccfv"]
+[gd_scene load_steps=6 format=3 uid="uid://dkr5b11mpccfv"]
 
 [ext_resource type="Script" uid="uid://ccnflf2vpdggk" path="res://blisscode/dialog/dialog_bubble.gd" id="1_7uncl"]
 
@@ -7,10 +7,54 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DialogText:visible_ratio")
+tracks/0/path = NodePath("Control:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/DialogText:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
@@ -21,28 +65,127 @@ resource_name = "show_dialogue"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DialogText:visible_ratio")
+tracks/0/path = NodePath("Control:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.045, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.27)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.045, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.27)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.045, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.27)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.045, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.27)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/DialogText:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.12166667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0.27, 1)
+}
+
+[sub_resource type="Animation" id="Animation_y867g"]
+resource_name = "fade_out"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.086666666, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.52)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.086666666, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.52)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.086666666, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.52)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.086666666, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.52)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ukbyq"]
 _data = {
 &"RESET": SubResource("Animation_lfj4e"),
+&"fade_out": SubResource("Animation_y867g"),
 &"show_dialog": SubResource("Animation_7uncl")
 }
 
-[node name="DialogBubble" type="Node2D" node_paths=PackedStringArray("dialogue_text", "dialogue_image", "animation_player")]
+[node name="DialogBubble" type="Node2D" node_paths=PackedStringArray("dialog_text", "animation_player")]
 script = ExtResource("1_7uncl")
-dialogue_text = NodePath("DialogText")
-dialogue_image = NodePath("DialogText/Panel/DialogImage")
+dialog_text = NodePath("Control/DialogText")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="DialogText" type="Label" parent="."]
+[node name="Control" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 110.0
+offset_bottom = 40.0
+
+[node name="DialogText" type="Label" parent="Control"]
+layout_mode = 0
 offset_right = 94.0
 offset_bottom = 16.0
 theme_override_constants/line_spacing = -5
@@ -51,27 +194,19 @@ text = "Well you go it now dont ya?"
 visible_characters = 0
 visible_ratio = 0.0
 
-[node name="Panel" type="Panel" parent="DialogText"]
-z_index = -5
+[node name="Panel" type="Panel" parent="Control/DialogText"]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -10.0
-offset_right = 14.0
-offset_bottom = 6.0
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 5.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"NormalPanel"
-
-[node name="DialogImage" type="TextureRect" parent="DialogText/Panel"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 5.5
-offset_right = 22.0
-offset_bottom = 24.5
-expand_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

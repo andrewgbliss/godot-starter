@@ -1,4 +1,9 @@
 {
   "path": "res://assets/audio/playlists/chiptune_1/",
-  "tracks": ["Basics.mp3", "Bee Race.mp3", "Beneath the Hallows.mp3"]
+  "tracks": [
+    "Light.mp3",
+    "Basics.mp3",
+    "Bee Race.mp3",
+    "Beneath the Hallows.mp3"
+  ]
 }

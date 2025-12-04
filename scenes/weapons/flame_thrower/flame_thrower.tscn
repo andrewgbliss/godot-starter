@@ -11,4 +11,4 @@ script = ExtResource("1_msc7y")
 texture = ExtResource("1_txncd")
 
 [node name="Flame" parent="." instance=ExtResource("2_8oqc3")]
-position = Vector2(7, 0)
+position = Vector2(-5, 0)

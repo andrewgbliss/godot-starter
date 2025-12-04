@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterSkin" load_steps=4 format=3 uid="uid://caoil85u843me"]
 
-[ext_resource type="PackedScene" uid="uid://87eqnxhrvspi" path="res://scenes/characters/player/player_side_32.tscn" id="1_fvqp1"]
+[ext_resource type="PackedScene" uid="uid://bfx4atrqgi4tm" path="res://scenes/characters/npc/enemy_basic.tscn" id="1_fvqp1"]
 [ext_resource type="Script" uid="uid://hw2qlwve1g6s" path="res://blisscode/character/character_manager/character_skin.gd" id="1_xgxel"]
 [ext_resource type="SpriteFrames" uid="uid://drd0rt00qm7jf" path="res://assets/img/characters/santa/santa.res" id="2_xgxel"]
 

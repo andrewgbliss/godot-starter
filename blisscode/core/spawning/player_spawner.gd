@@ -5,6 +5,8 @@ class_name PlayerSpawner extends Node2D
 var parent: World
 var player: CharacterController
 
+signal spawned(player: CharacterController)
+
 func _ready():
 	parent = get_parent()
 	call_deferred("_after_ready")
@@ -23,3 +25,4 @@ func spawn():
 	player.state_machine.enabled = true
 	player.state_machine.start()
 	EventBus.player_spawned.emit(player)
+	spawned.emit(player)

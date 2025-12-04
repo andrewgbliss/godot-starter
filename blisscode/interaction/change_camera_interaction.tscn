@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://comlf0h27ggt2"]
+
+[ext_resource type="Script" uid="uid://ci1gdhk7pg65i" path="res://blisscode/interaction/interaction.gd" id="1_oyw3c"]
+[ext_resource type="Script" uid="uid://j126qsnfmyq6" path="res://blisscode/actions/action_blackboard.gd" id="2_dd51f"]
+[ext_resource type="Script" uid="uid://b4row7oijb6th" path="res://blisscode/actions/action_player.gd" id="3_5i3vd"]
+[ext_resource type="Script" uid="uid://cb2xyxycxidrr" path="res://blisscode/actions/composite/action_sequence.gd" id="4_17ewx"]
+[ext_resource type="Script" uid="uid://dfec4w7cu41ey" path="res://blisscode/actions/action/action_camera_priority.gd" id="5_5q14e"]
+[ext_resource type="Script" uid="uid://brjfofwo5miqf" path="res://blisscode/actions/action/action_camera_follow_body.gd" id="6_1qknv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o8su"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dd51f"]
+radius = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02mn5"]
+
+[node name="ChangeCameraInteraction" type="Node2D" node_paths=PackedStringArray("interact_area", "in_range_area", "collision_area", "in_range_actions", "out_of_range_actions")]
+script = ExtResource("1_oyw3c")
+interact_area = NodePath("InteractArea2D")
+in_range_area = NodePath("InRangeArea2D")
+collision_area = NodePath("CollisionArea2D")
+in_range_actions = NodePath("InRangeActionPlayer")
+out_of_range_actions = NodePath("OutRangeActionPlayer")
+metadata/_custom_type_script = "uid://ci1gdhk7pg65i"
+
+[node name="ActionBlackboard" type="Node" parent="."]
+script = ExtResource("2_dd51f")
+metadata/_custom_type_script = "uid://j126qsnfmyq6"
+
+[node name="InRangeActionPlayer" type="Node" parent="." node_paths=PackedStringArray("blackboard", "root_node")]
+script = ExtResource("3_5i3vd")
+blackboard = NodePath("../ActionBlackboard")
+root_node = NodePath("ActionSequence")
+one_shot = true
+metadata/_custom_type_script = "uid://b4row7oijb6th"
+
+[node name="ActionSequence" type="Node" parent="InRangeActionPlayer"]
+script = ExtResource("4_17ewx")
+metadata/_custom_type_script = "uid://cb2xyxycxidrr"
+
+[node name="ActionCameraPriority" type="Node" parent="InRangeActionPlayer/ActionSequence"]
+script = ExtResource("5_5q14e")
+
+[node name="ActionCameraFollowBody" type="Node" parent="InRangeActionPlayer/ActionSequence"]
+script = ExtResource("6_1qknv")
+metadata/_custom_type_script = "uid://brjfofwo5miqf"
+
+[node name="OutRangeActionPlayer" type="Node" parent="." node_paths=PackedStringArray("blackboard", "root_node")]
+script = ExtResource("3_5i3vd")
+blackboard = NodePath("../ActionBlackboard")
+root_node = NodePath("ActionSequence")
+one_shot = true
+metadata/_custom_type_script = "uid://b4row7oijb6th"
+
+[node name="ActionSequence" type="Node" parent="OutRangeActionPlayer"]
+script = ExtResource("4_17ewx")
+metadata/_custom_type_script = "uid://cb2xyxycxidrr"
+
+[node name="ActionCameraPriority" type="Node" parent="OutRangeActionPlayer/ActionSequence"]
+script = ExtResource("5_5q14e")
+camera_priority = 0
+
+[node name="ActionCameraFollowBody" type="Node" parent="OutRangeActionPlayer/ActionSequence"]
+script = ExtResource("6_1qknv")
+metadata/_custom_type_script = "uid://brjfofwo5miqf"
+
+[node name="InteractArea2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea2D"]
+shape = SubResource("RectangleShape2D_6o8su")
+
+[node name="InRangeArea2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InRangeArea2D"]
+shape = SubResource("CircleShape2D_dd51f")
+
+[node name="CollisionArea2D" type="Area2D" parent="."]
+collision_layer = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea2D"]
+shape = SubResource("RectangleShape2D_02mn5")

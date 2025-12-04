@@ -10,6 +10,8 @@ class_name CharacterController extends CharacterBody2D
 @export var controls: CharacterControls
 @export var state_machine: StateMachine
 @export var hide_on_ready: bool = true
+@export var dialog_bubble: DialogBubble
+@export var is_facing_right: bool = true
 
 @export_group("Navigation")
 @export var navigation_agent: NavigationAgent2D
@@ -28,7 +30,7 @@ class_name CharacterController extends CharacterBody2D
 @export var ledge_grab_raycast: RayCast2D
 
 var is_alive = false
-var is_facing_right = true
+
 var paralyzed: bool = false
 var original_speed: float
 var time_scale: float = 1.0
@@ -52,6 +54,8 @@ func _ready() -> void:
 	GameManager.game_config.gravity_dir_changed.connect(_on_gravity_dir_changed)
 	if navigation_agent:
 		navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	if not is_facing_right:
+		flip_h()
 
 func set_skin(skin: SpriteFrames):
 	if animated_sprite:

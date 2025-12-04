@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://87eqnxhrvspi"]
+[gd_scene load_steps=72 format=3 uid="uid://87eqnxhrvspi"]
 
 [ext_resource type="Shader" uid="uid://i1wplu28b7c4" path="res://blisscode/shaders/character.gdshader" id="1_2b6yq"]
 [ext_resource type="Script" uid="uid://cyhaw1qyjtrhn" path="res://blisscode/character/character_controller.gd" id="2_4utb2"]
@@ -52,6 +52,7 @@
 [ext_resource type="Script" uid="uid://ckix7re6h2e6k" path="res://blisscode/state_machine/states/roll_state.gd" id="51_j8tn3"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="51_yw5n6"]
 [ext_resource type="Resource" uid="uid://euybd2w0bax" path="res://addons/phantom_camera/examples/resources/tween/player_phantom_camera_2d_tween.tres" id="52_yw5n6"]
+[ext_resource type="PackedScene" uid="uid://dkr5b11mpccfv" path="res://blisscode/dialog/dialog_bubble.tscn" id="53_2b6yq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kth0"]
 shader = ExtResource("1_2b6yq")
@@ -250,7 +251,7 @@ _data = {
 &"Spawn": SubResource("Animation_ciexm")
 }
 
-[node name="PlayerSide32" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dangling_raycast", "ladder_raycast", "ledge_grab_raycast") groups=["persist", "player"]]
+[node name="PlayerSide32" type="CharacterBody2D" node_paths=PackedStringArray("controls", "state_machine", "dialog_bubble", "dangling_raycast", "ladder_raycast", "ledge_grab_raycast") groups=["persist", "player"]]
 material = SubResource("ShaderMaterial_8kth0")
 collision_mask = 260
 script = ExtResource("2_4utb2")
@@ -258,6 +259,7 @@ character = ExtResource("3_37y6l")
 controls = NodePath("PlayerControls")
 state_machine = NodePath("PlatformerStateMachine")
 hide_on_ready = false
+dialog_bubble = NodePath("DialogBubble")
 dangling_raycast = NodePath("DanglingRayCast2D")
 ladder_raycast = NodePath("LadderRayCast2D")
 ledge_grab_raycast = NodePath("LedgeGrabRayCast2D")
@@ -487,9 +489,6 @@ metadata/_custom_type_script = "uid://c3rd0mfca06gc"
 [node name="DeathState" type="Node" parent="PlatformerStateMachine"]
 script = ExtResource("21_6q46r")
 animation_name = "Death"
-wait_for_animation_finished = true
-use_animated_sprite = false
-dispatch_state = "spawn"
 metadata/_custom_type_script = "uid://crvvlkigmoam5"
 
 [node name="IdleState" type="Node" parent="PlatformerStateMachine"]
@@ -669,3 +668,6 @@ tween_resource = ExtResource("52_yw5n6")
 follow_damping = true
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="DialogBubble" parent="." instance=ExtResource("53_2b6yq")]
+position = Vector2(-44, -55)

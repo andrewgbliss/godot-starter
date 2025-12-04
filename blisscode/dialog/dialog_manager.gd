@@ -34,7 +34,7 @@ func show_dialog_bubble(text: Array[String], pos: Vector2, img: Texture2D = null
 
 func set_dialog(data):
 	is_showing = true
-	dialog_bubble.show_dialog(data["text"], data["pos"], data["img"])
+	dialog_bubble.show_dialog(data["text"])
 
 func set_dialog_world(data):
 	is_showing_world = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://rl7jgt8unxl0"]
+[gd_scene load_steps=19 format=4 uid="uid://rl7jgt8unxl0"]
 
 [ext_resource type="Script" uid="uid://bm85budamtxnd" path="res://blisscode/core/world/world.gd" id="1_5kbmb"]
 [ext_resource type="PackedScene" uid="uid://cibqtabp8a7f1" path="res://scenes/world/snowman/parallax_background.tscn" id="2_a8iue"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_vo3jb"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="13_vo3jb"]
 [ext_resource type="Script" uid="uid://clro5bf6kwc2v" path="res://blisscode/actions/action/action_start_flame_thrower.gd" id="17_n8k7a"]
-[ext_resource type="Script" uid="uid://clfhs3iicm8f8" path="res://blisscode/actions/action/action_character_state_dispatch.gd" id="18_0waqn"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_5kbmb")
@@ -31,7 +30,7 @@ tile_map_data = PackedByteArray("AAAmABMAAAAJAAMAAAAlABMAAAAJAAMAAAAkABMAAAAJAAM
 tile_set = ExtResource("3_oj7jr")
 
 [node name="PlayerSpawner" type="Node2D" parent="."]
-position = Vector2(575, 52)
+position = Vector2(2225, 88)
 script = ExtResource("3_0or3c")
 default_skin = ExtResource("5_1bc2j")
 metadata/_custom_type_script = "uid://ddlo01mfc118i"
@@ -135,15 +134,8 @@ script = ExtResource("11_lsyou")
 
 [node name="ActionStartFlameThrower" type="Node" parent="ChangeCameraInteraction2/InRangeActionPlayer/ActionSequence" index="5" node_paths=PackedStringArray("flame_thrower")]
 script = ExtResource("17_n8k7a")
+action_name = null
 flame_thrower = NodePath("../../../../FlameThrower")
-
-[node name="ActionWait3" type="Node" parent="ChangeCameraInteraction2/InRangeActionPlayer/ActionSequence" index="6"]
-script = ExtResource("11_lsyou")
-
-[node name="ActionCharacterStateDispatch" type="Node" parent="ChangeCameraInteraction2/InRangeActionPlayer/ActionSequence" index="7" node_paths=PackedStringArray("player_spawner")]
-script = ExtResource("18_0waqn")
-player_spawner = NodePath("../../../../PlayerSpawner")
-state = "death"
 
 [node name="ActionCameraPriority" parent="ChangeCameraInteraction2/OutRangeActionPlayer/ActionSequence" index="0" node_paths=PackedStringArray("phantom_camera")]
 phantom_camera = NodePath("../../../PhantomCamera2D")
@@ -152,7 +144,7 @@ phantom_camera = NodePath("../../../PhantomCamera2D")
 phantom_camera = NodePath("../../../PhantomCamera2D")
 
 [node name="InRangeArea2D" parent="ChangeCameraInteraction2" index="4"]
-position = Vector2(-18, 71)
+position = Vector2(-110, 73)
 
 [node name="PhantomCamera2D" type="Node2D" parent="ChangeCameraInteraction2"]
 position = Vector2(-58, 56)

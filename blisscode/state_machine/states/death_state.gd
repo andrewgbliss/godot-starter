@@ -5,6 +5,7 @@ func enter() -> void:
 	super.enter()
 
 func process_frame(_delta: float) -> void:
-	if is_animation_finished:
-		parent.hide()
-		dispatch()
+	pass
+	#if is_animation_finished:
+		#parent.hide()
+		#dispatch()
